@@ -6,48 +6,98 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2C3E50"
     tools:context=".MainActivity">
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Hello World!"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="48dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
-<!--    <?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--android:gravity="center_vertical"-->
-<!--android:orientation="vertical"-->
-<!--android:padding="16dp">-->
+    <EditText
+android:id="@+id/username"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginStart="24dp"
+android:layout_marginEnd="24dp"
+android:backgroundTint="#FFFFFF"
+    android:hint="@string/username"
+    android:inputType="text"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/appLogo"
+    android:textColor="#000000"
+    android:textSize="16sp"
+        android:autofillHints="" />
 
-<!--&lt;!&ndash; Username EditText &ndash;&gt;-->
+    <!-- Password EditText -->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/username"
+        app:layout_constraintStart_toStartOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:autofillHints="" />
 
-<!--<EditText-->
-<!--    android:id="@+id/editTextUsername"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="60dp"-->
-<!--    android:hint="Username"-->
-<!--    android:inputType="text" />-->
+    <!-- Login Button -->
+<Button
+android:id="@+id/buttonLogin"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginStart="24dp"
+android:layout_marginTop="24dp"
+android:layout_marginEnd="24dp"
+android:backgroundTint="#3498DB"
+    android:text="@string/login"
+    android:textColor="#FFFFFF"
+    app:layout_constraintEnd_toEndOf="@+id/password"
+    app:layout_constraintStart_toStartOf="@+id/password"
+    app:layout_constraintTop_toBottomOf="@+id/password" />
 
-<!--&lt;!&ndash; Password EditText &ndash;&gt;-->
-<!--<EditText-->
-<!--    android:id="@+id/editTextPassword"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="60dp"-->
-<!--    android:hint="Password"-->
-<!--    android:inputType="textPassword" />-->
+    <!-- Other Button -->
+<Button
+android:id="@+id/buttonCreateAcc"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginStart="24dp"
+android:layout_marginTop="16dp"
+android:layout_marginEnd="24dp"
+android:backgroundTint="#1ABC9C"
+    android:text="@string/create_account"
+    android:textColor="#FFFFFF"
+    app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
+    app:layout_constraintStart_toStartOf="@+id/buttonLogin"
+    app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
-<!--&lt;!&ndash; Login Button &ndash;&gt;-->
-<!--<Button-->
-<!--    android:id="@+id/buttonLogin"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:text="Login" />-->
 
-<!--</LinearLayout>-->
+<Button
+android:id="@+id/buttonForgotPassword"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginStart="24dp"
+android:layout_marginTop="16dp"
+android:layout_marginEnd="24dp"
+android:backgroundTint="#E74C3C"
+    android:text="@string/forgot_password"
+    android:textColor="#FFFFFF"
+    app:layout_constraintEnd_toEndOf="@+id/buttonCreateAcc"
+    app:layout_constraintStart_toStartOf="@+id/buttonCreateAcc"
+    app:layout_constraintTop_toBottomOf="@+id/buttonCreateAcc"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
