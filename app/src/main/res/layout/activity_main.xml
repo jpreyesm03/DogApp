@@ -16,7 +16,7 @@
         android:layout_marginTop="48dp"
         android:scaleType="fitCenter"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintBottom_toTopOf="@+id/emailLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,20 +24,20 @@
         android:contentDescription="@string/todo" />
 
     <EditText
-android:id="@+id/username"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:layout_marginStart="24dp"
-android:layout_marginEnd="24dp"
-android:backgroundTint="#FFFFFF"
-    android:hint="@string/username"
-    android:inputType="text"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/appLogo"
-    android:textColor="#000000"
-    android:textSize="16sp"
-        android:autofillHints="" />
+        android:id="@+id/emailLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:backgroundTint="#FFFFFF"
+        android:hint="@string/emailLogin"
+        android:inputType="text"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appLogo" />
 
     <!-- Password EditText -->
     <EditText
@@ -50,9 +50,9 @@ android:backgroundTint="#FFFFFF"
         android:inputType="textPassword"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/username"
-        app:layout_constraintStart_toStartOf="@+id/username"
-        app:layout_constraintTop_toBottomOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="@+id/emailLogin"
+        app:layout_constraintStart_toStartOf="@+id/emailLogin"
+        app:layout_constraintTop_toBottomOf="@+id/emailLogin"
         android:autofillHints="" />
 
     <!-- Login Button -->
