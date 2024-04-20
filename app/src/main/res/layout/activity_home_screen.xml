@@ -5,6 +5,62 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2C3E50"
     tools:context=".HomeScreenActivity">
+
+    <ImageView
+        android:id="@+id/imageUser"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/addDog"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="208dp"
+        android:background="@color/sea_green"
+        android:onClick="onBtnAddDog_Clicked"
+        android:text="(+) Add Dog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/seeDogs"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/peru"
+        android:text="See My Dogs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addDog" />
+
+    <Button
+        android:id="@+id/dogWalker"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/sky_blue"
+        android:text="I am a Dog Walker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seeDogs" />
+
+    <TextView
+        android:id="@+id/currentUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageUser" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,17 +11,17 @@
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="48dp"
+        android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/dogName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dogName"
@@ -31,7 +31,7 @@
         android:layout_marginEnd="24dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
-        android:hint="@string/emailCreate"
+        android:hint="Name:"
         android:inputType="textEmailAddress"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -41,18 +41,30 @@
 
 
     <Button
-        android:id="@+id/buttonCreateAcc"
+        android:id="@+id/buttonChangePic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#1ABC9C"
-        android:onClick="onBtnCreateAcc_Clicked"
-        android:text="@string/create_account"
+        android:backgroundTint="@color/dark_cyan"
+        android:text="Change Picture"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/weightDog"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/weightDog"
+        app:layout_constraintTop_toBottomOf="@+id/medicalDog" />
+
+    <Button
+        android:id="@+id/buttonAddDog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/medium_sea_green"
+        android:text="Add Dog"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/weightDog"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/weightDog"
-        app:layout_constraintTop_toBottomOf="@+id/weightDog" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonChangePic" />
 
     <EditText
         android:id="@+id/ageDog"
@@ -61,8 +73,8 @@
         android:layout_marginTop="24dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
-        android:hint="@string/create_password"
-        android:inputType="textPassword"
+        android:hint="Age:"
+        android:inputType="text"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/dogName"
@@ -77,7 +89,7 @@
         android:layout_marginTop="24dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
-        android:hint="@string/username"
+        android:hint="Breed:"
         android:inputType="text"
 
         android:textColor="#000000"
@@ -94,13 +106,45 @@
         android:layout_marginTop="24dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
-        android:hint="@string/retype_password"
-        android:inputType="textPassword"
+        android:hint="Weight:"
+        android:inputType="text"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/ageDog"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ageDog"
         app:layout_constraintTop_toBottomOf="@+id/ageDog" />
+
+    <EditText
+        android:id="@+id/heightDog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:autofillHints=""
+        android:backgroundTint="#FFFFFF"
+        android:hint="Height:"
+        android:inputType="text"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/ageDog"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ageDog"
+        app:layout_constraintTop_toBottomOf="@+id/weightDog" />
+
+    <EditText
+        android:id="@+id/medicalDog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:autofillHints=""
+        android:backgroundTint="#FFFFFF"
+        android:hint="Medical Conditions:"
+        android:inputType="text"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/ageDog"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ageDog"
+        app:layout_constraintTop_toBottomOf="@+id/heightDog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

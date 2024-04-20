@@ -13,12 +13,24 @@ import java.util.Map;
 
 public class User implements Parcelable {
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     /*
 
-    !!!!!
-    in current stage this class is not needed, may be useful later
+        !!!!!
+        in current stage this class is not needed, may be useful later
 
-    */
+        */
     private String username;
     private String email;
     private String password;

@@ -23,8 +23,6 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.kuleuven.gt.dogapp.model.User;
-
 public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
@@ -40,10 +38,10 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     public void onBtnCreateAcc_Clicked(View Caller) {
-        EditText email = (EditText) findViewById(R.id.emailCreate);
-        EditText username = (EditText) findViewById(R.id.usernameCreate);
-        EditText password1 = (EditText) findViewById(R.id.passwordCreate1);
-        EditText password2 = (EditText) findViewById(R.id.passwordCreate2);
+        EditText email = (EditText) findViewById(R.id.dogName);
+        EditText username = (EditText) findViewById(R.id.breedDog);
+        EditText password1 = (EditText) findViewById(R.id.ageDog);
+        EditText password2 = (EditText) findViewById(R.id.weightDog);
 
         String e = email.getText().toString();
         String u = username.getText().toString();
@@ -71,12 +69,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 progressDialog.dismiss();
-                                Toast.makeText(
-                                        CreateAccountActivity.this,
-                                        "Account created! Back to the loading screen!",
-                                        Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(
+                                            CreateAccountActivity.this,
+                                            "Account created! Back to the loading screen!",
+                                            Toast.LENGTH_SHORT).show();
 
-                            }
+                                }
                         },
                         new Response.ErrorListener() {
                             @Override
