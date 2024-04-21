@@ -36,18 +36,22 @@ public class User implements Parcelable {
     private String password;
 
 
+
     public User (String n, String e, String p)
     {
         username = n;
         email = e;
         password = p;
 
+
     }
     public User(Parcel in)
     {
+
         username = in.readString();
         email = in.readString();
         password = in.readString();
+
     }
 
     public User(JSONObject o) {
