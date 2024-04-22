@@ -40,6 +40,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="52dp"
         android:background="@color/peru"
+        android:onClick="onBtnSeeMyDogs_Clicked"
         android:text="See My Dogs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

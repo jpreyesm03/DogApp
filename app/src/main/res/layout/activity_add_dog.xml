@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2C3E50"
-    tools:context=".MainActivity">
+    tools:context=".AddDogActivity">
 
     <ImageView
         android:id="@+id/appLogo"
@@ -48,9 +48,9 @@
         android:backgroundTint="@color/dark_cyan"
         android:text="Change Picture"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/weightDog"
+        app:layout_constraintEnd_toEndOf="@+id/dogWeight"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/weightDog"
+        app:layout_constraintStart_toStartOf="@+id/dogWeight"
         app:layout_constraintTop_toBottomOf="@+id/medicalDog" />
 
     <Button
@@ -59,15 +59,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/medium_sea_green"
+        android:onClick="onBtnAddDog_Clicked"
         android:text="Add Dog"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/weightDog"
+        app:layout_constraintEnd_toEndOf="@+id/dogWeight"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/weightDog"
+        app:layout_constraintStart_toStartOf="@+id/dogWeight"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangePic" />
 
     <EditText
-        android:id="@+id/ageDog"
+        android:id="@+id/dogAge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -80,10 +81,10 @@
         app:layout_constraintEnd_toEndOf="@+id/dogName"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/dogName"
-        app:layout_constraintTop_toBottomOf="@+id/breedDog" />
+        app:layout_constraintTop_toBottomOf="@+id/dogBreed" />
 
     <EditText
-        android:id="@+id/breedDog"
+        android:id="@+id/dogBreed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -100,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dogName" />
 
     <EditText
-        android:id="@+id/weightDog"
+        android:id="@+id/dogWeight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -110,10 +111,10 @@
         android:inputType="text"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/ageDog"
+        app:layout_constraintEnd_toEndOf="@+id/dogAge"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ageDog"
-        app:layout_constraintTop_toBottomOf="@+id/ageDog" />
+        app:layout_constraintStart_toStartOf="@+id/dogAge"
+        app:layout_constraintTop_toBottomOf="@+id/dogAge" />
 
     <EditText
         android:id="@+id/heightDog"
@@ -126,10 +127,10 @@
         android:inputType="text"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/ageDog"
+        app:layout_constraintEnd_toEndOf="@+id/dogAge"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ageDog"
-        app:layout_constraintTop_toBottomOf="@+id/weightDog" />
+        app:layout_constraintStart_toStartOf="@+id/dogAge"
+        app:layout_constraintTop_toBottomOf="@+id/dogWeight" />
 
     <EditText
         android:id="@+id/medicalDog"
@@ -142,9 +143,9 @@
         android:inputType="text"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/ageDog"
+        app:layout_constraintEnd_toEndOf="@+id/dogAge"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/ageDog"
+        app:layout_constraintStart_toStartOf="@+id/dogAge"
         app:layout_constraintTop_toBottomOf="@+id/heightDog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
