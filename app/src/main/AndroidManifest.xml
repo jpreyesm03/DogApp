@@ -15,6 +15,9 @@
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
         <activity
+            android:name=".MyDogsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddDogActivity"
             android:exported="false" />
         <activity
