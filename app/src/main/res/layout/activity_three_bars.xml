@@ -6,65 +6,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2C3E50"
-    tools:context=".MyDogsActivity">
+    tools:context=".ThreeBarsActivity">
 
 
     <ImageView
         android:id="@+id/imgMyDog"
         android:layout_width="118dp"
         android:layout_height="209dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="68dp"
         android:src="@drawable/basset"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spMyDogs"
-        android:layout_width="290dp"
-        android:layout_height="51dp"
+        android:layout_width="134dp"
+        android:layout_height="49dp"
         android:entries="@array/myDogsOptions"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.003"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998" />
-
-    <TextView
-        android:id="@+id/txtMyName"
-        android:layout_width="221dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="52dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgMyDog" />
-
-    <TextView
-        android:id="@+id/txtMyAge"
-        android:layout_width="221dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMyName" />
-
-    <TextView
-        android:id="@+id/txtFood"
-        android:layout_width="221dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMyAge" />
+        app:layout_constraintVertical_bias="0.001" />
 
     <View
         android:id="@+id/divider"
@@ -83,6 +50,7 @@
         android:layout_height="65dp"
         android:layout_marginStart="2dp"
         android:clickable="true"
+        android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -138,5 +106,65 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnVideos"
         app:srcCompat="@drawable/threebars" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="272dp"
+        android:layout_height="661dp"
+        android:background="@color/light_blue"
+        app:layout_constraintBottom_toTopOf="@+id/btnVideos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/txtFirstAid"
+            android:layout_width="194dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="72dp"
+            android:text="First Aid & Emergency Contacts"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.794"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtBreedInformation"
+            android:layout_width="194dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="40dp"
+            android:text="Breed Information"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtFirstAid"
+            app:layout_constraintStart_toStartOf="@+id/txtFirstAid"
+            app:layout_constraintTop_toBottomOf="@+id/txtFirstAid" />
+
+        <TextView
+            android:id="@+id/txtSettings"
+            android:layout_width="194dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="40dp"
+            android:text="Settings"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtBreedInformation"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtBreedInformation"
+            app:layout_constraintTop_toBottomOf="@+id/txtBreedInformation" />
+
+        <Button
+            android:id="@+id/txtLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/indian_red"
+            android:text="Log Out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSettings" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
