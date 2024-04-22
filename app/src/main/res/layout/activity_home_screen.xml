@@ -38,6 +38,7 @@
         android:layout_marginStart="112dp"
         android:layout_marginTop="60dp"
         android:background="@color/peru"
+        android:onClick="onBtnSeeMyDogs_Clicked"
         android:text="See My Dogs"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addDog" />

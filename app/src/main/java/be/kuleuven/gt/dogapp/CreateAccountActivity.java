@@ -38,10 +38,10 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     public void onBtnCreateAcc_Clicked(View Caller) {
-        EditText email = (EditText) findViewById(R.id.dogName);
-        EditText username = (EditText) findViewById(R.id.breedDog);
-        EditText password1 = (EditText) findViewById(R.id.ageDog);
-        EditText password2 = (EditText) findViewById(R.id.weightDog);
+        EditText email = (EditText) findViewById(R.id.emailCreate);
+        EditText username = (EditText) findViewById(R.id.usernameCreate);
+        EditText password1 = (EditText) findViewById(R.id.password1);
+        EditText password2 = (EditText) findViewById(R.id.password2);
 
         String e = email.getText().toString();
         String u = username.getText().toString();
@@ -61,6 +61,9 @@ public class CreateAccountActivity extends AppCompatActivity {
                 ProgressDialog progressDialog = new ProgressDialog(CreateAccountActivity.this);
                 progressDialog.setMessage("Uploading, please wait...");
                 progressDialog.show();
+                Intent intent = new Intent(this, MainActivity.class);
+
+
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 StringRequest submitRequest = new StringRequest(
                         Request.Method.POST,
@@ -73,6 +76,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                                             CreateAccountActivity.this,
                                             "Account created! Back to the loading screen!",
                                             Toast.LENGTH_SHORT).show();
+
+                                startActivity(intent);
 
                                 }
                         },
@@ -115,8 +120,6 @@ public class CreateAccountActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill all necessary info!", Toast.LENGTH_SHORT).show();
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
 
 
     }

@@ -16,18 +16,20 @@
         android:layout_marginTop="48dp"
         android:scaleType="fitCenter"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/dogName"
+        app:layout_constraintBottom_toTopOf="@+id/emailCreate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/todo" />
 
+
     <EditText
-        android:id="@+id/dogName"
+        android:id="@+id/emailCreate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
@@ -36,9 +38,9 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appLogo" />
-
 
     <Button
         android:id="@+id/buttonCreateAcc"
@@ -49,13 +51,13 @@
         android:onClick="onBtnCreateAcc_Clicked"
         android:text="@string/create_account"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/weightDog"
+        app:layout_constraintEnd_toEndOf="@+id/password2"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/weightDog"
-        app:layout_constraintTop_toBottomOf="@+id/weightDog" />
+        app:layout_constraintStart_toStartOf="@+id/password2"
+        app:layout_constraintTop_toBottomOf="@+id/password2" />
 
     <EditText
-        android:id="@+id/ageDog"
+        android:id="@+id/password1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -65,13 +67,14 @@
         android:inputType="textPassword"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/dogName"
+        app:layout_constraintEnd_toEndOf="@+id/emailCreate"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/dogName"
-        app:layout_constraintTop_toBottomOf="@+id/breedDog" />
+        app:layout_constraintStart_toStartOf="@+id/emailCreate"
+        app:layout_constraintTop_toBottomOf="@+id/usernameCreate" />
+
 
     <EditText
-        android:id="@+id/breedDog"
+        android:id="@+id/usernameCreate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -82,13 +85,13 @@
 
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/dogName"
+        app:layout_constraintEnd_toEndOf="@+id/emailCreate"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/dogName"
-        app:layout_constraintTop_toBottomOf="@+id/dogName" />
+        app:layout_constraintStart_toStartOf="@+id/emailCreate"
+        app:layout_constraintTop_toBottomOf="@+id/emailCreate" />
 
     <EditText
-        android:id="@+id/weightDog"
+        android:id="@+id/password2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -98,9 +101,9 @@
         android:inputType="textPassword"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/ageDog"
+        app:layout_constraintEnd_toEndOf="@+id/password1"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ageDog"
-        app:layout_constraintTop_toBottomOf="@+id/ageDog" />
+        app:layout_constraintStart_toStartOf="@+id/password1"
+        app:layout_constraintTop_toBottomOf="@+id/password1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

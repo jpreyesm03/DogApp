@@ -48,4 +48,11 @@ public class HomeScreenActivity extends AppCompatActivity {
         intent.putExtra("user",user);
         startActivity(intent);
     }
+
+    public void onBtnSeeMyDogs_Clicked(View Caller)
+    {
+        Intent intent = new Intent(this,MyDogsActivity.class);
+        intent.putExtra("user",user);
+        startActivity(intent);
+    }
 }
