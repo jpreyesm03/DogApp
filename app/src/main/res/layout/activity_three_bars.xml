@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2C3E50"
+    tools:context=".ThreeBarsActivity">
+
+
+    <ImageView
+        android:id="@+id/imgMyDog"
+        android:layout_width="118dp"
+        android:layout_height="209dp"
+        android:layout_marginTop="68dp"
+        android:src="@drawable/basset"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spMyDogs"
+        android:layout_width="134dp"
+        android:layout_height="49dp"
+        android:entries="@array/myDogsOptions"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <ImageView
+        android:id="@+id/btnCalendar"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="2dp"
+        android:clickable="true"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/calendar" />
+
+    <ImageView
+        android:id="@+id/btnMap"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/map" />
+
+    <ImageView
+        android:id="@+id/btnBreeding"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/heart" />
+
+    <ImageView
+        android:id="@+id/btnCalculator"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnBreeding"
+        app:srcCompat="@drawable/calculator" />
+
+    <ImageView
+        android:id="@+id/btnVideos"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="1dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCalculator"
+        app:srcCompat="@drawable/video" />
+
+    <ImageView
+        android:id="@+id/btnThreeBars"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnVideos"
+        app:srcCompat="@drawable/threebars" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="272dp"
+        android:layout_height="661dp"
+        android:background="@color/light_blue"
+        app:layout_constraintBottom_toTopOf="@+id/btnVideos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/txtFirstAid"
+            android:layout_width="194dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="72dp"
+            android:text="First Aid & Emergency Contacts"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.794"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtBreedInformation"
+            android:layout_width="194dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="40dp"
+            android:text="Breed Information"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtFirstAid"
+            app:layout_constraintStart_toStartOf="@+id/txtFirstAid"
+            app:layout_constraintTop_toBottomOf="@+id/txtFirstAid" />
+
+        <TextView
+            android:id="@+id/txtSettings"
+            android:layout_width="194dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="40dp"
+            android:text="Settings"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtBreedInformation"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtBreedInformation"
+            app:layout_constraintTop_toBottomOf="@+id/txtBreedInformation" />
+
+        <Button
+            android:id="@+id/txtLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/indian_red"
+            android:text="Log Out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSettings" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

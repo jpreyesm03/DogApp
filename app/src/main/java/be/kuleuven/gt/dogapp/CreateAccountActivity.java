@@ -51,7 +51,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
 
-        if(!(e.isEmpty()) && !(u.isEmpty())&& !(p1.isEmpty()) && !(p2.isEmpty()) ) {
+        if(!(e.isEmpty()) && !(u.isEmpty()) && !(p1.isEmpty()) && !(p2.isEmpty()) ) {
 
             if (!password1.getText().toString().equals(password2.getText().toString())) {
                 Toast.makeText(this, "The passwords do not match! Please retype.", Toast.LENGTH_SHORT).show();
