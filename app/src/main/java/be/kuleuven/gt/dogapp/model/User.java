@@ -25,32 +25,46 @@ public class User implements Parcelable {
         return password;
     }
 
-    /*
 
-        !!!!!
-        in current stage this class is not needed, may be useful later
-
-        */
     private String username;
     private String email;
     private String password;
+    private String idUser;
+    private boolean dogwalker;
 
+    public boolean isDogwalker() {
+        return dogwalker;
+    }
 
+    public void setDogwalker(boolean dogwalker) {
+        this.dogwalker = dogwalker;
+    }
 
     public User (String n, String e, String p)
     {
         username = n;
         email = e;
         password = p;
-
+        idUser = "";
 
     }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getIdUser()
+    {
+        return idUser;
+    }
+
+
     public User(Parcel in)
     {
-
         username = in.readString();
         email = in.readString();
         password = in.readString();
+        idUser = in.readString();
 
     }
 
@@ -86,13 +100,8 @@ public class User implements Parcelable {
         parcel.writeString(username);
         parcel.writeString(email);
         parcel.writeString(password);
+        parcel.writeString(idUser);
     }
 
-    public Map<String, String> getPostParameters() {
-        Map<String, String> params = new HashMap<>();
-        params.put("name", username);
-        params.put("email", email);
-        params.put("password", password);
-        return params;
-    }
+
 }

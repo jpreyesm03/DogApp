@@ -10,6 +10,7 @@
     <string name="create_password">Create Password:</string>
     <string name="username">Username:</string>
     <string name="emailCreate">Email:</string>
+    <string name="add_dog">(+) Add Dog</string>
 
     <string-array name="myDogsOptions">
         <item name="Dog1">Dog1</item>
