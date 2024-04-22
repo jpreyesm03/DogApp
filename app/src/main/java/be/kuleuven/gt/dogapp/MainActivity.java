@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String p1 = passwordProvided.getText().toString();
 
 
-        String baseUrl = "https://studev.groept.be/api/a23PT106/login/";
+        String baseUrl = "https://studev.groept.be/api/a23PT106/login";
         String urlCreate = baseUrl + "/" + e + "/" + e + "/" + p1;
 
 
