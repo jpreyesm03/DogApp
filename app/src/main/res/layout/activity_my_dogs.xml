@@ -34,32 +34,98 @@
     <TextView
         android:id="@+id/txtMyName"
         android:layout_width="221dp"
-        android:layout_height="21dp"
+        android:layout_height="28dp"
         android:layout_marginTop="52dp"
         android:text="TextView"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/txtMyAge"
-        android:layout_width="161dp"
+        android:layout_width="221dp"
         android:layout_height="28dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtMyName" />
 
     <TextView
         android:id="@+id/txtFood"
-        android:layout_width="184dp"
-        android:layout_height="32dp"
+        android:layout_width="221dp"
+        android:layout_height="28dp"
         android:layout_marginTop="24dp"
         android:text="TextView"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtMyAge" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="637dp" />
+
+    <ImageView
+        android:id="@+id/btnCalendar"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/calendar"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="645dp" />
+
+    <ImageView
+        android:id="@+id/btnMap"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/map"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="652dp" />
+
+    <ImageView
+        android:id="@+id/btnBreeding"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/heart"
+        tools:layout_editor_absoluteX="131dp"
+        tools:layout_editor_absoluteY="651dp" />
+
+    <ImageView
+        android:id="@+id/btnCalculator"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/calculator"
+        tools:layout_editor_absoluteX="194dp"
+        tools:layout_editor_absoluteY="649dp" />
+
+    <ImageView
+        android:id="@+id/btnVideos"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/video"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="651dp" />
+
+    <ImageView
+        android:id="@+id/btnThreeBars"
+        android:layout_width="58dp"
+        android:layout_height="67dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/threebars"
+        tools:layout_editor_absoluteX="328dp"
+        tools:layout_editor_absoluteY="648dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
