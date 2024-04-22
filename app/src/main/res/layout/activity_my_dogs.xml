@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgMyDog"
         android:layout_width="118dp"
         android:layout_height="209dp"
         android:layout_marginTop="80dp"
@@ -20,11 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spMyDogs"
         android:layout_width="290dp"
         android:layout_height="51dp"
         android:entries="@array/myDogsOptions"
         android:spinnerMode="dropdown"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imgMyDog" />
 
     <TextView
         android:id="@+id/txtMyAge"
@@ -71,61 +72,71 @@
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="637dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997"
+        tools:layout_editor_absoluteX="1dp" />
 
     <ImageView
         android:id="@+id/btnCalendar"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="2dp"
         android:clickable="true"
-        app:srcCompat="@drawable/calendar"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="645dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/calendar" />
 
     <ImageView
         android:id="@+id/btnMap"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
         android:clickable="true"
-        app:srcCompat="@drawable/map"
-        tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="652dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/map" />
 
     <ImageView
         android:id="@+id/btnBreeding"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
         android:clickable="true"
-        app:srcCompat="@drawable/heart"
-        tools:layout_editor_absoluteX="131dp"
-        tools:layout_editor_absoluteY="651dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/heart" />
 
     <ImageView
         android:id="@+id/btnCalculator"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
         android:clickable="true"
-        app:srcCompat="@drawable/calculator"
-        tools:layout_editor_absoluteX="194dp"
-        tools:layout_editor_absoluteY="649dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnBreeding"
+        app:srcCompat="@drawable/calculator" />
 
     <ImageView
         android:id="@+id/btnVideos"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="1dp"
         android:clickable="true"
-        app:srcCompat="@drawable/video"
-        tools:layout_editor_absoluteX="259dp"
-        tools:layout_editor_absoluteY="651dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCalculator"
+        app:srcCompat="@drawable/video" />
 
     <ImageView
         android:id="@+id/btnThreeBars"
-        android:layout_width="58dp"
-        android:layout_height="67dp"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
         android:clickable="true"
-        app:srcCompat="@drawable/threebars"
-        tools:layout_editor_absoluteX="328dp"
-        tools:layout_editor_absoluteY="648dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnVideos"
+        app:srcCompat="@drawable/threebars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
