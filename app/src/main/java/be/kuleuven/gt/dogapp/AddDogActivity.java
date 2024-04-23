@@ -83,7 +83,7 @@ public class AddDogActivity extends AppCompatActivity {
         {
             Toast.makeText(
                     AddDogActivity.this,
-                    "Please fill all necessary info!",
+                    "Please fill all necessary info! Feel free to approximate magnitudes.",
                     Toast.LENGTH_SHORT).show();
         }
         if(id.equals("unknown"))

@@ -15,6 +15,8 @@
         android:layout_height="209dp"
         android:layout_marginTop="80dp"
         android:src="@drawable/basset"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,41 +28,36 @@
         android:entries="@array/myDogsOptions"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
+        android:spinnerItemStyle="@layout/spinner_layout"
+        android:spinnerDropDownItemStyle="@layout/spinner_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintVertical_bias="0.01999998"/>
 
-    <TextView
-        android:id="@+id/txtMyName"
-        android:layout_width="221dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="52dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgMyDog" />
+
 
     <TextView
         android:id="@+id/txtMyAge"
         android:layout_width="221dp"
         android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:layout_marginTop="60dp"
+        android:text="@string/ageMessage"
         android:textAlignment="center"
+        android:textColor="@color/white_smoke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMyName" />
+        app:layout_constraintTop_toBottomOf="@+id/imgMyDog" />
 
     <TextView
         android:id="@+id/txtFood"
         android:layout_width="221dp"
         android:layout_height="28dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text="@string/breedMessage"
         android:textAlignment="center"
+        android:textColor="@color/white_smoke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,9 +70,10 @@
         android:background="?android:attr/listDivider"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.90999997"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintVertical_bias="0.90999997" />
 
     <ImageView
         android:id="@+id/btnCalendar"
@@ -83,6 +81,9 @@
         android:layout_height="65dp"
         android:layout_marginStart="2dp"
         android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -94,6 +95,9 @@
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
@@ -105,6 +109,9 @@
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
@@ -116,6 +123,9 @@
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnBreeding"
         app:srcCompat="@drawable/calculator" />
@@ -126,6 +136,9 @@
         android:layout_height="65dp"
         android:layout_marginStart="1dp"
         android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnCalculator"
         app:srcCompat="@drawable/video" />
@@ -135,8 +148,23 @@
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnVideos"
         app:srcCompat="@drawable/threebars" />
+
+    <Switch
+        android:id="@+id/schBreedable"
+        android:layout_width="144dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="51dp"
+        android:text="@string/breedable"
+        android:textColor="@color/white_smoke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFood"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
