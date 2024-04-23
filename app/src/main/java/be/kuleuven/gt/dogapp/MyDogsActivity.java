@@ -35,7 +35,7 @@ public class MyDogsActivity extends AppCompatActivity {
     private ArrayList<String> dogNames;
     private ArrayList<String> dogIDs;
 
-    @Override
+    @Override //as
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
