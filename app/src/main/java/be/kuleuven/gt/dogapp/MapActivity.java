@@ -42,7 +42,7 @@ public class MapActivity extends AppCompatActivity {
 
     private void openPrevious() {
         // Implement your functionality here
-        Intent intent = new Intent(this, FirstAidActivity.class);
+        Intent intent = new Intent(this, MyDogsActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
 
