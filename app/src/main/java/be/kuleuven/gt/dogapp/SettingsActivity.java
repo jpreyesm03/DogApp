@@ -13,14 +13,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import be.kuleuven.gt.dogapp.model.User;
 
-public class CalendarActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_calendar);
+        setContentView(R.layout.activity_settings);
         user = (User) getIntent().getParcelableExtra("user");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2C3E50"
+    android:clickable="true"
     tools:context=".ThreeBarsActivity">
 
 
@@ -14,8 +15,9 @@
         android:layout_width="118dp"
         android:layout_height="209dp"
         android:layout_marginTop="68dp"
-        android:src="@drawable/basset"
+        android:clickable="true"
         android:contentDescription="@null"
+        android:src="@drawable/basset"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.90999997" />
+        app:layout_constraintVertical_bias="0.928" />
 
     <ImageView
         android:id="@+id/btnCalendar"
@@ -52,8 +54,8 @@
         android:layout_height="65dp"
         android:layout_marginStart="2dp"
         android:clickable="true"
-        android:focusable="true"
         android:contentDescription="@null"
+        android:focusable="true"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,8 +68,8 @@
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:clickable="true"
-        android:focusable="true"
         android:contentDescription="@null"
+        android:focusable="true"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,8 +82,8 @@
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:clickable="true"
-        android:focusable="true"
         android:contentDescription="@null"
+        android:focusable="true"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,8 +96,8 @@
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:clickable="true"
-        android:focusable="true"
         android:contentDescription="@null"
+        android:focusable="true"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnBreeding"
@@ -131,8 +133,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="272dp"
-        android:layout_height="661dp"
+        android:layout_width="270dp"
+        android:layout_height="847dp"
         android:background="@color/light_blue"
         app:layout_constraintBottom_toTopOf="@+id/btnVideos"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,50 +142,12 @@
         app:layout_constraintVertical_bias="0.0">
 
 
-        <TextView
-            android:id="@+id/txtFirstAid"
-            android:layout_width="193dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="72dp"
-            android:text="@string/firstAid"
-            android:textAlignment="center"
-            android:textIsSelectable="true"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.92"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtBreedInformation"
-            android:layout_width="194dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/breedInfo"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/txtFirstAid"
-            app:layout_constraintStart_toStartOf="@+id/txtFirstAid"
-            app:layout_constraintTop_toBottomOf="@+id/txtFirstAid" />
-
-        <TextView
-            android:id="@+id/txtSettings"
-            android:layout_width="194dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/settings"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/txtBreedInformation"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtBreedInformation"
-            app:layout_constraintTop_toBottomOf="@+id/txtBreedInformation" />
-
         <Button
             android:id="@+id/btnLogOut"
             android:layout_width="146dp"
             android:layout_height="62dp"
-            android:layout_marginTop="184dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginEnd="24dp"
             android:background="@color/indian_red"
             android:text="@string/logOut"
             app:layout_constraintEnd_toEndOf="@+id/txtSettings"
@@ -195,19 +159,50 @@
             android:layout_height="55dp"
             app:layout_constraintBottom_toBottomOf="@+id/txtFirstAid"
             app:layout_constraintEnd_toStartOf="@+id/txtFirstAid"
+            app:layout_constraintHorizontal_bias="0.538"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtFirstAid"
             app:srcCompat="@drawable/firstaid" />
 
-        <ImageView
-            android:id="@+id/imgInfo"
-            android:layout_width="58dp"
-            android:layout_height="55dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txtBreedInformation"
-            app:layout_constraintEnd_toStartOf="@+id/txtBreedInformation"
+        <TextView
+            android:id="@+id/txtFirstAid"
+            android:layout_width="193dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="168dp"
+            android:text="@string/firstAid"
+            android:textAlignment="center"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.922"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txtBreedInformation"
-            app:srcCompat="@drawable/info" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtBreedInformation"
+            android:layout_width="194dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="44dp"
+            android:text="@string/breedInfo"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtFirstAid"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtFirstAid"
+            app:layout_constraintTop_toBottomOf="@+id/txtFirstAid" />
+
+        <TextView
+            android:id="@+id/txtSettings"
+            android:layout_width="194dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="44dp"
+            android:text="@string/settings"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtBreedInformation"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtBreedInformation"
+            app:layout_constraintTop_toBottomOf="@+id/txtBreedInformation" />
 
         <ImageView
             android:id="@+id/imgSettings"
@@ -220,6 +215,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtSettings"
             app:srcCompat="@drawable/settings" />
+
+        <ImageView
+            android:id="@+id/imgInfo"
+            android:layout_width="58dp"
+            android:layout_height="55dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtBreedInformation"
+            app:layout_constraintEnd_toStartOf="@+id/txtBreedInformation"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtBreedInformation"
+            app:srcCompat="@drawable/info" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

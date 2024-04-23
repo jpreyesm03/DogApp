@@ -17,7 +17,8 @@
     <string name="ageMessage">Age is not specified.</string>
     <string name="breedMessage">Breed is not specified.</string>
     <string name="breedable">Breedable: </string>
-
+    <string name="add_dog">(+) Add dog</string>
+    <string name="back">Back</string>
 
 
     <string-array name="myDogsOptions">
