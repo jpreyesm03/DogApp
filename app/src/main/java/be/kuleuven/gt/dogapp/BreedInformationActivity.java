@@ -42,7 +42,7 @@ public class BreedInformationActivity extends AppCompatActivity {
 
     private void openPrevious() {
         // Implement your functionality here
-        Intent intent = new Intent(this, MyDogsActivity.class);
+        Intent intent = new Intent(this, ThreeBarsActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
 
