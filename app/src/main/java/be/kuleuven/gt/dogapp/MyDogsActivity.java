@@ -1,7 +1,10 @@
 package be.kuleuven.gt.dogapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,17 +43,46 @@ public class MyDogsActivity extends AppCompatActivity {
         dogNames = new ArrayList<>();
         dogIDs = new ArrayList<>();
         user = (User) getIntent().getParcelableExtra("user");
-        getDogs(user);
+        loadDogData(user);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageView btnThreeBars = findViewById(R.id.btnThreeBars);
+
+        btnThreeBars.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openThreeBarsFunction();
+            }
+        });
+    }
+
+    private void openThreeBarsFunction() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, ThreeBarsActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    private void loadDogData(User user) {
+        dogNames.clear(); // Clear previous data
+        dogIDs.clear(); // Clear previous data
+        getDogs(user);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        user = (User) getIntent().getParcelableExtra("user");
+        loadDogData(user);
     }
 
     private void updateSpinner() {
         // Get the spinner from the layout
-        Spinner spinner = findViewById(R.id.spinner);
+        Spinner spinner = findViewById(R.id.spMyDogs);
 
         // Create an ArrayAdapter using the dog names ArrayList
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dogNames);
@@ -86,12 +118,15 @@ public class MyDogsActivity extends AppCompatActivity {
                                 String dogName = o.getString("name");
                                 dogIDs.add(id);
                                 dogNames.add(dogName);
-                                updateSpinner();
+
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+                        updateSpinner();
+
 
                     }
                 },
@@ -107,4 +142,6 @@ public class MyDogsActivity extends AppCompatActivity {
     }
     private void getDogInfo()
     {}
+
+
 }
