@@ -2,7 +2,9 @@ package be.kuleuven.gt.dogapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -41,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     private String emailMatch;
     private String passwordMatch;
 
+    private User user;
+
+    private String id;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +58,36 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        boolean isLoggedIn = checkIfUserIsLoggedIn();
+
+        if (isLoggedIn) {
+            // If user is logged in, retrieve user information and navigate to HomeScreenActivity
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String username = preferences.getString("username", null);
+            String email = preferences.getString("email", null);
+            String password = preferences.getString("password", null);
+            String id = preferences.getString("id", null);
+
+            user = new User(username, email, password);
+            user.setIdUser(id);
+
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+            finish(); // Finish the MainActivity to prevent going back to it when pressing back in HomeScreenActivity
+        }
+    }
+
+
+    private boolean checkIfUserIsLoggedIn() {
+        // Check SharedPreferences for stored user information (cookie)
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String username = preferences.getString("username", null);
+        String email = preferences.getString("email", null);
+        String id = preferences.getString("id", null);
+
+        // Return true if user information is found (i.e., user is logged in)
+        return username != null && email != null && id != null;
     }
 
     public void onBtnCreateAcc_Clicked(View Caller) {
@@ -64,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
     public void onBtnLogin_Clicked(View Caller) {
         requestLogin();
     }
+
+
 
     private void requestLogin() {
         EditText emailOrUser = findViewById(R.id.emailLogin);
@@ -109,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         progressDialog.dismiss();
                         if (match) {
-                            User user = new User(nameMatch,emailMatch,passwordMatch);
+                            user = new User(nameMatch,emailMatch,passwordMatch);
                             Intent intent = new Intent(MainActivity.this, HomeScreenActivity.class);
                             intent.putExtra("user",user);
                             startActivity(intent);
@@ -129,5 +168,9 @@ public class MainActivity extends AppCompatActivity {
         );
         requestQueue.add(queueRequest);
     }
+
+
+
+
 
 }

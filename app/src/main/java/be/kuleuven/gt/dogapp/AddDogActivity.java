@@ -31,17 +31,15 @@ import java.util.Map;
 import be.kuleuven.gt.dogapp.model.User;
 
 public class AddDogActivity extends AppCompatActivity {
+
     private User user;
     private String dogName;
     private String dogBreed;
     private String dogAge;
     private String dogWeight;
     private String dogHeight;
-
     private String dogMedical;
-
-    private String id;
-
+    private String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +53,17 @@ public class AddDogActivity extends AppCompatActivity {
         });
 
         user = (User) getIntent().getParcelableExtra("user");
+
     }
 
-    private void onBtnAddDo1g_Clicked(View Caller)
-    {
+
+
+
+    public void onBtnButtonAddDog_Clicked(View Caller) {
+        fetchInfo();
+    }
+
+    private void fetchInfo() {
         EditText dogn = findViewById(R.id.dogName);
         EditText dogb = findViewById(R.id.dogBreed);
         EditText doga = findViewById(R.id.dogAge);
@@ -66,228 +71,92 @@ public class AddDogActivity extends AppCompatActivity {
         EditText dogh = findViewById(R.id.heightDog);
         EditText dogm = findViewById(R.id.medicalDog);
 
+        id = user.getIdUser();
+
         dogName = dogn.getText().toString();
-        dogBreed = dogb.getText().toString();
+        dogBreed = dogb.getText().toString().replace(" ", "_");
         dogAge = doga.getText().toString();
         dogWeight = dogw.getText().toString();
         dogHeight = dogh.getText().toString();
         String dogMed = dogm.getText().toString();
         dogMedical = dogMed.replace(" ", "_");
 
-        if (dogMedical.isEmpty())
-        {
+        if (dogMedical.isEmpty()) {
             dogMedical = "_";
+        } else if (dogBreed.isEmpty()) {
+            dogBreed = "_";
+        } else if (dogAge.isEmpty()) {
+            dogAge = "_";
+        } else if (dogWeight.isEmpty()) {
+            dogWeight = "_";
+        } else if (dogHeight.isEmpty()) {
+            dogHeight = "_";
         }
 
-        if(dogName.isEmpty()||dogBreed.isEmpty()||dogAge.isEmpty()||dogWeight.isEmpty()||dogHeight.isEmpty())
-        {
+        if (dogName.isEmpty()) {
             Toast.makeText(
                     AddDogActivity.this,
                     "Please fill all necessary info! Feel free to approximate magnitudes.",
                     Toast.LENGTH_SHORT).show();
-        }
-        if(id.equals("unknown"))
-        {
-            Toast.makeText(
-                    AddDogActivity.this,
-                    "Error connecting - user unknown",
-                    Toast.LENGTH_SHORT).show();
-        }
+        } else {
+            if (id.equals("unknown")) {
+                Toast.makeText(
+                        AddDogActivity.this,
+                        "Error connecting - user unknown",
+                        Toast.LENGTH_SHORT).show();
+            } else {
 
-        else {
-
-            String userid = findUserID(user.getUsername(), user.getEmail(), user.getPassword());
-
-            String baseUrl = "https://studev.groept.be/api/a23PT106/add_dog/";
-            String urlCreate = baseUrl + "/" + dogName + "/" + dogBreed + "/" + dogAge + "/" + dogWeight + "/" + dogHeight + "/" + userid + "/" + dogMedical;
+                String baseUrl = "https://studev.groept.be/api/a23PT106/add_dog";
+                String urlCreate = baseUrl + "/" + dogName + "/" + dogBreed + "/" + dogAge + "/" + dogWeight + "/" + dogHeight + "/" + id + "/" + dogMedical;
 
 
-            ProgressDialog progressDialog = new ProgressDialog(AddDogActivity.this);
-            progressDialog.setMessage("Uploading, please wait...");
-            progressDialog.show();
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            StringRequest submitRequest = new StringRequest(
-                    Request.Method.POST,
-                    urlCreate,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            progressDialog.dismiss();
-                            Toast.makeText(
-                                    AddDogActivity.this,
-                                    "Account created! Back to the loading screen!",
-                                    Toast.LENGTH_SHORT).show();
+                ProgressDialog progressDialog = new ProgressDialog(AddDogActivity.this);
+                progressDialog.setMessage("Uploading, please wait...");
+                progressDialog.show();
+                RequestQueue requestQueue = Volley.newRequestQueue(this);
+                StringRequest submitRequest = new StringRequest(
+                        Request.Method.POST,
+                        urlCreate,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                progressDialog.dismiss();
+                                Toast.makeText(
+                                        AddDogActivity.this,
+                                        "Dog added! Taking you to dashboard!",
+                                        Toast.LENGTH_SHORT).show();
 
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            progressDialog.dismiss();
-                            Toast.makeText(
-                                    AddDogActivity.this,
-                                    "Unable to create account: " + error,
-                                    Toast.LENGTH_LONG).show();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                progressDialog.dismiss();
+                                Toast.makeText(
+                                        AddDogActivity.this,
+                                        "Unable to add dog: " + error,
+                                        Toast.LENGTH_LONG).show();
 
-                        }
-                    }
-            ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
-                @Override
-                protected Map<String, String> getParams() {
-                    /* Map<String, String> with key value pairs as data load */
-                    Map<String, String> params = new HashMap<>();
-                    params.put("name", dogName);
-                    params.put("breed", dogBreed);
-                    params.put("age", dogAge);
-                    params.put("weight", dogWeight);
-                    params.put("height", dogHeight);
-                    params.put("user", userid);
-                    params.put("medical", dogMedical);
-
-                    return params;
-                }
-            };
-            requestQueue.add(submitRequest);
-        }
-
-    }
-
-    private String findUserID(String username,String email,String password)
-    {
-        String baseUrl = "https://studev.groept.be/api/a23PT106/login/";
-        String urlCreate = baseUrl + "/" + username + "/" + email + "/" + password;
-
-
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest queueRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                urlCreate,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        boolean match = false;
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject o = response.getJSONObject(i);
-                                id = o.getString("idUser");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
                         }
-
-                    }
-                },
-                new Response.ErrorListener() {
+                ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    protected Map<String, String> getParams() {
+                        /* Map<String, String> with key value pairs as data load */
+                        Map<String, String> params = new HashMap<>();
+                        params.put("name", dogName);
+                        params.put("breed", dogBreed);
+                        params.put("age", dogAge);
+                        params.put("weight", dogWeight);
+                        params.put("height", dogHeight);
+                        params.put("user", id);
+                        params.put("medical", dogMedical);
 
-                        Toast.makeText(AddDogActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+                        return params;
                     }
-                }
-        );
-        requestQueue.add(queueRequest);
-        if(id.isEmpty())
-        {
-            return "unknown";
-        }
-        return id;
-
-    }
-
-
-    public void onBtnAddDog_Clicked(View view) {
-        EditText dogn = findViewById(R.id.dogName);
-        EditText dogb = findViewById(R.id.dogBreed);
-        EditText doga = findViewById(R.id.dogAge);
-        EditText dogw = findViewById(R.id.dogWeight);
-        EditText dogh = findViewById(R.id.heightDog);
-        EditText dogm = findViewById(R.id.medicalDog);
-
-        dogName = dogn.getText().toString();
-        dogBreed = dogb.getText().toString();
-        dogAge = doga.getText().toString();
-        dogWeight = dogw.getText().toString();
-        dogHeight = dogh.getText().toString();
-        String dogMed = dogm.getText().toString();
-        dogMedical = dogMed.replace(" ", "_");
-
-        if (dogMedical.isEmpty())
-        {
-            dogMedical = "_";
-        }
-
-        if(dogName.isEmpty()||dogBreed.isEmpty()||dogAge.isEmpty()||dogWeight.isEmpty()||dogHeight.isEmpty())
-        {
-            Toast.makeText(
-                    AddDogActivity.this,
-                    "Please fill all necessary info!",
-                    Toast.LENGTH_SHORT).show();
-        }
-        if(id.equals("unknown"))
-        {
-            Toast.makeText(
-                    AddDogActivity.this,
-                    "Error connecting - user unknown",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        else {
-
-            String userid = findUserID(user.getUsername(), user.getEmail(), user.getPassword());
-
-            String baseUrl = "https://studev.groept.be/api/a23PT106/add_dog/";
-            String urlCreate = baseUrl + "/" + dogName + "/" + dogBreed + "/" + dogAge + "/" + dogWeight + "/" + dogHeight + "/" + userid + "/" + dogMedical;
-
-
-            ProgressDialog progressDialog = new ProgressDialog(AddDogActivity.this);
-            progressDialog.setMessage("Uploading, please wait...");
-            progressDialog.show();
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            StringRequest submitRequest = new StringRequest(
-                    Request.Method.POST,
-                    urlCreate,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            progressDialog.dismiss();
-                            Toast.makeText(
-                                    AddDogActivity.this,
-                                    "Account created! Back to the loading screen!",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            progressDialog.dismiss();
-                            Toast.makeText(
-                                    AddDogActivity.this,
-                                    "Unable to create account: " + error,
-                                    Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-            ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
-                @Override
-                protected Map<String, String> getParams() {
-                    /* Map<String, String> with key value pairs as data load */
-                    Map<String, String> params = new HashMap<>();
-                    params.put("name", dogName);
-                    params.put("breed", dogBreed);
-                    params.put("age", dogAge);
-                    params.put("weight", dogWeight);
-                    params.put("height", dogHeight);
-                    params.put("user", userid);
-                    params.put("medical", dogMedical);
-
-                    return params;
-                }
-            };
-            requestQueue.add(submitRequest);
+                };
+                requestQueue.add(submitRequest);
+            }
         }
     }
 }
