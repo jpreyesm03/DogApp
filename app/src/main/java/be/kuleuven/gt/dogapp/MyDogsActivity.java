@@ -35,7 +35,7 @@ public class MyDogsActivity extends AppCompatActivity {
     private ArrayList<String> dogNames;
     private ArrayList<String> dogIDs;
 
-    @Override
+    @Override //as
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -51,6 +51,11 @@ public class MyDogsActivity extends AppCompatActivity {
         });
 
         ImageView btnThreeBars = findViewById(R.id.btnThreeBars);
+        ImageView btnCalendar = findViewById(R.id.btnCalendar);
+        ImageView btnCalculator = findViewById(R.id.btnCalculator);
+        ImageView btnBreeding = findViewById(R.id.btnBreeding);
+        ImageView btnMap= findViewById(R.id.btnMap);
+        ImageView btnTrainingVideos = findViewById(R.id.btnVideos);
 
         btnThreeBars.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,11 +64,87 @@ public class MyDogsActivity extends AppCompatActivity {
                 openThreeBarsFunction();
             }
         });
+
+        btnCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openCalendar();
+            }
+        });
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openMap();
+            }
+        });
+
+        btnBreeding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openBreeding();
+            }
+        });
+
+        btnCalculator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openFoodCalculator();
+            }
+        });
+
+        btnTrainingVideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openTrainingVideos();
+            }
+        });
+
     }
 
     private void openThreeBarsFunction() {
         // Implement your functionality here
         Intent intent = new Intent(this, ThreeBarsActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    private void openCalendar() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    private void openMap() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    private void openBreeding() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, BreedingActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    private void openTrainingVideos() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, TrainingVideosActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    private void openFoodCalculator() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, FoodCalculatorActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }
