@@ -70,73 +70,127 @@
         android:id="@+id/divider"
         android:layout_width="409dp"
         android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         android:background="?android:attr/listDivider"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.90999997"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintVertical_bias="0.912" />
 
     <ImageView
         android:id="@+id/btnCalendar"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="2dp"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
         android:clickable="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/calendar" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/calendar"
+        tools:visibility="visible"
+        android:focusable="true"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/btnMap"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
         android:clickable="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/map" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/map"
+        tools:visibility="visible"
+        android:focusable="true"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/btnBreeding"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="1dp"
         android:clickable="true"
+        android:contentDescription="TODO"
+        android:focusable="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/heart" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/heart"
+        tools:srcCompat="@drawable/heart"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/btnCalculator"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
+        android:contentDescription="TODO"
+        android:focusable="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnVideos"
         app:layout_constraintStart_toEndOf="@+id/btnBreeding"
-        app:srcCompat="@drawable/calculator" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/calculator"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/btnVideos"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="1dp"
         android:clickable="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnThreeBars"
         app:layout_constraintStart_toEndOf="@+id/btnCalculator"
-        app:srcCompat="@drawable/video" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/video"
+        tools:visibility="visible"
+        android:focusable="true"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/btnThreeBars"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="1dp"
         android:clickable="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnVideos"
-        app:srcCompat="@drawable/threebars" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/threebars"
+        tools:visibility="visible"
+        android:focusable="true"
+        android:contentDescription="TODO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
