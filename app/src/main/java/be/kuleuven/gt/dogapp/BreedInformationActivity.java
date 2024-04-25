@@ -2,6 +2,7 @@ package be.kuleuven.gt.dogapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -42,6 +43,8 @@ import java.util.ArrayList;
 
 import be.kuleuven.gt.dogapp.model.User;
 
+
+
 public class BreedInformationActivity extends AppCompatActivity {
     private User user;
     private ArrayList<String> breedInfo;
@@ -63,6 +66,39 @@ public class BreedInformationActivity extends AppCompatActivity {
         // Enable JavaScript
         WebSettings webSettings = urlToShow.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
+        // Condition that looks for "unable to fetch"... and gives a default link.
+        urlToShow.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                // Inject JavaScript to search for the desired content
+                urlToShow.evaluateJavascript(
+                        "(function() { " +
+                                "   var h3Elements = document.getElementsByTagName('h3');" +
+                                "   for (var i = 0; i < h3Elements.length; i++) {" +
+                                "       if (h3Elements[i].textContent.includes('We weren\\'t able to fetch that page for you.')) {" +
+                                "           return true;" +
+                                "       }" +
+                                "   }" +
+                                "   return false;" +
+                                "})();",
+                        result -> {
+                            if ("true".equals(result)) {
+                                // Handle the case where the error message is found
+                                urlToShow.loadUrl("https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history");
+                                System.out.println("The error message was found in an <h3> element.");
+                            } else {
+                                // Handle the case where the error message is not found
+                                System.out.println("The error message was not found in any <h3> element.");
+                            }
+                        });
+            }
+        });
+
+
+
+
         loadDogData(user);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -82,6 +118,7 @@ public class BreedInformationActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void loadDogData(User user) {
@@ -111,7 +148,6 @@ public class BreedInformationActivity extends AppCompatActivity {
                                 String breed = o.getString("breed");
                                 String dogName = o.getString("name");
                                 breedInfo.add(breed);
-                                System.out.println(breed);
                                 dogNames.add(dogName);
 
 
@@ -121,7 +157,6 @@ public class BreedInformationActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                        System.out.println(breedInfo);
                         updateSpinner();
 
 
@@ -150,15 +185,16 @@ public class BreedInformationActivity extends AppCompatActivity {
 
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        urlToShow.loadUrl("https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history");
+//        urlToShow.loadUrl("https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history");
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Update the text of the TextView based on the selected item
                 String urlToBeUsed = produceURL(breedInfo.get(position));
                 urlToShow.loadUrl(urlToBeUsed);
-                System.out.println(breedInfo.get(position));
+
+
+
 //                if (urlExists(urlToBeUsed)) {
 //                    urlToShow.loadUrl(urlToBeUsed);
 //                } else {
@@ -175,6 +211,10 @@ public class BreedInformationActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+
     private String produceURL(String breed)  {
         if (breed == null) {
             return "https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history";
@@ -185,63 +225,9 @@ public class BreedInformationActivity extends AppCompatActivity {
         }
     }
 
-    private boolean urlExists(String urlString) {
-        try {
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("HEAD");
-            int responseCode = connection.getResponseCode();
-            return (responseCode == HttpURLConnection.HTTP_OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
-    private boolean urlExists2(String urlString) {
-        try {
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
 
-            // Check if the response code is HTTP_OK
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Read the HTML content of the response
-                InputStream inputStream = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder content = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    content.append(line);
-                }
-                reader.close();
-                inputStream.close();
 
-                // Analyze the HTML content to detect error messages or absence of content
-                String htmlContent = content.toString();
-                if (isErrorPage(htmlContent)) {
-                    // URL does not exist, suggest a default link
-                    System.out.println("URL does not exist. Suggesting default link...");
-                    return false;
-                } else {
-                    // URL exists
-                    return true;
-                }
-            } else {
-                // Response code is not HTTP_OK
-                return false;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private boolean isErrorPage(String htmlContent) {
-        // Check if the HTML content contains the error message
-        return htmlContent.contains("We weren't able to fetch that page for you.");
-    }
 
 
     protected void onResume() {
@@ -258,51 +244,3 @@ public class BreedInformationActivity extends AppCompatActivity {
 
     }
 }
-
-/*
-android.os.Bundle;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
-
-    private Spinner spinner;
-    private TextView textView;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        spinner = findViewById(R.id.spinner);
-        textView = findViewById(R.id.textView);
-
-        // Define the options for the dropdown
-        String[] options = {"Option 1", "Option 2", "Option 3"};
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
-        // Set up a listener for the spinner to respond to item selections
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Update the text of the TextView based on the selected item
-                textView.setText(options[position]);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
-            }
-        });*/
