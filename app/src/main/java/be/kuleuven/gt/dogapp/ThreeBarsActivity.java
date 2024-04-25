@@ -109,7 +109,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
             }
         });
 
-        btnBreedInfo.setOnClickListener(new View.OnClickListener() {
+        txtBreedInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Call the desired function
