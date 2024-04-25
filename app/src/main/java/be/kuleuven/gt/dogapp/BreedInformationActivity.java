@@ -31,7 +31,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -193,6 +196,51 @@ public class BreedInformationActivity extends AppCompatActivity {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private boolean urlExists2(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            // Check if the response code is HTTP_OK
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Read the HTML content of the response
+                InputStream inputStream = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder content = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line);
+                }
+                reader.close();
+                inputStream.close();
+
+                // Analyze the HTML content to detect error messages or absence of content
+                String htmlContent = content.toString();
+                if (isErrorPage(htmlContent)) {
+                    // URL does not exist, suggest a default link
+                    System.out.println("URL does not exist. Suggesting default link...");
+                    return false;
+                } else {
+                    // URL exists
+                    return true;
+                }
+            } else {
+                // Response code is not HTTP_OK
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean isErrorPage(String htmlContent) {
+        // Check if the HTML content contains the error message
+        return htmlContent.contains("We weren't able to fetch that page for you.");
     }
 
 
