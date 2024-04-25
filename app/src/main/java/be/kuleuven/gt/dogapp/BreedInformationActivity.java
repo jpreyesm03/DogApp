@@ -143,11 +143,17 @@ public class BreedInformationActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         for (int i = 0; i < response.length(); i++) {
                             try {
-                                JSONObject o = response.getJSONObject(i);
-                                String breed = o.getString("breed");
-                                String dogName = o.getString("name");
-                                breedInfo.add(breed);
-                                dogNames.add(dogName);
+                                // This if statement IDK why is needed. If its removed then every dog is added twice.
+                                if (dogNames.size() < response.length()) {
+                                    JSONObject o = response.getJSONObject(i);
+                                    System.out.println(response.length());
+                                    System.out.print(response);
+                                    String breed = o.getString("breed");
+                                    String dogName = o.getString("name");
+                                    breedInfo.add(breed);
+                                    dogNames.add(dogName);
+                                }
+
 
 
 
@@ -155,6 +161,9 @@ public class BreedInformationActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        }
+                        for (String dog: dogNames) {
+                            System.out.println(dog);
                         }
                         updateSpinner();
 
