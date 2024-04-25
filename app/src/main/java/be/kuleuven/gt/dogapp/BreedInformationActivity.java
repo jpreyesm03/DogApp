@@ -141,7 +141,6 @@ public class BreedInformationActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        boolean match = false;
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject o = response.getJSONObject(i);
@@ -192,15 +191,6 @@ public class BreedInformationActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String urlToBeUsed = produceURL(breedInfo.get(position));
                 urlToShow.loadUrl(urlToBeUsed);
-
-
-
-//                if (urlExists(urlToBeUsed)) {
-//                    urlToShow.loadUrl(urlToBeUsed);
-//                } else {
-//                    Toast.makeText(BreedInformationActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
-//                    urlToShow.loadUrl("https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history");
-//                }
             }
 
             @Override
