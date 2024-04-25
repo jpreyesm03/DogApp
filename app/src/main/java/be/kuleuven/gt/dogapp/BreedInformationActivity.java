@@ -1,8 +1,10 @@
 package be.kuleuven.gt.dogapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
@@ -43,6 +45,7 @@ public class BreedInformationActivity extends AppCompatActivity {
     private ArrayList<String> dogNames;
     private WebView urlToShow;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,11 @@ public class BreedInformationActivity extends AppCompatActivity {
         dogNames = new ArrayList<>();
         breedInfo = new ArrayList<>();
         urlToShow = findViewById(R.id.webDogs);
+        urlToShow.setWebViewClient(new WebViewClient()); // to open links inside the WebView
+
+        // Enable JavaScript
+        WebSettings webSettings = urlToShow.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         loadDogData(user);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -66,7 +74,9 @@ public class BreedInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call the desired function
+                System.out.println("Went back.");
                 openPrevious();
+
             }
         });
     }
@@ -98,6 +108,7 @@ public class BreedInformationActivity extends AppCompatActivity {
                                 String breed = o.getString("breed");
                                 String dogName = o.getString("name");
                                 breedInfo.add(breed);
+                                System.out.println(breed);
                                 dogNames.add(dogName);
 
 
@@ -107,6 +118,7 @@ public class BreedInformationActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+                        System.out.println(breedInfo);
                         updateSpinner();
 
 
@@ -125,7 +137,7 @@ public class BreedInformationActivity extends AppCompatActivity {
 
     private void updateSpinner() {
         // Get the spinner from the layout
-        Spinner spinner = findViewById(R.id.spMyDogs);
+        Spinner spinner = findViewById(R.id.spUserDogs);
 
         // Create an ArrayAdapter using the dog names ArrayList
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dogNames);
@@ -135,24 +147,27 @@ public class BreedInformationActivity extends AppCompatActivity {
 
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        urlToShow.loadUrl("https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history");
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Update the text of the TextView based on the selected item
                 String urlToBeUsed = produceURL(breedInfo.get(position));
-                if (urlExists(urlToBeUsed)) {
-                    urlToShow.loadUrl(urlToBeUsed);
-                } else {
-                    Toast.makeText(BreedInformationActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
-                    urlToShow.loadUrl("https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history");
-                }
+                urlToShow.loadUrl(urlToBeUsed);
+                System.out.println(breedInfo.get(position));
+//                if (urlExists(urlToBeUsed)) {
+//                    urlToShow.loadUrl(urlToBeUsed);
+//                } else {
+//                    Toast.makeText(BreedInformationActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+//                    urlToShow.loadUrl("https://www.dogster.com/lifestyle/popular-and-famous-dogs-in-history");
+//                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Not sure about this yet.
-                // urlToShow.loadUrl(produceURL(breedInfo.get(0)));
+                urlToShow.loadUrl(produceURL(breedInfo.get(0)));
             }
         });
     }
@@ -163,7 +178,7 @@ public class BreedInformationActivity extends AppCompatActivity {
         }
         else {
             String breedForLink = breed.replace(' ', '-');
-            return "https://www.dogster.com/dog-breeds/" + breedForLink;
+            return "https://www.dogster.com/dog-breeds/" + breedForLink.toLowerCase();
         }
     }
 
