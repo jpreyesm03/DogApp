@@ -60,6 +60,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
         selectDropdown = findViewById(R.id.spSelectDogs);
         Button btnBack = findViewById(R.id.btnBack);
         Button btnSubmit = findViewById(R.id.btnSubmit);
+        getDogs();
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +147,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
     }
 
     private void updateMultitext() {
-
+        System.out.println(dogNames);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, dogNames);
         selectDropdown.setAdapter(adapter);
         selectDropdown.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
@@ -155,9 +156,10 @@ public class FoodCalculatorActivity extends AppCompatActivity {
 
 
     private void calculatePrice() {
-        getDogs();
         String getTextFromMultitext = selectDropdown.getText().toString();
+        System.out.println(getTextFromMultitext);
         if (getTextFromMultitext.equals("all") || getTextFromMultitext.equals("ALL") || getTextFromMultitext.equals("All")) {
+            System.out.println("getting costs!");
             getCosts(dogsWeight);
         }
         else if (getTextFromMultitext.isEmpty() || (getTextFromMultitext == null)) {
@@ -169,12 +171,16 @@ public class FoodCalculatorActivity extends AppCompatActivity {
         else {
             // Split the text based on the delimiter (comma in this case)
             String[] items = getTextFromMultitext.split(",");
-            for (int i = 0; i < items.length; i++) {
+            System.out.println("Items: " + items.toString());
+            for (int i = 0; i < items.length - 1; i++) {
+                System.out.println("Item untrimmed: " + items[i]);
                 items[i] = items[i].trim();
             }
-            for (String item : items) {
-                selectedDogs.add(item);
+            for (int i = 0; i < items.length - 1; i++) {
+                System.out.println("Item trimmed: " + items[i]);
+                selectedDogs.add(items[i]);
             }
+
 
             ArrayList<String> selectedWeights = new ArrayList<>();
 
@@ -187,31 +193,41 @@ public class FoodCalculatorActivity extends AppCompatActivity {
 
     private void getCosts(ArrayList<String> selectedWeights) {
         double kgCounter = 0.0;
+        System.out.println(selectedWeights);
 
         for (String weight: selectedWeights) {
+            System.out.println("Inside getCosts");
             if (Integer.parseInt(weight) < 9) {
                 kgCounter += 0.1;
+                System.out.println("Inside firstIf");
             }
             else if (Integer.parseInt(weight) < 23) {
+                System.out.println("Inside elif");
                 kgCounter += 0.2;
             }
             else {
+                System.out.println("Inside else");
                 kgCounter += 0.4;
             }
 
         }
         TextView txtNumberOfDays = findViewById(R.id.txtNumberOfDays);
         days = Integer.parseInt(txtNumberOfDays.getText().toString());
-        DecimalFormat df = new DecimalFormat("#.##");
-        kg = Double.parseDouble(df.format(days*kgCounter));
-        price = Double.parseDouble(df.format(kg*6));
+
+        String kgNew1 = String.valueOf(days*kgCounter);
+        String kgNew2 = kgNew1.substring(0, (kgNew1.indexOf('.') + 2));
+        kg = Double.parseDouble(kgNew2);
+
+        String pNew1 = String.valueOf(days*kgCounter*6);
+        String pNew2 = pNew1.substring(0, (pNew1.indexOf('.') + 2));
+        price = Double.parseDouble(pNew2);
         displayText();
 
     }
 
     private void displayText() {
         TextView textToDisplay = findViewById(R.id.txtPriceAndKg);
-        textToDisplay.setText("Price: €" + price + "\n" + "Kilograms: " + kg);
+        textToDisplay.setText("Price: €" + price + "\n" + "Kilograms: " + kg + "kg");
     }
 
     private void openPrevious() {
