@@ -38,14 +38,16 @@ import be.kuleuven.gt.dogapp.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean match;
     private String nameMatch;
     private String emailMatch;
     private String passwordMatch;
 
+    private boolean hasdogs;
+
     private User user;
 
     private String id;
+
 
 
     @Override
@@ -70,12 +72,138 @@ public class MainActivity extends AppCompatActivity {
 
             user = new User(username, email, password);
             user.setIdUser(id);
+            checkIfUserHasDogs();
+            goHomeScreen();
 
-            Intent intent = new Intent(this, HomeScreenActivity.class);
-            intent.putExtra("user", user);
-            startActivity(intent);
-            finish(); // Finish the MainActivity to prevent going back to it when pressing back in HomeScreenActivity
+
+
+
         }
+    }
+
+
+    private void findUserID(String username,String email,String password)
+    {
+        String baseUrl = "https://studev.groept.be/api/a23PT106/find_user";
+        String urlCreate = baseUrl + "/" + username + "/" + email + "/" + password;
+        id = "";
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest queueRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                urlCreate,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject o = response.getJSONObject(i);
+                                id = o.getString("idUser");
+                                user.setIdUser(id);
+                                saveUserInformation(user.getUsername(),user.getEmail(),user.getPassword(),user.getIdUser());
+
+                                goHomeScreen();
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(MainActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(queueRequest);
+
+    }
+    private void checkIfUserHasDogs() {
+        String baseUrl = "https://studev.groept.be/api/a23PT106/checkUserDogs";
+        String url = baseUrl + "/" + user.getIdUser();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        // If the user has dogs, start MyDogsActivity
+                        hasdogs = response.length() > 0;
+                        if(hasdogs)
+                        {
+                           goMyDogs();
+                        }
+                        else {
+                            goHomeScreen();
+                        }
+
+
+
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(jsonArrayRequest);
+
+    }
+
+    private void goMyDogs()
+    {
+        Intent intent = new Intent(this, MyDogsActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish(); // Fi
+
+    }
+
+
+
+
+
+    private void goHomeScreen() {
+
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("hasdogs",hasdogs);
+        startActivity(intent);
+        finish(); // Finish the MainActivity to prevent going back to it when pressing back in HomeScreenActivity
+    }
+
+    private void saveUserInformation(String name, String email, String password, String id) {
+        // Get SharedPreferences editor
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Store user information
+        editor.putString("username", name);
+        editor.putString("email", email);
+        editor.putString("password", password);
+        editor.putString("id", id); // Save user ID
+
+        // Commit changes
+        editor.apply();
     }
 
 
@@ -149,9 +277,7 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         if (match) {
                             user = new User(nameMatch,emailMatch,passwordMatch);
-                            Intent intent = new Intent(MainActivity.this, HomeScreenActivity.class);
-                            intent.putExtra("user",user);
-                            startActivity(intent);
+                            findUserID(nameMatch,emailMatch,passwordMatch);
                             Toast.makeText(MainActivity.this, "Login successful! Taking you to main screen!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(MainActivity.this, "Login unsuccessful. Please try signing in again.", Toast.LENGTH_SHORT).show();

@@ -32,28 +32,17 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     private TextView txtInfo;
     private User user;
-    private String id;
-    private Button btnAdd1;
+    private boolean hasdogs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         user = (User) getIntent().getParcelableExtra("user");
+        hasdogs = getIntent().getBooleanExtra("hasdogs",false);
         txtInfo = (TextView) findViewById(R.id.currentUser);
-        btnAdd1 = findViewById(R.id.addDogs);
-        btnAdd1.setClickable(false);
-        String info = null;
-        if (user != null) {
-            txtInfo.setText("Username: " + user.getUsername());
-            findUserID(user.getUsername(), user.getEmail(), user.getPassword());
-            Intent intent = new Intent(this,MyDogsActivity.class);
-            intent.putExtra("user",user);
-            startActivity(intent);
-        } else {
-            txtInfo.setText("User unknown");
-        }
-
+        txtInfo.setText("Username: " + user.getUsername());
         EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -63,50 +52,19 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
 
-    }
-
-    private void findUserID(String username,String email,String password)
-    {
-        String baseUrl = "https://studev.groept.be/api/a23PT106/find_user";
-        String urlCreate = baseUrl + "/" + username + "/" + email + "/" + password;
-        id = "";
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest queueRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                urlCreate,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        boolean match = false;
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject o = response.getJSONObject(i);
-                                id = o.getString("idUser");
-                                btnAdd1.setClickable(true);
-                                user.setIdUser(id);
-                                saveUserInformation(user.getUsername(),user.getEmail(),user.getPassword(),user.getIdUser());
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        Toast.makeText(HomeScreenActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-        requestQueue.add(queueRequest);
 
     }
+
+
+
+
+
+
+
 
 
     public void onBtnAddDogs_Clicked(View Caller)
@@ -132,18 +90,5 @@ public class HomeScreenActivity extends AppCompatActivity {
         finish();
     }
 
-    private void saveUserInformation(String name, String email, String password, String id) {
-        // Get SharedPreferences editor
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
 
-        // Store user information
-        editor.putString("username", name);
-        editor.putString("email", email);
-        editor.putString("password", password);
-        editor.putString("id", id); // Save user ID
-
-        // Commit changes
-        editor.apply();
-    }
 }

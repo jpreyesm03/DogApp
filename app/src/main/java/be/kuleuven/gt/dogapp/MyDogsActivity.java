@@ -156,8 +156,9 @@ public class MyDogsActivity extends AppCompatActivity {
     }
 
     protected void onResume() {
+        dogNames.clear(); // Clear previous data
+        dogIDs.clear();
         super.onResume();
-        user = (User) getIntent().getParcelableExtra("user");
         loadDogData(user);
     }
 
@@ -191,6 +192,8 @@ public class MyDogsActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        dogNames.clear();
+                        dogIDs.clear();
                         boolean match = false;
                         for (int i = 0; i < response.length(); i++) {
                             try {
