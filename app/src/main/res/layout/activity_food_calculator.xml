@@ -58,12 +58,11 @@
 
     <MultiAutoCompleteTextView
         android:id="@+id/spSelectDogs"
-        android:layout_width="406dp"
-        android:layout_height="81dp"
+        android:layout_width="338dp"
+        android:layout_height="67dp"
         android:layout_marginTop="36dp"
         android:completionThreshold="1"
         android:hint="Select Items"
-        android:tokenizer="MultiAutoCompleteTextView.CommaTokenizer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"

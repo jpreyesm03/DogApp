@@ -40,6 +40,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
         selectDropdown.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
