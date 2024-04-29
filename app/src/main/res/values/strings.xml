@@ -25,6 +25,11 @@
     <string name="dogWalker">I am a Dog Walker</string>
     <string name="noPictureAvailable">No Picture Available</string>
     <string name="foodCalculator">Food Calculator</string>
+    <string name="submit">Submit</string>
+    <string name="selectDays">For how many days?</string>
+    <string name="whichDogs">For which of your dogs do you want to buy food?</string>
+
+    <string name="hintSelectDogs">Type all/All or the name of the dogs you want to consider.</string>
     <string name="calculatorLongText">Based on the average food consumption of the dog breeds you considered, this is the amount of kilograms and money required. </string>
 
 
