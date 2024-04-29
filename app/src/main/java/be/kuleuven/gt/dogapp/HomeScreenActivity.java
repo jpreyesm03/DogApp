@@ -33,6 +33,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     private TextView txtInfo;
     private User user;
     private boolean hasdogs;
+    private Button b1;
 
 
     @Override
@@ -40,7 +41,14 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         user = (User) getIntent().getParcelableExtra("user");
-        hasdogs = getIntent().getBooleanExtra("hasdogs",false);
+
+         b1 = (Button) findViewById(R.id.seeDogs);
+        if(getIntent().hasExtra("hasdogs"))
+        {
+            b1.setClickable(false);
+            Toast.makeText(HomeScreenActivity.this, "Add a dog.", Toast.LENGTH_SHORT).show();
+        }
+
         txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);
         txtInfo.setText("Username: " + user.getUsername());
         EdgeToEdge.enable(this);
@@ -50,28 +58,16 @@ public class HomeScreenActivity extends AppCompatActivity {
             return insets;
         });
 
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
 
 
     public void onBtnAddDogs_Clicked(View Caller)
     {
+        b1.setClickable(true);
         Intent intent = new Intent(this,AddDogActivity.class);
         intent.putExtra("user",user);
         startActivity(intent);
+        finish();
     }
 
     public void onBtnSeeMyDogs_Clicked(View Caller)
@@ -88,20 +84,5 @@ public class HomeScreenActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    private void saveUserInformation(String name, String email, String password, String id) {
-        // Get SharedPreferences editor
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        // Store user information
-        editor.putString("username", name);
-        editor.putString("email", email);
-        editor.putString("password", password);
-        editor.putString("id", id); // Save user ID
-
-        // Commit changes
-        editor.apply();
     }
 }

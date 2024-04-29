@@ -73,7 +73,14 @@ public class MainActivity extends AppCompatActivity {
             user = new User(username, email, password);
             user.setIdUser(id);
             checkIfUserHasDogs();
-            goHomeScreen();
+            if(hasdogs)
+            {
+                goMyDogs();
+            }
+            else {
+                goHomeScreen();
+            }
+
 
 
 
@@ -104,8 +111,11 @@ public class MainActivity extends AppCompatActivity {
                                 id = o.getString("idUser");
                                 user.setIdUser(id);
                                 saveUserInformation(user.getUsername(),user.getEmail(),user.getPassword(),user.getIdUser());
+                                checkIfUserHasDogs();
 
-                                goHomeScreen();
+
+
+
 
 
 
@@ -145,13 +155,14 @@ public class MainActivity extends AppCompatActivity {
 
                         // If the user has dogs, start MyDogsActivity
                         hasdogs = response.length() > 0;
-                        if(hasdogs)
-                        {
-                           goMyDogs();
+
+                        if (hasdogs){
+                            goMyDogs();
                         }
                         else {
                             goHomeScreen();
                         }
+
 
 
 
