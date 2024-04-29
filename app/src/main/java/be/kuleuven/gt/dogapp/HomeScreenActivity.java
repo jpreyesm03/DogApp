@@ -40,7 +40,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         user = (User) getIntent().getParcelableExtra("user");
-        txtInfo = (TextView) findViewById(R.id.currentUser);
+        txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);
         btnAdd1 = findViewById(R.id.addDogs);
         btnAdd1.setClickable(false);
         String info = null;

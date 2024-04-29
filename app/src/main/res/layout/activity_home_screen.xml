@@ -8,10 +8,23 @@
     android:background="#2C3E50"
     tools:context=".HomeScreenActivity">
 
+    <Button
+        android:id="@+id/btnChangeDogInformation"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="#DACBF6"
+        android:text="@string/changeDogInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDogWalker" />
+
     <ImageView
         android:id="@+id/imageUser"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:contentDescription="@string/noPictureAvailable"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +36,7 @@
 
     <Button
         android:id="@+id/addDogs"
-        android:layout_width="180dp"
+        android:layout_width="230dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:background="@color/sea_green"
@@ -32,52 +45,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentUser" />
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeProfileInfo" />
 
     <Button
         android:id="@+id/logout"
-        android:layout_width="180dp"
+        android:layout_width="230dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:background="@color/fire_brick"
+        android:background="#DD8C8C"
         android:onClick="onBtnLogout_Clicked"
-        android:text="Log out"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/logOut"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dogWalker"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeDogInformation" />
 
     <Button
         android:id="@+id/seeDogs"
-        android:layout_width="180dp"
+        android:layout_width="230dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:background="@color/peru"
         android:onClick="onBtnSeeMyDogs_Clicked"
-        android:text="See My Dogs"
+        android:text="@string/seeMyDogs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addDogs" />
 
     <Button
-        android:id="@+id/dogWalker"
-        android:layout_width="180dp"
+        android:id="@+id/btnDogWalker"
+        android:layout_width="230dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:background="@color/sky_blue"
-        android:text="I am a Dog Walker"
+        android:text="@string/dogWalker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seeDogs" />
 
     <TextView
-        android:id="@+id/currentUser"
+        android:id="@+id/btnChangeProfileInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:text="@string/profileInfo"
+        android:textColor="@color/ghost_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageUser" />
