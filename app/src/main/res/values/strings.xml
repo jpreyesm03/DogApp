@@ -24,6 +24,9 @@
     <string name="seeMyDogs">See My Dogs</string>
     <string name="dogWalker">I am a Dog Walker</string>
     <string name="noPictureAvailable">No Picture Available</string>
+    <string name="foodCalculator">Food Calculator</string>
+    <string name="calculatorLongText">Based on the average food consumption of the dog breeds you considered, this is the amount of kilograms and money required. </string>
+
 
 
 
