@@ -32,7 +32,6 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     private TextView txtInfo;
     private User user;
-    private boolean hasdogs;
     private Button b1;
 
 

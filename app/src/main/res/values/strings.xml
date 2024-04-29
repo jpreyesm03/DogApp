@@ -28,11 +28,6 @@
     <string name="calculatorLongText">Based on the average food consumption of the dog breeds you considered, this is the amount of kilograms and money required. </string>
 
 
-
-
-
-
-
     <string-array name="myDogsOptions">
         <item name="Dog1">Dog1</item>
         <item name="Dog2">Dog2</item>
