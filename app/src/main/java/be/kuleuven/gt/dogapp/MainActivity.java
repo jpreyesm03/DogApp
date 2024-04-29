@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     private void goHomeScreen() {
 
         Intent intent = new Intent(this, HomeScreenActivity.class);
@@ -235,6 +236,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateAccountActivity.class);
         startActivity(intent);
 
+    }
+
+    public void onBtnForgotPassword_Clicked(View Caller)
+    {
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+
+        startActivity(intent);
     }
 
     public void onBtnLogin_Clicked(View Caller) {
@@ -289,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
                         if (match) {
                             user = new User(nameMatch,emailMatch,passwordMatch);
                             findUserID(nameMatch,emailMatch,passwordMatch);
+
                             Toast.makeText(MainActivity.this, "Login successful! Taking you to main screen!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(MainActivity.this, "Login unsuccessful. Please try signing in again.", Toast.LENGTH_SHORT).show();
@@ -305,6 +314,10 @@ public class MainActivity extends AppCompatActivity {
         );
         requestQueue.add(queueRequest);
     }
+
+
+
+
 
 
 

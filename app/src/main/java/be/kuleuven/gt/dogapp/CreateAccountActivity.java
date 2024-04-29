@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -37,6 +39,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         });
     }
 
+
     public void onBtnCreateAcc_Clicked(View Caller) {
         EditText email = (EditText) findViewById(R.id.emailCreate);
         EditText username = (EditText) findViewById(R.id.usernameCreate);
@@ -49,78 +52,81 @@ public class CreateAccountActivity extends AppCompatActivity {
         String p2 = password2.getText().toString();
         String urlCreate = "https://studev.groept.be/api/a23PT106/create_account/";
 
-
-
         if(!(e.isEmpty()) && !(u.isEmpty()) && !(p1.isEmpty()) && !(p2.isEmpty()) ) {
-
             if (!password1.getText().toString().equals(password2.getText().toString())) {
                 Toast.makeText(this, "The passwords do not match! Please retype.", Toast.LENGTH_SHORT).show();
             } else {
+                // Generate random int for forgot password
+                int randomInt = generateRandomInt();
+                String in1 = Integer.toString(randomInt);
 
-                //User user = new User(u,e,p1);
-                ProgressDialog progressDialog = new ProgressDialog(CreateAccountActivity.this);
-                progressDialog.setMessage("Uploading, please wait...");
-                progressDialog.show();
-                Intent intent = new Intent(this, MainActivity.class);
+                // Display random int in a dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Your random int for forgot password: " + randomInt)
+                        .setCancelable(false)
+                        .setPositiveButton("I have stored this key", (dialog, id) -> {
+                            // Dismiss dialog and submit the request
+                            dialog.dismiss();
 
+                            // Create request
+                            ProgressDialog progressDialog = new ProgressDialog(CreateAccountActivity.this);
+                            progressDialog.setMessage("Uploading, please wait...");
+                            progressDialog.show();
+                            Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
 
-                RequestQueue requestQueue = Volley.newRequestQueue(this);
-                StringRequest submitRequest = new StringRequest(
-                        Request.Method.POST,
-                        urlCreate,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                progressDialog.dismiss();
-                                    Toast.makeText(
-                                            CreateAccountActivity.this,
-                                            "Account created! Back to the loading screen!",
-                                            Toast.LENGTH_SHORT).show();
-
-                                startActivity(intent);
-
+                            RequestQueue requestQueue = Volley.newRequestQueue(CreateAccountActivity.this);
+                            StringRequest submitRequest = new StringRequest(
+                                    Request.Method.POST,
+                                    urlCreate,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(
+                                                    CreateAccountActivity.this,
+                                                    "Account created! Back to the loading screen!",
+                                                    Toast.LENGTH_SHORT).show();
+                                            startActivity(intent);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(
+                                                    CreateAccountActivity.this,
+                                                    "Unable to create account: " + error,
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                            ) {
+                                @Override
+                                protected Map<String, String> getParams() {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("name", u);
+                                    params.put("email", e);
+                                    params.put("password", p1);
+                                    params.put("forgot", in1);
+                                    return params;
                                 }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                progressDialog.dismiss();
-                                Toast.makeText(
-                                        CreateAccountActivity.this,
-                                        "Unable to create account: " + error,
-                                        Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-                )
-
-                { //NOTE THIS PART: here we are passing the POST parameters to the webservice
-                    @Override
-                    protected Map<String, String> getParams() {
-                    /* Map<String, String> with key value pairs as data load */
-                        Map<String, String> params = new HashMap<>();
-                        params.put("name", u);
-                        params.put("email", e);
-                        params.put("password", p1);
-                        return params;
-                }
-                };
-
-
-                requestQueue.add(submitRequest);
-
-
-
-
-
-
+                            };
+                            requestQueue.add(submitRequest);
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
-        }
-        else {
+        } else {
             Toast.makeText(this, "Please fill all necessary info!", Toast.LENGTH_SHORT).show();
         }
 
 
 
+
+
+
+    }
+    private int generateRandomInt() {
+        Random random = new Random();
+        return random.nextInt(10000); // Modify range as needed
     }
 }
