@@ -18,9 +18,6 @@
             android:name=".BreedInformationActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
             android:name=".FirstAidActivity"
             android:exported="false" />
         <activity

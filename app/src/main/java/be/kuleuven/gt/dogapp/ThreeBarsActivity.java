@@ -208,7 +208,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
 
     private void openSettings() {
         // Implement your functionality here
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, HomeScreenActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }

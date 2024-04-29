@@ -19,6 +19,14 @@
     <string name="breedable">Breedable: </string>
     <string name="add_dog">(+) Add dog</string>
     <string name="back">Back</string>
+    <string name="profileInfo">Change Profile Information</string>
+    <string name="changeDogInfo">Change Dog Information</string>
+    <string name="seeMyDogs">See My Dogs</string>
+    <string name="dogWalker">I am a Dog Walker</string>
+    <string name="noPictureAvailable">No Picture Available</string>
+
+
+
 
 
 

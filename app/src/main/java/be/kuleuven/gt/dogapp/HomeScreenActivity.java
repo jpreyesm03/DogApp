@@ -90,5 +90,18 @@ public class HomeScreenActivity extends AppCompatActivity {
         finish();
     }
 
+    private void saveUserInformation(String name, String email, String password, String id) {
+        // Get SharedPreferences editor
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
 
+        // Store user information
+        editor.putString("username", name);
+        editor.putString("email", email);
+        editor.putString("password", password);
+        editor.putString("id", id); // Save user ID
+
+        // Commit changes
+        editor.apply();
+    }
 }
