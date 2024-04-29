@@ -41,7 +41,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         user = (User) getIntent().getParcelableExtra("user");
         hasdogs = getIntent().getBooleanExtra("hasdogs",false);
-        txtInfo = (TextView) findViewById(R.id.currentUser);
+        txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);
         txtInfo.setText("Username: " + user.getUsername());
         EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
