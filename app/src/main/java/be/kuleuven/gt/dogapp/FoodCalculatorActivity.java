@@ -3,7 +3,9 @@ package be.kuleuven.gt.dogapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.MultiAutoCompleteTextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,13 @@ public class FoodCalculatorActivity extends AppCompatActivity {
         });
 
         Button btnBack = findViewById(R.id.btnBack);
+        MultiAutoCompleteTextView selectDropdown = findViewById(R.id.spSelectDogs);
+
+        String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"}; // Example items
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
+        selectDropdown.setAdapter(adapter);
+        selectDropdown.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {

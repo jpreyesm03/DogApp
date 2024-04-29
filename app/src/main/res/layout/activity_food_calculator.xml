@@ -21,4 +21,44 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
+    <EditText
+        android:id="@+id/txtNumberOfDays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="For how many days?"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="95dp" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="For which dogs"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="179dp" />
+
+    <TextView
+        android:id="@+id/txtFoodCalculatorTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/foodCalculator"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="22dp" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/spSelectDogs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionThreshold="1"
+        android:hint="Select Items"
+        android:tokenizer="MultiAutoCompleteTextView.CommaTokenizer"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="344dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
