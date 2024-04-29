@@ -1,5 +1,6 @@
 package be.kuleuven.gt.dogapp;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -309,6 +310,7 @@ public class MyDogsActivity extends AppCompatActivity {
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // `position` parameter contains the position of the selected item in the dropdown
@@ -316,6 +318,27 @@ public class MyDogsActivity extends AppCompatActivity {
                 positionOfSpinner = position;
                 System.out.println(dogIDs.get(positionOfSpinner).toString());
                 schBreedable.setChecked(dogsBreedingState.get(positionOfSpinner));
+                int txtToChangeAge = 0;
+                String txtToChangeBreed = "";
+                if (!dogsAge.get(positionOfSpinner).equals(" ") && !dogsAge.get(positionOfSpinner).equals("_") && !(dogsAge.get(positionOfSpinner) == null)) {
+                    try {
+                        Integer.parseInt(dogsAge.get(positionOfSpinner));
+                        txtAge.setText("Age: " + dogsAge.get(positionOfSpinner));
+                    }
+                    catch (NumberFormatException e){
+                        System.out.println("Not a number!");
+                        txtAge.setText("Age is not specified.");
+                    }
+                }
+                else {
+                    txtAge.setText("Age is not specified.");
+                }
+                if (!dogsBreed.get(positionOfSpinner).equals(" ") && !dogsBreed.get(positionOfSpinner).equals("_") && !(dogsBreed.get(positionOfSpinner) == null)) {
+                    txtBreed.setText("Breed: " + dogsBreed.get(positionOfSpinner));
+                }
+                else {
+                    txtBreed.setText("Breed is not specified.");
+                }
 
             }
 
