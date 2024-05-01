@@ -45,7 +45,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         if(getIntent().hasExtra("hasdogs"))
         {
             b1.setClickable(false);
-            Toast.makeText(HomeScreenActivity.this, "Add a dog.", Toast.LENGTH_SHORT).show();
+
         }
 
         txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);

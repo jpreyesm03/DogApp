@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
+        <activity
+            android:name=".BecomeDogWalkerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HireDogWalkersActivity"
+            android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />

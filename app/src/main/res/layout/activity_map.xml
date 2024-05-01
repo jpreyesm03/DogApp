@@ -5,14 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2C3E50"
     tools:context=".MapActivity">
+
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="164dp"
-        android:background="@color/burlyWood"
+        android:layout_marginBottom="304dp"
+        android:background="@color/dark_olive_green"
         android:text="@string/back"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,5 +22,79 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/startEndWalk"
+        android:layout_width="111dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="76dp"
+        android:background="@color/aquamarine"
+        android:onClick="onBtnStartEndWalk_Clicked"
+        android:text="Start/End Walk:"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack"
+        app:layout_constraintVertical_bias="0.155"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/seeDogWalkers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
+        android:onClick="onBtnSeeDogWalkers_Clicked"
+        android:background="@color/aquamarine"
+        android:text="See available Dog Walkers:"
+        android:textColor="#000000"
+        android:textAllCaps="false"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack"
+        app:layout_constraintVertical_bias="0.544"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/mapImageView"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="#2C3E50"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.258" />
+
+    <ImageView
+        android:id="@+id/pointer"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="212dp"
+        android:background="@color/orange_red"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distance Walked: 0.0km"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/seeDogWalkers"
+        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintStart_toStartOf="@+id/seeDogWalkers"
+        app:layout_constraintTop_toBottomOf="@+id/seeDogWalkers"
+        app:layout_constraintVertical_bias="0.267" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
