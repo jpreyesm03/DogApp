@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,8 +32,16 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 
 import be.kuleuven.gt.dogapp.model.User;
 
@@ -60,6 +69,11 @@ public class MapActivity extends AppCompatActivity {
 
     private TextView disText;
 
+    private TextView walk;
+
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+
 
 
 
@@ -78,6 +92,8 @@ public class MapActivity extends AppCompatActivity {
         first = true;
 
         disText = findViewById(R.id.distance);
+
+        walk = findViewById(R.id.walkTime);
 
         getCurrentLocation();
 
@@ -110,7 +126,9 @@ public class MapActivity extends AppCompatActivity {
     }
 
 
-        private void calcDistance() {
+
+
+    private void calcDistance() {
         if (lonStart != null && latStart != null && lonEnd != null && latEnd != null) {
             final double R = 6371.0; // Radius of the Earth in kilometers
 
@@ -132,6 +150,14 @@ public class MapActivity extends AppCompatActivity {
             String formattedDist = String.format("%.1f", dist); // Format distance to two decimal places
             disText.setText("Distance Walked: " + formattedDist + " km");
 
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                Duration duration = Duration.between(startTime, endTime);
+                walk.setText("Time of walk: " + duration.toMinutes()+ " minutes");
+            }
+
+
+
         } else {
             Toast.makeText(MapActivity.this, "No current location!", Toast.LENGTH_SHORT).show();
         }
@@ -143,7 +169,15 @@ public class MapActivity extends AppCompatActivity {
 
     public void onBtnSeeDogWalkers_Clicked(View Caller) {
 
+        openHireDogWalker();
 
+
+    }
+
+    private void openHireDogWalker() {
+        Intent intent = new Intent(this,HireDogWalkersActivity.class);
+        intent.putExtra("user",user);
+        startActivity(intent);
     }
 
     private void getCurrentLocation() {
@@ -177,6 +211,10 @@ public class MapActivity extends AppCompatActivity {
                                                 MapActivity.this,
                                                 "Walk Started!",
                                                 Toast.LENGTH_LONG).show();
+
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                            startTime = LocalDateTime.now();
+                                        }
                                     } else {
                                         startOfWalk = false;
                                         lonEnd = currentLon;
@@ -186,7 +224,12 @@ public class MapActivity extends AppCompatActivity {
                                                 "Walk Finished!",
                                                 Toast.LENGTH_LONG).show();
 
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                            endTime = LocalDateTime.now();
+                                        }
+
                                         calcDistance();
+
                                     }
                                     updateMap(currentLat, currentLon);
                                     updateDB(currentLat, currentLon);

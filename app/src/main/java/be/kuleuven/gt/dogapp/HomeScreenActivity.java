@@ -76,6 +76,13 @@ public class HomeScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onBtnIAmADogWalker_Clicked(View Caller)
+    {
+        Intent intent = new Intent(this,BecomeDogWalkerActivity.class);
+        intent.putExtra("user",user);
+        startActivity(intent);
+    }
+
     public void onBtnLogout_Clicked(View Caller)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
