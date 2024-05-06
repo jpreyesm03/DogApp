@@ -3,7 +3,11 @@ package be.kuleuven.gt.dogapp;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,9 +43,13 @@ import java.util.Map;
 import be.kuleuven.gt.dogapp.model.User;
 
 public class MyDogsActivity extends AppCompatActivity {
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final String SELECTED_IMAGE_URI_KEY = "selected_image_uri";
     private User user;
     private ArrayList<String> dogNames;
     private ArrayList<String> dogIDs;
+    private ArrayList<String> petImages = new ArrayList<>();
+
 
     private ArrayList<String> dogsAge = new ArrayList<>();
     private ArrayList<String> dogsBreed = new ArrayList<>();
@@ -50,6 +58,8 @@ public class MyDogsActivity extends AppCompatActivity {
     private Switch schBreedable;
     private TextView txtAge;
     private TextView txtBreed;
+    private ImageView btnMyDog;
+    private SharedPreferences sharedPreferences;
 
     @Override //as
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +85,9 @@ public class MyDogsActivity extends AppCompatActivity {
         ImageView btnBreeding = findViewById(R.id.btnBreeding);
         ImageView btnMap= findViewById(R.id.btnMap);
         ImageView btnTrainingVideos = findViewById(R.id.btnVideos);
+        btnMyDog = findViewById(R.id.imgMyDog);
         schBreedable = findViewById(R.id.schBreedable);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         schBreedable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -238,6 +250,40 @@ public class MyDogsActivity extends AppCompatActivity {
             }
         });
 
+        btnMyDog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openGallery();
+            }
+        });
+
+        String selectedImageUriString = sharedPreferences.getString(SELECTED_IMAGE_URI_KEY, null);
+        if (selectedImageUriString != null) {
+            Uri selectedImageUri = Uri.parse(selectedImageUriString);
+            btnMyDog.setImageURI(selectedImageUri);
+        }
+
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+            btnMyDog.setImageURI(selectedImageUri);
+
+            // Save the selected image URI to SharedPreferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(SELECTED_IMAGE_URI_KEY, selectedImageUri.toString());
+            editor.apply();
+        }
     }
 
     private void openThreeBarsFunction() {
@@ -317,6 +363,7 @@ public class MyDogsActivity extends AppCompatActivity {
                 // Now you can use `position` as needed
                 positionOfSpinner = position;
                 System.out.println(dogIDs.get(positionOfSpinner).toString());
+                btnMyDog.setImageBitmap();
                 schBreedable.setChecked(dogsBreedingState.get(positionOfSpinner));
                 int txtToChangeAge = 0;
                 String txtToChangeBreed = "";
@@ -376,10 +423,12 @@ public class MyDogsActivity extends AppCompatActivity {
                                 String dogBreedingState = o.getString("breedable");
                                 String dogAge = o.getString("age");
                                 String dogBreed = o.getString("breed");
+                                String petImage = o.getString("petImage");
                                 dogIDs.add(id);
                                 dogNames.add(dogName);
                                 dogsAge.add(dogAge);
                                 dogsBreed.add(dogBreed);
+                                petImages.add(petImage);
 
                                 if (dogBreedingState.equals("0")) { dogsBreedingState.add(false); }
                                 else { dogsBreedingState.add(true); }
