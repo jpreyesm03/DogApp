@@ -4,10 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,10 +40,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.kuleuven.gt.dogapp.model.ImageUploadTask;
 import be.kuleuven.gt.dogapp.model.User;
 
 public class MyDogsActivity extends AppCompatActivity {
@@ -258,11 +264,11 @@ public class MyDogsActivity extends AppCompatActivity {
             }
         });
 
-        String selectedImageUriString = sharedPreferences.getString(SELECTED_IMAGE_URI_KEY, null);
-        if (selectedImageUriString != null) {
-            Uri selectedImageUri = Uri.parse(selectedImageUriString);
-            btnMyDog.setImageURI(selectedImageUri);
-        }
+//        String selectedImageUriString = sharedPreferences.getString(SELECTED_IMAGE_URI_KEY, null);
+//        if (selectedImageUriString != null) {
+//            Uri selectedImageUri = Uri.parse(selectedImageUriString);
+//            btnMyDog.setImageURI(selectedImageUri);
+//        }
 
     }
 
@@ -278,12 +284,77 @@ public class MyDogsActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri selectedImageUri = data.getData();
             btnMyDog.setImageURI(selectedImageUri);
+            postImage();
 
-            // Save the selected image URI to SharedPreferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(SELECTED_IMAGE_URI_KEY, selectedImageUri.toString());
-            editor.apply();
+//            // Save the selected image URI to SharedPreferences
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString(SELECTED_IMAGE_URI_KEY, selectedImageUri.toString());
+//            editor.apply();
         }
+    }
+    private void postImage() {
+        BitmapDrawable drawable = (BitmapDrawable) btnMyDog.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+        String petImage = bitmapToString(bitmap);
+
+        String dogID = dogIDs.get(positionOfSpinner);
+
+        String baseUrl = "https://studev.groept.be/api/a23PT106/changeImage";
+
+
+        ProgressDialog progressDialog = new ProgressDialog(MyDogsActivity.this);
+        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.show();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest submitRequest = new StringRequest(
+                Request.Method.POST,
+                baseUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        petImages.set(positionOfSpinner, petImage);
+                        Toast.makeText(
+                                MyDogsActivity.this,
+                                "Image changed!",
+                                Toast.LENGTH_SHORT).show();
+                        System.out.println("Image Changed JP!");
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(
+                                MyDogsActivity.this,
+                                "Unable to add dog: " + error,
+                                Toast.LENGTH_LONG).show();
+                        System.out.println("Image not Changed JP :/");
+
+                    }
+                }
+        ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
+            @Override
+            protected Map<String, String> getParams() {
+                /* Map<String, String> with key value pairs as data load */
+                Map<String, String> params = new HashMap<>();
+                params.put("petimage", petImage);
+                params.put("idpet", dogID);
+                return params;
+            }
+        };
+        requestQueue.add(submitRequest);
+    }
+
+
+
+
+    private String bitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        byte[] imageBytes = outputStream.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
     private void openThreeBarsFunction() {
@@ -363,7 +434,20 @@ public class MyDogsActivity extends AppCompatActivity {
                 // Now you can use `position` as needed
                 positionOfSpinner = position;
                 System.out.println(dogIDs.get(positionOfSpinner).toString());
-                btnMyDog.setImageBitmap();
+                System.out.println("before");
+                System.out.println(imageDecode(petImages.get(positionOfSpinner)));
+
+                if (petImages.get(positionOfSpinner).equals("null") || petImages.get(positionOfSpinner).isEmpty()) {
+                    btnMyDog.setImageResource(R.drawable.dogs);
+                    System.out.println("if");
+                    System.out.println(imageDecode(petImages.get(positionOfSpinner)));
+                }
+                else {
+                    btnMyDog.setImageBitmap(imageDecode(petImages.get(positionOfSpinner)));
+                    System.out.println("else");
+                    System.out.println(imageDecode(petImages.get(positionOfSpinner)));
+                }
+
                 schBreedable.setChecked(dogsBreedingState.get(positionOfSpinner));
                 int txtToChangeAge = 0;
                 String txtToChangeBreed = "";
@@ -396,6 +480,11 @@ public class MyDogsActivity extends AppCompatActivity {
         });
     }
 
+    private Bitmap imageDecode(String petImage) {
+        byte[] decodedBytes = Base64.decode(petImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
 
     private void getDogs(User u)
    {
@@ -423,7 +512,7 @@ public class MyDogsActivity extends AppCompatActivity {
                                 String dogBreedingState = o.getString("breedable");
                                 String dogAge = o.getString("age");
                                 String dogBreed = o.getString("breed");
-                                String petImage = o.getString("petImage");
+                                String petImage = o.getString("petimage");
                                 dogIDs.add(id);
                                 dogNames.add(dogName);
                                 dogsAge.add(dogAge);
