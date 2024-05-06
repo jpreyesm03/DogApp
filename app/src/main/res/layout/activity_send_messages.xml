@@ -5,20 +5,15 @@
     android:id="@+id/messageSelect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalendarActivity">
+    tools:context=".SendMessages">
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="164dp"
-        android:background="@color/burlyWood"
-        android:text="@string/back"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.017" />
 </androidx.constraintlayout.widget.ConstraintLayout>

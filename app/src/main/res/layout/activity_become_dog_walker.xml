@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/messageSelect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BecomeDogWalkerActivity">
@@ -28,7 +28,7 @@
         android:layout_marginEnd="24dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
-        android:hint="Please type your desired hourly wage (in €):"
+        android:hint="Please confirm your desired hourly wage (in €):"
         android:inputType="textEmailAddress"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -40,32 +40,12 @@
         app:layout_constraintVertical_bias="0.06" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
         android:onClick="onBtnSubmit_Clicked"
         android:text="Submit:"
-        app:layout_constraintStart_toStartOf="@+id/hourly_wage"
-        app:layout_constraintTop_toBottomOf="@+id/hourly_wage" />
-
-    <Button
-        android:id="@+id/seeMessages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="228dp"
-        android:onClick="onBtnSubmit_Clicked"
-        android:text="See Inbox:"
-        app:layout_constraintStart_toStartOf="@+id/hourly_wage"
-        app:layout_constraintTop_toBottomOf="@+id/hourly_wage" />
-
-    <Button
-        android:id="@+id/sendMessages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:onClick="onBtnSubmit_Clicked"
-        android:text="Send Messages:"
         app:layout_constraintStart_toStartOf="@+id/hourly_wage"
         app:layout_constraintTop_toBottomOf="@+id/hourly_wage" />
 
