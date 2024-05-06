@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.kuleuven.gt.dogapp.R;
 import be.kuleuven.gt.dogapp.model.User;
 
 public class MyDogsActivity extends AppCompatActivity {
@@ -62,7 +61,7 @@ public class MyDogsActivity extends AppCompatActivity {
         dogsBreedingState = new ArrayList<>();
         user = (User) getIntent().getParcelableExtra("user");
         loadDogData(user);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

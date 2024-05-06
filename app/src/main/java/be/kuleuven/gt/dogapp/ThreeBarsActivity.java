@@ -47,13 +47,13 @@ public class ThreeBarsActivity extends AppCompatActivity {
         dogIDs = new ArrayList<>();
         user = (User) getIntent().getParcelableExtra("user");
         loadDogData(user);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        ConstraintLayout btnMain = findViewById(R.id.main);
+        ConstraintLayout btnMain = findViewById(R.id.messageSelect);
         ImageView btnMyDog = findViewById(R.id.imgMyDog);
         ImageView btnThreeBars = findViewById(R.id.btnThreeBars);
         ImageView btnCalendar = findViewById(R.id.btnCalendar);

@@ -17,6 +17,15 @@
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
         <activity
+            android:name=".MessageInbox"
+            android:exported="false" />
+        <activity
+            android:name=".SendMessages"
+            android:exported="false" />
+        <activity
+            android:name=".model.SendMessages"
+            android:exported="false" />
+        <activity
             android:name=".BecomeDogWalkerActivity"
             android:exported="false" />
         <activity
