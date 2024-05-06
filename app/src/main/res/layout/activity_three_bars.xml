@@ -146,8 +146,8 @@
             android:id="@+id/btnLogOut"
             android:layout_width="146dp"
             android:layout_height="62dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="220dp"
+            android:layout_marginEnd="28dp"
             android:background="@color/indian_red"
             android:text="@string/logOut"
             app:layout_constraintEnd_toEndOf="@+id/txtSettings"
@@ -226,6 +226,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtBreedInformation"
             app:srcCompat="@drawable/info" />
+
+        <ImageView
+            android:id="@+id/btnNotifications"
+            android:layout_width="58dp"
+            android:layout_height="55dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtInbox"
+            app:layout_constraintEnd_toStartOf="@+id/txtInbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtInbox"
+            app:srcCompat="@drawable/notifications" />
+
+        <TextView
+            android:id="@+id/txtInbox"
+            android:layout_width="194dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="57dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="79dp"
+            android:text="@string/notifications"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtSettings"
+            app:layout_constraintHorizontal_bias="0.419"
+            app:layout_constraintStart_toStartOf="@+id/txtSettings"
+            app:layout_constraintTop_toBottomOf="@+id/txtSettings" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

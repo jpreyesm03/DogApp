@@ -64,10 +64,28 @@ public class ThreeBarsActivity extends AppCompatActivity {
         ImageView btnFirstAid = findViewById(R.id.imgFirstAid);
         ImageView btnSettings = findViewById(R.id.imgSettings);
         ImageView btnBreedInfo = findViewById(R.id.imgInfo);
+        ImageView btnNotification = findViewById(R.id.btnNotifications);
+        TextView txtInbox = findViewById(R.id.txtInbox);
         TextView txtFirstAid = findViewById(R.id.txtFirstAid);
         TextView txtSettings = findViewById(R.id.txtSettings);
         TextView txtBreedInfo= findViewById(R.id.txtBreedInformation);
         Button btnLogOut = findViewById(R.id.btnLogOut);
+
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openInbox();
+            }
+        });
+
+        txtInbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openInbox();
+            }
+        });
 
         btnFirstAid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +206,14 @@ public class ThreeBarsActivity extends AppCompatActivity {
                 openThreeBarsFunction();
             }
         });
+
+    }
+
+    private void openInbox() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, MessageInbox.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
 
     }
 
