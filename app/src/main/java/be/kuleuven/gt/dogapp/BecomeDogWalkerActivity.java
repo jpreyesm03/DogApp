@@ -2,6 +2,7 @@ package be.kuleuven.gt.dogapp;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -124,6 +125,18 @@ public class BecomeDogWalkerActivity extends AppCompatActivity {
     public void onBtnSubmit_Clicked(View Caller) {
         getCurrentLocation();
     }
+
+    public void onBtnSendMessage_Clicked(View Caller) {
+        Intent intent = new Intent(this, SendMessages.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+    public void onBtnSeeAllMessages_Clicked(View Caller) {
+        Intent intent = new Intent(this, MessageInbox.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
 
     private void getCurrentLocation() {
         String wage = hourlyWage.getText().toString();

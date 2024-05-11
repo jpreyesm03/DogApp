@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import be.kuleuven.gt.dogapp.model.User;
 
@@ -73,14 +76,22 @@ public class MapActivity extends AppCompatActivity {
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
-
+    private Handler handler = new Handler();
+    private Runnable distanceCalculatorRunnable;
+    private final int UPDATE_INTERVAL = 60000; // Update interval in milliseconds
+    private boolean walkInProgress;
+    private Timer distanceUpdateTimer;
+    private boolean isDistanceCalculatorActive = false;
+    private boolean activityActive = true; // Flag to track activity state
+    private boolean activityVisible = false;
+    private boolean isHandlerRunning;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        dist =  0.0;
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mapImageView = findViewById(R.id.mapImageView);
@@ -94,8 +105,16 @@ public class MapActivity extends AppCompatActivity {
         disText = findViewById(R.id.distance);
 
         walk = findViewById(R.id.walkTime);
+        walkInProgress = false;
 
         getCurrentLocation();
+
+        if(walkInProgress)
+        {
+            isHandlerRunning = true;
+        }
+
+
 
 
 
@@ -121,9 +140,95 @@ public class MapActivity extends AppCompatActivity {
     }
 
 
-    public void onBtnStartEndWalk_Clicked(View Caller) {
-        getCurrentLocation();
+
+    public void onBtnStartWalk_Clicked(View Caller) {
+        if (!walkInProgress) {
+            startWalk();
+        }
+
     }
+    public void onBtnEndWalk_Clicked(View Caller) {
+        if (walkInProgress) {
+            endWalk();
+        }
+    }
+
+
+    private void startWalk() {
+        if (!isHandlerRunning && !isDistanceCalculatorActive && activityVisible) {
+            walkInProgress = true;
+            isDistanceCalculatorActive = true;
+            // Schedule periodic distance calculation using Handler
+            handler.postDelayed(distanceCalculatorRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (activityActive && walkInProgress) {
+                        getCurrentLocation();
+                        Toast.makeText(MapActivity.this, "looper executed", Toast.LENGTH_SHORT).show();
+                        // Schedule the next update after UPDATE_INTERVAL milliseconds
+                        handler.postDelayed(this, UPDATE_INTERVAL);
+                    }
+                }
+            }, 0); // Start immediately
+            isHandlerRunning = true; // Set the flag to true
+        }
+    }
+
+    private void endWalk() {
+        walkInProgress = false;
+        isDistanceCalculatorActive = false;
+        getCurrentLocation();
+        // Stop periodic distance calculation
+        handler.removeCallbacks(distanceCalculatorRunnable);
+        isHandlerRunning = false; // Reset the flag to false
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //updateMap(currentLat,currentLon);
+        if(walkInProgress)
+        {
+            isHandlerRunning = true;
+        }
+        activityVisible = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        activityVisible = false;
+        if(walkInProgress)
+        {
+            isHandlerRunning = true;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Remove any callbacks from the handler
+        handler.removeCallbacksAndMessages(null);
+        if(walkInProgress)
+        {
+            isHandlerRunning = true;
+        }
+    }
+
+    public void onBtnResetWalk_Clicked(View Caller) {
+        resetWalk();
+    }
+
+    private void resetWalk() {
+        dist = 0.0;
+        String formattedDist = String.format("%.1f", dist); // Format distance to two decimal places
+        disText.setText("Distance Walked: " + formattedDist + " km");
+    }
+
+
+
+    // Method to stop the periodic distance calculation
+
 
 
 
@@ -145,16 +250,10 @@ public class MapActivity extends AppCompatActivity {
             // Haversine formula
             double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(latS) * Math.cos(latE) * Math.pow(Math.sin(dlon / 2), 2);
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            dist = R * c;
+            dist += R * c;
 
             String formattedDist = String.format("%.1f", dist); // Format distance to two decimal places
             disText.setText("Distance Walked: " + formattedDist + " km");
-
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                Duration duration = Duration.between(startTime, endTime);
-                walk.setText("Time of walk: " + duration.toMinutes()+ " minutes");
-            }
 
 
 
@@ -191,55 +290,11 @@ public class MapActivity extends AppCompatActivity {
                         public void onSuccess(Location location) {
                             // Got last known location. In some rare situations, this can be null.
                             if (location != null) {
-                                if(first)
-                                {   currentLat = location.getLatitude();
-                                    currentLon = location.getLongitude();
-                                    first = false;
-                                }
-
-                                else {
-
-                                    currentLon = location.getLongitude();
-                                    currentLat = location.getLatitude();
-
-
-                                    if (!startOfWalk) {
-                                        startOfWalk = true;
-                                        lonStart = currentLon;
-                                        latStart = currentLat;
-                                        Toast.makeText(
-                                                MapActivity.this,
-                                                "Walk Started!",
-                                                Toast.LENGTH_LONG).show();
-
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                            startTime = LocalDateTime.now();
-                                        }
-                                    } else {
-                                        startOfWalk = false;
-                                        lonEnd = currentLon;
-                                        latEnd = currentLat;
-                                        Toast.makeText(
-                                                MapActivity.this,
-                                                "Walk Finished!",
-                                                Toast.LENGTH_LONG).show();
-
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                            endTime = LocalDateTime.now();
-                                        }
-
-                                        calcDistance();
-
-                                    }
-                                    updateMap(currentLat, currentLon);
-                                    updateDB(currentLat, currentLon);
-                                    pointer.setVisibility(View.VISIBLE);
-                                }
-
-
-
+                                // Location object is not null, proceed with processing location
+                                handleLocation(location);
                             } else {
-                                Toast.makeText(MapActivity.this, "Could not retrieve location", Toast.LENGTH_SHORT).show();
+                                // Location object is null, show a toast or handle accordingly
+                                Toast.makeText(MapActivity.this, "Location is null", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -248,6 +303,67 @@ public class MapActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private void handleLocation(Location location) {
+        if(first)
+        {   currentLat = location.getLatitude();
+            currentLon = location.getLongitude();
+            first = false;
+        }
+
+        else {
+
+            currentLon = location.getLongitude();
+            currentLat = location.getLatitude();
+
+
+            if (!startOfWalk) {
+                startOfWalk = true;
+                lonStart = currentLon;
+                latStart = currentLat;
+                Toast.makeText(
+                        MapActivity.this,
+                        "Walk Started!",
+                        Toast.LENGTH_LONG).show();
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startTime = LocalDateTime.now();
+                }
+            }
+            else {
+                if (walkInProgress)
+                {
+                    lonEnd = currentLon;
+                    latEnd = currentLat;
+                }
+                else {
+                    lonEnd = currentLon;
+                    latEnd = currentLat;
+
+                    Toast.makeText(
+                            MapActivity.this,
+                            "Walk Finished!",
+                            Toast.LENGTH_LONG).show();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        endTime = LocalDateTime.now();
+                    }
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        Duration duration = Duration.between(startTime, endTime);
+                        walk.setText("Time of walk: " + duration.toMinutes()+ " minutes");
+                    }
+
+                }
+                calcDistance();
+
+
+            }
+            updateMap(currentLat, currentLon);
+            updateDB(currentLat, currentLon);
+            pointer.setVisibility(View.VISIBLE);
+
         }
     }
 

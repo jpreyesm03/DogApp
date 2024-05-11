@@ -49,4 +49,26 @@
         app:layout_constraintStart_toStartOf="@+id/hourly_wage"
         app:layout_constraintTop_toBottomOf="@+id/hourly_wage" />
 
+    <Button
+        android:id="@+id/seeMessages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:onClick="onBtnSeeAllMessages_Clicked"
+        android:text="See all messages:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submit" />
+
+    <Button
+        android:id="@+id/sendMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:onClick="onBtnSendMessage_Clicked"
+        android:text="Send Messages:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seeMessages" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
