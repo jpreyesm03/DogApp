@@ -26,6 +26,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import be.kuleuven.gt.dogapp.model.CaesarCipher;
+import be.kuleuven.gt.dogapp.model.EnhancedEncryption;
 import be.kuleuven.gt.dogapp.model.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String id;
 
+    private EnhancedEncryption encryptor;
+
 
 
     @Override
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        encryptor = new EnhancedEncryption();
         boolean isLoggedIn = checkIfUserIsLoggedIn();
 
         if (isLoggedIn) {
@@ -59,34 +64,30 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             String username = preferences.getString("username", null);
             String email = preferences.getString("email", null);
-            String password = preferences.getString("password", null);
+            String encryptedPassword = preferences.getString("password", null); // Retrieve encrypted password
             String id = preferences.getString("id", null);
+
+            // Decrypt the stored password
+            String password = CaesarCipher.decrypt(encryptedPassword);
 
             user = new User(username, email, password);
             user.setIdUser(id);
             checkIfUserHasDogs();
-            if(hasdogs)
-            {
+            if (hasdogs) {
                 goMyDogs();
-            }
-            else {
+            } else {
                 goHomeScreen();
             }
-
-
-
-
-
         }
     }
 
 
-    private void findUserID(String username,String email,String password)
-    {
+    private void findUserID(String username, String email, String password) {
         String baseUrl = "https://studev.groept.be/api/a23PT106/find_user";
-        String urlCreate = baseUrl + "/" + username + "/" + email + "/" + password;
-        id = "";
+        String encryptedPassword = CaesarCipher.encrypt(password); // Encrypt the password
 
+        String urlCreate = baseUrl + "/" + username + "/" + email + "/" + encryptedPassword;
+        id = "";
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest queueRequest = new JsonArrayRequest(
@@ -102,35 +103,23 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject o = response.getJSONObject(i);
                                 id = o.getString("idUser");
                                 user.setIdUser(id);
-                                saveUserInformation(user.getUsername(),user.getEmail(),user.getPassword(),user.getIdUser());
+                                saveUserInformation(user.getUsername(), user.getEmail(), password, user.getIdUser()); // Save the unencrypted password
                                 checkIfUserHasDogs();
-
-
-
-
-
-
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
-
-
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         Toast.makeText(MainActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
         requestQueue.add(queueRequest);
-
     }
     private void checkIfUserHasDogs() {
         String baseUrl = "https://studev.groept.be/api/a23PT106/checkUserDogs";
@@ -254,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         String baseUrl = "https://studev.groept.be/api/a23PT106/login";
-        String urlCreate = baseUrl + "/" + e + "/" + e + "/" + p1;
+        String urlCreate = baseUrl + "/" + e + "/" + e ;
 
 
 
@@ -273,14 +262,16 @@ public class MainActivity extends AppCompatActivity {
                                 String name = o.getString("name");
                                 String email = o.getString("email");
                                 String password = o.getString("password");
+                                String pasDecrypted = encryptor.decrypt(password);
 
-                                if ((name.equals(e) || email.equals(e)) && (password.equals(p1))) {
-                                    match = true;
-                                    nameMatch = name;
-                                    emailMatch = email;
-                                    passwordMatch = password;
-                                    break;
-                                }
+                                if (p1.equals(pasDecrypted))
+                                    if (name.equals(e) || email.equals(e)) {
+                                        match = true;
+                                        nameMatch = name;
+                                        emailMatch = email;
+                                        passwordMatch = pasDecrypted;
+                                        break;
+                                    }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

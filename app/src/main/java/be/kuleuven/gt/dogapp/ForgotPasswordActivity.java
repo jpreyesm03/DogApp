@@ -24,9 +24,12 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.kuleuven.gt.dogapp.model.EnhancedEncryption;
+
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText key;
     private EditText newPass;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
         key = findViewById(R.id.forgotKey);
         newPass = findViewById(R.id.passwordProvided);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,6 +49,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void onBtnSubmitRequest_Clicked(View Caller) {
         String keyProvided = key.getText().toString();
         String newPassword = newPass.getText().toString();
+        String encryptedPass = EnhancedEncryption.encrypt(newPassword);
 
         String baseUrl = "https://studev.groept.be/api/a23PT106/forgotPassword";
         String urlCreate = baseUrl + "/" + newPassword + "/" + keyProvided ;
@@ -89,7 +94,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         protected Map<String, String> getParams() {
                             /* Map<String, String> with key value pairs as data load */
                             Map<String, String> params = new HashMap<>();
-                            params.put("newpass", newPassword);
+                            params.put("newpass", encryptedPass);
                             params.put("forgot", keyProvided);
 
 

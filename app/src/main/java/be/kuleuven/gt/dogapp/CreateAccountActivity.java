@@ -25,7 +25,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import be.kuleuven.gt.dogapp.model.CaesarCipher;
+import be.kuleuven.gt.dogapp.model.EnhancedEncryption;
+
 public class CreateAccountActivity extends AppCompatActivity {
+
+    private EnhancedEncryption encryptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        encryptor = new EnhancedEncryption();
     }
 
 
@@ -59,6 +65,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 // Generate random int for forgot password
                 int randomInt = generateRandomInt();
                 String in1 = Integer.toString(randomInt);
+                String pas1 = encryptor.encrypt(p1);
 
                 // Display random int in a dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -105,7 +112,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     Map<String, String> params = new HashMap<>();
                                     params.put("name", u);
                                     params.put("email", e);
-                                    params.put("password", p1);
+                                    params.put("password", pas1);
                                     params.put("forgot", in1);
                                     return params;
                                 }
