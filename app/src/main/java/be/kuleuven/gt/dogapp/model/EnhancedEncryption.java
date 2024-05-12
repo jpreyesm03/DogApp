@@ -11,7 +11,6 @@ public class EnhancedEncryption {
     private static final ArrayList<String> salts = new ArrayList<>();
 
     public EnhancedEncryption() {
-        // Add predetermined salts to the ArrayList
         salts.add("rmssdfasdfdkf");
         salts.add("sytrykwjrkalt2");
         salts.add("salvdflkgnsdt3");
@@ -22,15 +21,11 @@ public class EnhancedEncryption {
         salts.add("savanjkfjawkefnlt8");
         salts.add("svnasdkjvnjakalt9");
         salts.add("salsdnabjksdft10");
-
-
-
     }
 
 
 
     public static String encrypt(String plaintext) {
-        // Generate a random salt for each encryption
         CaesarCipher cipher = new CaesarCipher();
         Random random = new Random();
         int index = random.nextInt(salts.size());
@@ -38,7 +33,6 @@ public class EnhancedEncryption {
         currentSalt = salts.get(index);
         String saltedPlaintext = plaintext + currentSalt;
 
-        // Perform multiple encryption rounds
         String encryptedText = saltedPlaintext;
         for (int i = 0; i < numRounds; i++) {
             encryptedText = cipher.encrypt(encryptedText);

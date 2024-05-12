@@ -8,11 +8,13 @@ public class CaesarCipher {
     public static String encrypt(String plaintext) {
         StringBuilder encrypted = new StringBuilder();
         for (char c : plaintext.toCharArray()) {
-            if (Character.isLetter(c)) {
+            if (Character.isLetter(c) || Character.isDigit(c)) {
                 char shifted = (char) (c + SHIFT);
                 if ((Character.isUpperCase(c) && shifted > 'Z') ||
                         (Character.isLowerCase(c) && shifted > 'z')) {
                     shifted -= 26; // Wrap around if necessary
+                } else if (Character.isDigit(c) && shifted > '9') {
+                    shifted -= 10; // Wrap around if necessary for numbers
                 }
                 encrypted.append(shifted);
             } else {
@@ -26,11 +28,13 @@ public class CaesarCipher {
     public static String decrypt(String encrypted) {
         StringBuilder decrypted = new StringBuilder();
         for (char c : encrypted.toCharArray()) {
-            if (Character.isLetter(c)) {
+            if (Character.isLetter(c) || Character.isDigit(c)) {
                 char shifted = (char) (c - SHIFT);
                 if ((Character.isUpperCase(c) && shifted < 'A') ||
                         (Character.isLowerCase(c) && shifted < 'a')) {
                     shifted += 26; // Wrap around if necessary
+                } else if (Character.isDigit(c) && shifted < '0') {
+                    shifted += 10; // Wrap around if necessary for numbers
                 }
                 decrypted.append(shifted);
             } else {
