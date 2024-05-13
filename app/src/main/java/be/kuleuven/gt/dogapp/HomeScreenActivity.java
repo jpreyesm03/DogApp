@@ -30,11 +30,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         user = (User) getIntent().getParcelableExtra("user");
 
          b1 = (Button) findViewById(R.id.seeDogs);
-        if(getIntent().hasExtra("hasdogs"))
-        {
-            b1.setClickable(false);
 
-        }
 
         txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);
         txtInfo.setText("Username: " + user.getUsername());
@@ -50,7 +46,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     public void onBtnAddDogs_Clicked(View Caller)
     {
-        b1.setClickable(true);
+
         Intent intent = new Intent(this,AddDogActivity.class);
         intent.putExtra("user",user);
         startActivity(intent);

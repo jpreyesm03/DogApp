@@ -298,6 +298,16 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(queueRequest);
     }
 
+    @Override
+    public void onBackPressed() {
+        // Do nothing to disable the back button
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+
+    }
+
 
 
 

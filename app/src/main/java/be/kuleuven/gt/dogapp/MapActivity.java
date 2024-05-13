@@ -76,11 +76,10 @@ public class MapActivity extends AppCompatActivity {
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Handler handler = new Handler();
+    private static Handler handler;
     private Runnable distanceCalculatorRunnable;
-    private final int UPDATE_INTERVAL = 60000; // Update interval in milliseconds
+    private final int UPDATE_INTERVAL = 10000; // Update interval in milliseconds
     private boolean walkInProgress;
-    private Timer distanceUpdateTimer;
     private boolean isDistanceCalculatorActive = false;
     private boolean activityActive = true; // Flag to track activity state
     private boolean activityVisible = false;
@@ -105,14 +104,28 @@ public class MapActivity extends AppCompatActivity {
         disText = findViewById(R.id.distance);
 
         walk = findViewById(R.id.walkTime);
-        walkInProgress = false;
+        //walkInProgress = false;
 
         getCurrentLocation();
 
-        if(walkInProgress)
+
+        if(handler == null)
         {
-            isHandlerRunning = true;
+            handler = new Handler();
+
         }
+
+        distanceCalculatorRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (activityActive && walkInProgress) {
+                    getCurrentLocation();
+                    Toast.makeText(MapActivity.this, "looper executed", Toast.LENGTH_SHORT).show();
+                    // Schedule the next update after UPDATE_INTERVAL milliseconds
+                    handler.postDelayed(this, UPDATE_INTERVAL);
+                }
+            }
+        };
 
 
 
@@ -136,7 +149,18 @@ public class MapActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MyDogsActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
+        handler.removeCallbacks(distanceCalculatorRunnable);
+        Toast.makeText(MapActivity.this, "Walk cancelled! Please stay in this screen!", Toast.LENGTH_SHORT).show();
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing to disable the back button
+        super.onBackPressed();
+        handler.removeCallbacks(distanceCalculatorRunnable);
+        Toast.makeText(MapActivity.this, "Walk cancelled! Please stay in this screen!", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -154,22 +178,12 @@ public class MapActivity extends AppCompatActivity {
     }
 
 
-    private void startWalk() {
+    private  void startWalk() {
         if (!isHandlerRunning && !isDistanceCalculatorActive && activityVisible) {
             walkInProgress = true;
             isDistanceCalculatorActive = true;
             // Schedule periodic distance calculation using Handler
-            handler.postDelayed(distanceCalculatorRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    if (activityActive && walkInProgress) {
-                        getCurrentLocation();
-                        Toast.makeText(MapActivity.this, "looper executed", Toast.LENGTH_SHORT).show();
-                        // Schedule the next update after UPDATE_INTERVAL milliseconds
-                        handler.postDelayed(this, UPDATE_INTERVAL);
-                    }
-                }
-            }, 0); // Start immediately
+            handler.postDelayed(distanceCalculatorRunnable, 0); // Start immediately
             isHandlerRunning = true; // Set the flag to true
         }
     }

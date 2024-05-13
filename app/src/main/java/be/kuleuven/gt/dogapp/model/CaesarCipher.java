@@ -4,7 +4,7 @@ public class CaesarCipher {
 
     private static final int SHIFT = 3; // You can adjust the shift value as needed
 
-    // Encrypt plaintext password
+
     public static String encrypt(String plaintext) {
         StringBuilder encrypted = new StringBuilder();
         for (char c : plaintext.toCharArray()) {

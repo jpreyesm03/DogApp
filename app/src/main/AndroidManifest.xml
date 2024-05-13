@@ -18,6 +18,9 @@
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
         <activity
+            android:name=".AddRemindersActivity"
+            android:exported="false" />
+        <activity
             android:name=".MessageInbox"
             android:exported="false" />
         <activity

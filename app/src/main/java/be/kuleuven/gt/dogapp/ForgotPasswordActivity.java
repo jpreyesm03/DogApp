@@ -45,6 +45,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             return insets;
         });
     }
+    @Override
+    public void onBackPressed() {
+        // Do nothing to disable the back button
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+
+    }
 
     public void onBtnSubmitRequest_Clicked(View Caller) {
         String keyProvided = key.getText().toString();

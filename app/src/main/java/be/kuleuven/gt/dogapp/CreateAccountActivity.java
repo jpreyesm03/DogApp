@@ -44,6 +44,15 @@ public class CreateAccountActivity extends AppCompatActivity {
         });
         encryptor = new EnhancedEncryption();
     }
+    @Override
+    public void onBackPressed() {
+        // Do nothing to disable the back button
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+
+    }
 
 
     public void onBtnCreateAcc_Clicked(View Caller) {
