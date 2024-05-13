@@ -538,7 +538,7 @@ public class ChangeDogInfo extends AppCompatActivity {
     }
 
     private void updateSpinner() {
-        Spinner spinner = findViewById(R.id.spMyDogs);
+        Spinner spinner = findViewById(R.id.spMyDogsChange);
 
 
         // Create an ArrayAdapter using the dog names ArrayList
