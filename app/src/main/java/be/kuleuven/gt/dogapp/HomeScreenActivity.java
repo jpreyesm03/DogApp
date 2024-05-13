@@ -55,14 +55,14 @@ public class HomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call the desired function
-                openChangeDogInformation();
+                openChangeProfileInformation();
             }
         });
 
     }
 
     private void openChangeDogInformation() {
-        Intent intent = new Intent(this,ChangeDogInfo.class);
+        Intent intent = new Intent(this, ChangeDogInfoActivity.class);
         intent.putExtra("user",user);
         startActivity(intent);
     }

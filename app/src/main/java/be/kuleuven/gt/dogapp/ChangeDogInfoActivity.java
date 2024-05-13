@@ -1,5 +1,12 @@
 package be.kuleuven.gt.dogapp;
 
+import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,7 +38,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +45,8 @@ import java.util.Map;
 
 import be.kuleuven.gt.dogapp.model.User;
 
-public class ChangeDogInfo extends AppCompatActivity {
+
+public class ChangeDogInfoActivity extends AppCompatActivity {
     private User user;
     private ArrayList<String> dogNames = new ArrayList<>();
     private ArrayList<String> dogIDs = new ArrayList<>();
@@ -57,18 +63,18 @@ public class ChangeDogInfo extends AppCompatActivity {
     private TextView txtChangeMedicalConditions = findViewById(R.id.txtChangeMedCond);
     private int counter = 0;
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_change_dog_info);
-        user = (User) getIntent().getParcelableExtra("user");
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         getDogs();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +94,8 @@ public class ChangeDogInfo extends AppCompatActivity {
 
 
 
-
     }
+
 
     private void updateFields() {
         String getTextFromChangeName = txtChangeName.getText().toString();
@@ -134,10 +140,10 @@ public class ChangeDogInfo extends AppCompatActivity {
                     String urlCreate = baseUrl + "/" + "1" + "/" + currentDogID + "/";
 
 
-                    ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfo.this);
+                    ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
                     progressDialog.setMessage("Uploading, please wait...");
                     progressDialog.show();
-                    RequestQueue requestQueue = Volley.newRequestQueue(ChangeDogInfo.this);
+                    RequestQueue requestQueue = Volley.newRequestQueue(ChangeDogInfoActivity.this);
                     StringRequest submitRequest = new StringRequest(
                             Request.Method.POST,
                             urlCreate,
@@ -158,7 +164,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                                 public void onErrorResponse(VolleyError error) {
                                     progressDialog.dismiss();
                                     Toast.makeText(
-                                            ChangeDogInfo.this,
+                                            ChangeDogInfoActivity.this,
                                             "Something went wrong [Breedable]..." + error,
                                             Toast.LENGTH_LONG).show();
 
@@ -186,10 +192,10 @@ public class ChangeDogInfo extends AppCompatActivity {
                     String urlCreate = baseUrl + "/" + "0" + "/" + currentDogID + "/";
 
 
-                    ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfo.this);
+                    ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
                     progressDialog.setMessage("Uploading, please wait...");
                     progressDialog.show();
-                    RequestQueue requestQueue = Volley.newRequestQueue(ChangeDogInfo.this);
+                    RequestQueue requestQueue = Volley.newRequestQueue(ChangeDogInfoActivity.this);
                     StringRequest submitRequest = new StringRequest(
                             Request.Method.POST,
                             urlCreate,
@@ -210,7 +216,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                                 public void onErrorResponse(VolleyError error) {
                                     progressDialog.dismiss();
                                     Toast.makeText(
-                                            ChangeDogInfo.this,
+                                            ChangeDogInfoActivity.this,
                                             "Something went wrong [Breedable]..." + error,
                                             Toast.LENGTH_LONG).show();
 
@@ -234,14 +240,14 @@ public class ChangeDogInfo extends AppCompatActivity {
         });
         if (counter > 0) {
             Toast.makeText(
-                    ChangeDogInfo.this,
+                    ChangeDogInfoActivity.this,
                     "Changes applied.",
                     Toast.LENGTH_LONG).show();
             getDogs();
         }
         else {
             Toast.makeText(
-                    ChangeDogInfo.this,
+                    ChangeDogInfoActivity.this,
                     "No changes made.",
                     Toast.LENGTH_LONG).show();
         }
@@ -253,7 +259,7 @@ public class ChangeDogInfo extends AppCompatActivity {
         String urlCreate = baseUrl + "/" + name + "/" + dogIDs.get(positionOfSpinner).toString();
 
 
-        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfo.this);
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
         progressDialog.setMessage("Uploading, please wait...");
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -271,7 +277,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(
-                                ChangeDogInfo.this,
+                                ChangeDogInfoActivity.this,
                                 "Unable to update name.",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -295,7 +301,7 @@ public class ChangeDogInfo extends AppCompatActivity {
         String urlCreate = baseUrl + "/" + breed + "/" + dogIDs.get(positionOfSpinner).toString();
 
 
-        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfo.this);
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
         progressDialog.setMessage("Uploading, please wait...");
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -313,7 +319,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(
-                                ChangeDogInfo.this,
+                                ChangeDogInfoActivity.this,
                                 "Unable to update breed.",
                                 Toast.LENGTH_LONG).show();
 
@@ -338,7 +344,7 @@ public class ChangeDogInfo extends AppCompatActivity {
         String urlCreate = baseUrl + "/" + weight + "/" + dogIDs.get(positionOfSpinner).toString();
 
 
-        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfo.this);
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
         progressDialog.setMessage("Uploading, please wait...");
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -356,7 +362,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(
-                                ChangeDogInfo.this,
+                                ChangeDogInfoActivity.this,
                                 "Unable to update weight.",
                                 Toast.LENGTH_LONG).show();
 
@@ -381,7 +387,7 @@ public class ChangeDogInfo extends AppCompatActivity {
         String urlCreate = baseUrl + "/" + height + "/" + dogIDs.get(positionOfSpinner).toString();
 
 
-        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfo.this);
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
         progressDialog.setMessage("Uploading, please wait...");
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -399,7 +405,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(
-                                ChangeDogInfo.this,
+                                ChangeDogInfoActivity.this,
                                 "Unable to update height.",
                                 Toast.LENGTH_LONG).show();
 
@@ -475,7 +481,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
 
-                            Toast.makeText(ChangeDogInfo.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ChangeDogInfoActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
                         }
                     }
             );
@@ -488,7 +494,7 @@ public class ChangeDogInfo extends AppCompatActivity {
         String urlCreate = baseUrl + "/" + medCond + "/" + dogIDs.get(positionOfSpinner).toString();
 
 
-        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfo.this);
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
         progressDialog.setMessage("Uploading, please wait...");
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -506,7 +512,7 @@ public class ChangeDogInfo extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(
-                                ChangeDogInfo.this,
+                                ChangeDogInfoActivity.this,
                                 "Unable to update MedCond",
                                 Toast.LENGTH_LONG).show();
 
@@ -570,4 +576,5 @@ public class ChangeDogInfo extends AppCompatActivity {
             }
         });
     }
+
 }

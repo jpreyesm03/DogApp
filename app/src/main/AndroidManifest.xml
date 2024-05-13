@@ -18,7 +18,13 @@
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
         <activity
+            android:name=".ChangeDogInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChangeProfileInfo"
+            android:exported="false" />
+        <activity
+            android:name=".ChangeDogInfo2"
             android:exported="false" />
         <activity
             android:name=".AddRemindersActivity"
@@ -28,9 +34,6 @@
             android:exported="false" />
         <activity
             android:name=".SendMessages"
-            android:exported="false" />
-        <activity
-            android:name=".model.SendMessages"
             android:exported="false" />
         <activity
             android:name=".BecomeDogWalkerActivity"
