@@ -67,7 +67,7 @@ public class MyDogsActivity extends AppCompatActivity {
     private ImageView btnMyDog;
     private SharedPreferences sharedPreferences;
 
-    @Override //as
+    @Override //
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
