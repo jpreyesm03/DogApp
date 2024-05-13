@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,7 @@ public class ChangeDogInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_food_calculator);
+        setContentView(R.layout.activity_change_dog_info);
         user = (User) getIntent().getParcelableExtra("user");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -51,9 +53,15 @@ public class ChangeDogInfo extends AppCompatActivity {
             return insets;
         });
 
-        Spinner selectDropdown = findViewById(R.id.spSelectDogs);
-        Button btnBack = findViewById(R.id.btnBack);
-        Button btnSubmit = findViewById(R.id.btnSubmit);
+        Button btnBack = findViewById(R.id.btnBackChangeDog);
+        Button btnSubmit = findViewById(R.id.btnSubmitChangeDog);
+        Button btnChangeImage = findViewById(R.id.btnChangeDogImage);
+        Switch switchBreedable = findViewById(R.id.schBreedableChange);
+        TextView txtChangeName = findViewById(R.id.txtChangeName);
+        TextView txtChangeBreed = findViewById(R.id.txtChangeBreed);
+        TextView txtChangeWeight = findViewById(R.id.txtChangeWeight);
+        TextView txtChangeHeight = findViewById(R.id.txtChangeHeight);
+        TextView txtChangeMedicalConditions = findViewById(R.id.txtChangeMedCond);
         getDogs();
 
 
