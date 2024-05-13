@@ -29,6 +29,16 @@
     <string name="selectDays">For how many days?</string>
     <string name="whichDogs">For which of your dogs do you want to buy food?</string>
     <string name="notifications">Inbox</string>
+    <string name="typeName">Type new name:</string>
+    <string name="typeBreed">Type new breed:</string>
+    <string name="typeAge">Type new age:</string>
+    <string name="typeWeight">Type new weight:</string>
+    <string name="typeHeight">Type new height:</string>
+    <string name="typeMedicalCondition">Type new medical condition(s):</string>
+    <string name="changeImage">Change Dog Image</string>
+
+
+
 
     <string name="hintSelectDogs">Type all/All or the name of the dogs you want to consider.</string>
     <string name="calculatorLongText">Based on the average food consumption of the dog breeds you considered, this is the amount of kilograms and money required. </string>
