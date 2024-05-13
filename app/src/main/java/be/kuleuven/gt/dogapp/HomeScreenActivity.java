@@ -29,7 +29,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         user = (User) getIntent().getParcelableExtra("user");
 
-         b1 = (Button) findViewById(R.id.seeDogs);
+        b1 = (Button) findViewById(R.id.seeDogs);
+        Button btnChangeDogInfo = findViewById(R.id.btnChangeDogInformation);
+        TextView btnChangeProfileInfo = findViewById(R.id.btnChangeProfileInfo);
 
 
         txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);
@@ -41,6 +43,34 @@ public class HomeScreenActivity extends AppCompatActivity {
             return insets;
         });
 
+        btnChangeDogInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openChangeDogInformation();
+            }
+        });
+
+        btnChangeProfileInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openChangeDogInformation();
+            }
+        });
+
+    }
+
+    private void openChangeDogInformation() {
+        Intent intent = new Intent(this,ChangeDogInfo.class);
+        intent.putExtra("user",user);
+        startActivity(intent);
+    }
+
+    private void openChangeProfileInformation() {
+        Intent intent = new Intent(this,ChangeProfileInfo.class);
+        intent.putExtra("user",user);
+        startActivity(intent);
     }
 
 
