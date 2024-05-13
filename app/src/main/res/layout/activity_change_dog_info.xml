@@ -124,8 +124,11 @@
         android:id="@+id/btnBackChangeDog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:text="@string/back"
-        tools:layout_editor_absoluteX="287dp"
-        tools:layout_editor_absoluteY="838dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toEndOf="@+id/btnSubmitChangeDog"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmitChangeDog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
