@@ -12,8 +12,8 @@
         android:id="@+id/date_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="164dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="180dp"
         android:text="Set the Date"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold"
@@ -24,40 +24,38 @@
         android:id="@+id/addReminderButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="96dp"
         android:background="@color/burlyWood"
-        android:onClick="onBtnToday_Clicked"
+        android:onClick="onBtnAddReminder_Clicked"
         android:text="Add Reminder:"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
     <CalendarView
         android:id="@+id/calendar"
         android:layout_width="412dp"
-        android:layout_height="302dp"
-        android:layout_marginTop="76dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnBack"
+        android:layout_height="290dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/burlyWood"
         android:text="@string/back"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
@@ -65,28 +63,26 @@
         android:id="@+id/todayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="184dp"
+        android:layout_marginBottom="96dp"
         android:background="@color/burlyWood"
         android:onClick="onBtnToday_Clicked"
         android:text="Today:"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reminderRecycler"
         android:layout_width="347dp"
-        android:layout_height="235dp"
-        android:layout_marginTop="396dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="360dp"
         android:background="#008477"
-        app:layout_constraintBottom_toTopOf="@+id/todayButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

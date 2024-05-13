@@ -199,6 +199,12 @@ public class CalendarActivity extends AppCompatActivity {
         }
     }
 
+    public void onBtnAddReminder_Clicked(View Caller) {
+       Intent intent = new Intent(this, AddRemindersActivity.class);
+       intent.putExtra("user",user);
+       startActivity(intent);
+    }
+
 
 
     private void openPrevious() {
