@@ -2,11 +2,13 @@ package be.kuleuven.gt.dogapp;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -63,6 +65,28 @@ public class SendMessages extends AppCompatActivity {
         receipientEmail = findViewById(R.id.receipientEmail);
         receipientUsername = findViewById(R.id.receipientUsername);
 
+
+        Button btnBack = findViewById(R.id.btnBack);
+
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openPrevious();
+            }
+        });
+
+
+    }
+
+
+    private void openPrevious() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, MessageInbox.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        
     }
 
     public void onBtnSend_Clicked(View Caller) {

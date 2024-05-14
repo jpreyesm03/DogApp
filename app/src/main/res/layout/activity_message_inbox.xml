@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/messageSelect"
+    android:background="#2C3E50"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MessageInbox">
@@ -11,7 +12,9 @@
         android:id="@+id/selectMessage"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
         android:text="Email:"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectMessage" />
@@ -31,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Username:"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +47,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="112dp"
         android:text="Text:"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +57,9 @@
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/burlyWood"
         android:onClick="onBtnRefresh_Clicked"
         android:text="Refresh:"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:text="Time:"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/senderName"
         app:layout_constraintStart_toStartOf="@+id/senderName"
         app:layout_constraintTop_toBottomOf="@+id/senderName" />
@@ -73,6 +82,7 @@
         android:layout_height="15dp"
         android:layout_marginTop="28dp"
         android:text="Date:"
+        android:textColor="@android:color/white"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/messageTime"
         app:layout_constraintStart_toStartOf="@+id/messageTime"
@@ -82,10 +92,26 @@
         android:id="@+id/sendNewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="244dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="132dp"
+        android:background="@color/burlyWood"
         android:onClick="onBtnSendNewMessage_Clicked"
         android:text="Send New Message:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/refresh" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="168dp"
+        android:background="@color/burlyWood"
+        android:text="@string/back"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

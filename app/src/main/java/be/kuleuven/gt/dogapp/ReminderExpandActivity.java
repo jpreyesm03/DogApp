@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -79,6 +80,25 @@ public class ReminderExpandActivity extends AppCompatActivity {
         notifyCheckBox = findViewById(R.id.notify);
 
         updateSpinner();
+
+        Button btnBack = findViewById(R.id.btnBack);
+
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openPrevious();
+            }
+        });
+
+    }
+
+    private void openPrevious() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
 
     }
 

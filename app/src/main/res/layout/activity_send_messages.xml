@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/messageSelect"
+    android:background="#2C3E50"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SendMessages">
@@ -16,6 +17,7 @@
         android:layout_marginTop="396dp"
         android:layout_marginEnd="16dp"
         android:hint="Type your message here:"
+        android:textColor="@android:color/white"
         android:inputType="textMultiLine"
         android:minLines="3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +35,8 @@
         android:hint="Receipient Email:"
         android:inputType="textMultiLine"
         android:minLines="3"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +50,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:hint="Receipient Username:"
+        android:textColor="@android:color/white"
         android:inputType="textMultiLine"
         android:minLines="3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,11 +62,27 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="56dp"
+        android:background="@color/burlyWood"
         android:onClick="onBtnSend_Clicked"
         android:text="Send"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageContent" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
+        android:background="@color/burlyWood"
+        android:text="@string/back"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

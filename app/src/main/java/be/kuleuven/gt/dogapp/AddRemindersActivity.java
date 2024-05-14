@@ -1,8 +1,10 @@
 package be.kuleuven.gt.dogapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,6 +50,8 @@ public class AddRemindersActivity extends AppCompatActivity {
             return insets;
         });
 
+        Button btnBack = findViewById(R.id.btnBack);
+
         day = findViewById(R.id.date);
         month = findViewById(R.id.month);
         year = findViewById(R.id.time);
@@ -56,7 +60,25 @@ public class AddRemindersActivity extends AppCompatActivity {
 
         user = getIntent().getParcelableExtra("user");
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openPrevious();
+            }
+        });
+
+
     }
+
+    private void openPrevious() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+
+    }
+
 
     public void onBtnButtonSubmit_Clicked(View Caller) {
         fetchInfo();

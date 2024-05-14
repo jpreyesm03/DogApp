@@ -81,7 +81,28 @@ public class MessageInbox extends AppCompatActivity {
         messageDate1 = findViewById(R.id.messageDate);
         messageTime1 = findViewById(R.id.messageTime);
 
+        Button btnBack = findViewById(R.id.btnBack);
 
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openPrevious();
+            }
+        });
+
+
+
+
+
+    }
+
+    private void openPrevious() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, MyDogsActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
 
 
 
