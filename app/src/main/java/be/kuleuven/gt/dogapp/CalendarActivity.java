@@ -155,8 +155,9 @@ public class CalendarActivity extends AppCompatActivity {
                                 String month = o.getString("month");
                                 String year = o.getString("year");
                                 String time = o.getString("time");
+                                String id = o.getString("idReminders");
 
-                                Reminder reminder = new Reminder(details,date,month,year,time);
+                                Reminder reminder = new Reminder(details,date,month,year,time,id);
                                 reminderList.add(reminder);
 
 
@@ -200,10 +201,18 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public void onBtnAddReminder_Clicked(View Caller) {
-       Intent intent = new Intent(this, AddRemindersActivity.class);
-       intent.putExtra("user",user);
-       startActivity(intent);
+        Intent intent = new Intent(this, AddRemindersActivity.class);
+        intent.putExtra("user",user);
+        startActivity(intent);
     }
+
+    public void onBtnSeeReminderDetails_Clicked(View Caller) {
+        Intent intent = new Intent(this, ReminderExpandActivity.class);
+        intent.putExtra("user",user);
+        intent.putExtra("reminders", new ArrayList<>(reminderList));
+        startActivity(intent);
+    }
+
 
 
 

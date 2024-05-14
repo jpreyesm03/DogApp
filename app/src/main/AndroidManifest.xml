@@ -18,6 +18,9 @@
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
         <activity
+            android:name=".ReminderExpandActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChangeDogInfoActivity"
             android:exported="false" />
         <activity
