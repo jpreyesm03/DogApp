@@ -5,7 +5,7 @@
     android:id="@+id/messageSelect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C3E50"
+    android:background="@color/dark_cyan"
     android:onClick="onBtnToday_Clicked"
     tools:context=".CalendarActivity">
 
@@ -41,6 +41,7 @@
         android:layout_width="412dp"
         android:layout_height="290dp"
         android:layout_marginTop="64dp"
+        android:background="@color/sky_blue"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -96,7 +97,7 @@
         android:layout_width="347dp"
         android:layout_height="200dp"
         android:layout_marginTop="360dp"
-        android:background="#008477"
+        android:background="@color/sky_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

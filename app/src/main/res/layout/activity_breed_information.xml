@@ -5,7 +5,7 @@
     android:id="@+id/messageSelect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/azure"
+    android:background="@color/dark_cyan"
     tools:context=".BreedInformationActivity">
 
     <Spinner

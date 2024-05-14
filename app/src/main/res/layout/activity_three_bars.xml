@@ -5,7 +5,7 @@
     android:id="@+id/messageSelect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C3E50"
+    android:background="@color/dark_cyan"
     android:clickable="true"
     tools:context=".ThreeBarsActivity">
 

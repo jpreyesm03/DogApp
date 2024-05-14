@@ -42,7 +42,7 @@ import be.kuleuven.gt.dogapp.model.User;
 public class ReminderExpandActivity extends AppCompatActivity {
 
     private ArrayList<Reminder> reminderList;
-    private ArrayList<String> reminderIDs;
+    private ArrayList<String> reminderDetails;
     private User user;
 
     private EditText day;
@@ -69,7 +69,7 @@ public class ReminderExpandActivity extends AppCompatActivity {
         });
 
         reminderList = getIntent().getParcelableArrayListExtra("reminders");
-        reminderIDs = new ArrayList<>();
+        reminderDetails = new ArrayList<>();
         user = getIntent().getParcelableExtra("user");
 
         day = findViewById(R.id.date);
@@ -105,15 +105,17 @@ public class ReminderExpandActivity extends AppCompatActivity {
 
     private void updateSpinner() {
         Spinner spinner = findViewById(R.id.spinner);
-        reminderIDs.clear();
-        for (int i = 0; i<reminderList.size(); i++)
+
+        reminderDetails.clear();
+        for (int i = 0; i< reminderList.size(); i++)
         {
-            reminderIDs.add("ReminderID: " + reminderList.get(i).getId());
+            reminderDetails.add(reminderList.get(i).getDetails());
         }
 
 
+
         // Create an ArrayAdapter using the dog names ArrayList
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, reminderIDs);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, reminderDetails);
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
