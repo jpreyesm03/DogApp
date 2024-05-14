@@ -23,7 +23,7 @@
         android:id="@+id/txtChangeName"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/typeName"
         android:inputType="text"
@@ -36,7 +36,7 @@
         android:id="@+id/txtChangeHeight"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/typeHeight"
         android:inputType="text"
@@ -49,7 +49,7 @@
         android:id="@+id/txtChangeWeight"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/typeWeight"
         android:inputType="text"
@@ -62,7 +62,7 @@
         android:id="@+id/txtChangeMedCond"
         android:layout_width="301dp"
         android:layout_height="160dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/typeMedicalCondition"
         android:inputType="text"
@@ -75,7 +75,7 @@
         android:id="@+id/txtChangeBreed"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/typeBreed"
         android:inputType="text"
@@ -88,7 +88,7 @@
         android:id="@+id/btnChangeDogImage"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:background="@color/light_coral"
         android:text="@string/changeImage"
         app:layout_constraintEnd_toEndOf="@+id/txtChangeMedCond"
@@ -100,11 +100,11 @@
         android:id="@+id/btnSubmitChangeDog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:background="@color/light_blue"
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChangeDogImage" />
 
@@ -118,17 +118,18 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/txtChangeMedCond"
         app:layout_constraintTop_toTopOf="@+id/btnChangeDogImage"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.666"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
         android:id="@+id/btnBackChangeDog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSubmitChangeDog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintHorizontal_bias="0.608"
         app:layout_constraintStart_toEndOf="@+id/btnSubmitChangeDog"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubmitChangeDog" />
+        app:layout_constraintTop_toTopOf="@+id/btnSubmitChangeDog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

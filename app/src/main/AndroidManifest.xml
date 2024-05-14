@@ -18,13 +18,10 @@
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
         <activity
+            android:name=".ChangeProfileInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChangeDogInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChangeProfileInfo"
-            android:exported="false" />
-        <activity
-            android:name=".ChangeDogInfo2"
             android:exported="false" />
         <activity
             android:name=".AddRemindersActivity"
