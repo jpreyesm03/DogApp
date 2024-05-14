@@ -44,6 +44,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import be.kuleuven.gt.dogapp.model.ImageUploadTask;
 import be.kuleuven.gt.dogapp.model.User;
@@ -67,6 +68,7 @@ public class MyDogsActivity extends AppCompatActivity {
     private TextView txtBreed;
     private ImageView btnMyDog;
     private SharedPreferences sharedPreferences;
+    private boolean returningFromThreeBars;
 
     @Override //
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,14 @@ public class MyDogsActivity extends AppCompatActivity {
             return insets;
         });
 
+        try {
+            positionOfSpinner = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("position")));
+            returningFromThreeBars = true;
+            System.out.println("Parameter passed correctly, position: " + positionOfSpinner);
+        }
+        catch (Exception e) {
+            System.out.println("Not returning from three bars: " + e);
+        }
         txtAge = findViewById(R.id.txtAge);
         txtBreed = findViewById(R.id.txtBreed);
         ImageView btnThreeBars = findViewById(R.id.btnThreeBars);
@@ -104,7 +114,7 @@ public class MyDogsActivity extends AppCompatActivity {
                 if (isChecked) {
                     // Switch is ON
                     // Do something when the switch is on
-                    System.out.println("Turned On");
+
                     String baseUrl = "https://studev.groept.be/api/a23PT106/breedable";
                     String urlCreate = baseUrl + "/" + "1" + "/" + currentDogID + "/";
 
@@ -156,7 +166,7 @@ public class MyDogsActivity extends AppCompatActivity {
                 } else {
                     // Switch is OFF
                     // Do something when the switch is off
-                    System.out.println("Turned Off");
+
                     String baseUrl = "https://studev.groept.be/api/a23PT106/breedable";
                     String urlCreate = baseUrl + "/" + "0" + "/" + currentDogID + "/";
 
@@ -320,7 +330,7 @@ public class MyDogsActivity extends AppCompatActivity {
                                 MyDogsActivity.this,
                                 "Image changed!",
                                 Toast.LENGTH_SHORT).show();
-                        System.out.println("Image Changed JP!");
+
 
                     }
                 },
@@ -332,7 +342,6 @@ public class MyDogsActivity extends AppCompatActivity {
                                 MyDogsActivity.this,
                                 "Unable to add dog: " + error,
                                 Toast.LENGTH_LONG).show();
-                        System.out.println("Image not Changed JP :/");
 
                     }
                 }
@@ -362,7 +371,10 @@ public class MyDogsActivity extends AppCompatActivity {
     private void openThreeBarsFunction() {
         // Implement your functionality here
         Intent intent = new Intent(this, ThreeBarsActivity.class);
+
         intent.putExtra("user", user);
+        intent.putExtra("name", dogNames.get(positionOfSpinner));
+        intent.putExtra("position", String.valueOf(positionOfSpinner));
         startActivity(intent);
     }
 
@@ -427,6 +439,10 @@ public class MyDogsActivity extends AppCompatActivity {
 
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        if (returningFromThreeBars) {
+            spinner.setSelection(positionOfSpinner);
+            System.out.println("OnItem, position: " + positionOfSpinner);
+        }
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -435,20 +451,19 @@ public class MyDogsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // `position` parameter contains the position of the selected item in the dropdown
                 // Now you can use `position` as needed
-                positionOfSpinner = position;
-                System.out.println(dogIDs.get(positionOfSpinner).toString());
-                System.out.println("before");
-                System.out.println(imageDecode(petImages.get(positionOfSpinner)));
+                if (!returningFromThreeBars) {
+                    positionOfSpinner = position;
+                }
+                else {
+                    returningFromThreeBars = false;
+                }
+
 
                 if (petImages.get(positionOfSpinner).equals("null") || petImages.get(positionOfSpinner).isEmpty()) {
                     btnMyDog.setImageResource(R.drawable.dogs);
-                    System.out.println("if");
-                    System.out.println(imageDecode(petImages.get(positionOfSpinner)));
                 }
                 else {
                     btnMyDog.setImageBitmap(imageDecode(petImages.get(positionOfSpinner)));
-                    System.out.println("else");
-                    System.out.println(imageDecode(petImages.get(positionOfSpinner)));
                 }
 
                 schBreedable.setChecked(dogsBreedingState.get(positionOfSpinner));
@@ -460,7 +475,7 @@ public class MyDogsActivity extends AppCompatActivity {
                         txtAge.setText("Age: " + dogsAge.get(positionOfSpinner));
                     }
                     catch (NumberFormatException e){
-                        System.out.println("Not a number!");
+
                         txtAge.setText("Age is not specified.");
                     }
                 }
@@ -479,7 +494,8 @@ public class MyDogsActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Handle case when nothing is selected (optional)
-            }
+
+                }
         });
     }
 

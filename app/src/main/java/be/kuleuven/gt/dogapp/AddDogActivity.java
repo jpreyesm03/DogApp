@@ -2,6 +2,7 @@ package be.kuleuven.gt.dogapp;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -102,6 +103,11 @@ public class AddDogActivity extends AppCompatActivity {
             }
         });
     }
+    private void openMyDogs() {
+        Intent intent = new Intent(this, MyDogsActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
 
     private void fetchInfo(String sex) {
         EditText dogn = findViewById(R.id.dogName);
@@ -173,8 +179,10 @@ public class AddDogActivity extends AppCompatActivity {
                                         AddDogActivity.this,
                                         "Dog added! Taking you to dashboard!",
                                         Toast.LENGTH_SHORT).show();
+                                openMyDogs();
 
                             }
+
                         },
                         new Response.ErrorListener() {
                             @Override
@@ -208,4 +216,6 @@ public class AddDogActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

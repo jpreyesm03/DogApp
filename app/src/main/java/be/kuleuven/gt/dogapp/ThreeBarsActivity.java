@@ -1,9 +1,13 @@
 package be.kuleuven.gt.dogapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,30 +35,36 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import be.kuleuven.gt.dogapp.model.User;
 
 public class ThreeBarsActivity extends AppCompatActivity {
     private User user;
-    private ArrayList<String> dogNames;
-    private ArrayList<String> dogIDs;
+    private String name;
+    private int position;
+    private ImageView btnMyDog;
+    private ArrayList<String> image = new ArrayList<>();
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_three_bars);
-        dogNames = new ArrayList<>();
-        dogIDs = new ArrayList<>();
-        user = (User) getIntent().getParcelableExtra("user");
-        loadDogData(user);
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        user = (User) getIntent().getParcelableExtra("user");
+        name = getIntent().getStringExtra("name");
+        position = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("position")));
+
         ConstraintLayout btnMain = findViewById(R.id.messageSelect);
-        ImageView btnMyDog = findViewById(R.id.imgMyDog);
+        btnMyDog = findViewById(R.id.imgMyDogThreeBars);
         ImageView btnThreeBars = findViewById(R.id.btnThreeBars);
         ImageView btnCalendar = findViewById(R.id.btnCalendar);
         ImageView btnCalculator = findViewById(R.id.btnCalculator);
@@ -70,6 +80,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
         TextView txtSettings = findViewById(R.id.txtSettings);
         TextView txtBreedInfo= findViewById(R.id.txtBreedInformation);
         Button btnLogOut = findViewById(R.id.btnLogOut);
+        getImage(user);
 
         btnNotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +166,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call the desired function
-                openCalendar();
+                openThreeBarsFunction();
             }
         });
 
@@ -163,7 +174,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call the desired function
-                openMap();
+                openThreeBarsFunction();
             }
         });
 
@@ -171,7 +182,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call the desired function
-                openBreeding();
+                openThreeBarsFunction();
             }
         });
 
@@ -179,7 +190,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call the desired function
-                openFoodCalculator();
+                openThreeBarsFunction();
             }
         });
 
@@ -187,7 +198,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call the desired function
-                openTrainingVideos();
+                openThreeBarsFunction();
             }
         });
 
@@ -206,8 +217,74 @@ public class ThreeBarsActivity extends AppCompatActivity {
                 openThreeBarsFunction();
             }
         });
-
+        Spinner spinner = findViewById(R.id.spMyDogs);
+        ArrayList<String> items = new ArrayList<>();
+        items.add(name);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        spinner.setAdapter(adapter);
+        spinner.setEnabled(false);
     }
+
+    private void loadImage() {
+        if (image.get(0).isEmpty() || image.get(0).equals("null")) {
+            btnMyDog.setImageResource(R.drawable.dogs);
+        }
+        else {
+            btnMyDog.setImageBitmap(imageDecode(image.get(0)));
+        }
+    }
+
+    private Bitmap imageDecode(String petImage) {
+        byte[] decodedBytes = Base64.decode(petImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
+    private void getImage(User u)
+    {
+        String baseUrl = "https://studev.groept.be/api/a23PT106/user_dogs";
+        String urlCreate = baseUrl + "/" + u.getIdUser();
+
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest queueRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                urlCreate,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        image.clear();
+                        boolean match = false;
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject o = response.getJSONObject(i);
+                                String petImage = o.getString("petimage");
+
+                                if (i == position) { image.add(petImage); }
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        loadImage();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(ThreeBarsActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(queueRequest);
+    }
+
+
+
 
     private void openInbox() {
         // Implement your functionality here
@@ -251,7 +328,9 @@ public class ThreeBarsActivity extends AppCompatActivity {
         // Implement your functionality here
         Intent intent = new Intent(this, MyDogsActivity.class);
         intent.putExtra("user", user);
+        intent.putExtra("position", String.valueOf(position));
         startActivity(intent);
+        finish();
     }
 
     private void openCalendar() {
@@ -289,70 +368,5 @@ public class ThreeBarsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void loadDogData(User user) {
-        dogNames.clear(); // Clear previous data
-        dogIDs.clear(); // Clear previous data
-        getDogs(user);
-    }
-
-    private void getDogs(User u)
-    {
-        String baseUrl = "https://studev.groept.be/api/a23PT106/user_dogs";
-        String urlCreate = baseUrl + "/" + u.getIdUser();
-
-
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest queueRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                urlCreate,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        boolean match = false;
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject o = response.getJSONObject(i);
-                                String id = o.getString("idPet");
-                                String dogName = o.getString("name");
-                                dogIDs.add(id);
-                                dogNames.add(dogName);
-
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        updateSpinner();
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        Toast.makeText(ThreeBarsActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-        requestQueue.add(queueRequest);
-    }
-
-    private void updateSpinner() {
-        // Get the spinner from the layout
-        Spinner spinner = findViewById(R.id.spMyDogs);
-
-        // Create an ArrayAdapter using the dog names ArrayList
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dogNames);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-    }
 
 }
