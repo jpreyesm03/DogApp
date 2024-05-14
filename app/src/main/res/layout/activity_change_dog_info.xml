@@ -39,7 +39,7 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/typeHeight"
-        android:inputType="text"
+        android:inputType="number"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,19 +49,20 @@
         android:id="@+id/txtChangeWeight"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="88dp"
         android:ems="10"
         android:hint="@string/typeWeight"
-        android:inputType="text"
+        android:inputType="number"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtChangeBreed" />
 
     <EditText
         android:id="@+id/txtChangeMedCond"
-        android:layout_width="301dp"
-        android:layout_height="160dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/typeMedicalCondition"
@@ -84,27 +85,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtChangeName" />
 
+    <EditText
+        android:id="@+id/txtChangeAge"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/typeAge"
+        android:inputType="number"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtChangeBreed" />
+
     <Button
         android:id="@+id/btnChangeDogImage"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/light_coral"
+        android:background="@color/beige"
         android:text="@string/changeImage"
         app:layout_constraintEnd_toEndOf="@+id/txtChangeMedCond"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtChangeMedCond"
-        app:layout_constraintTop_toBottomOf="@+id/txtChangeMedCond" />
+        app:layout_constraintTop_toBottomOf="@+id/spSex" />
 
     <Button
         android:id="@+id/btnSubmitChangeDog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/light_blue"
+        android:layout_marginTop="28dp"
+        android:background="@color/_light_green"
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChangeDogImage" />
 
@@ -123,13 +136,38 @@
 
     <Button
         android:id="@+id/btnBackChangeDog"
-        android:layout_width="wrap_content"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="@+id/btnSubmitChangeDog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/btnSubmitChangeDog"
         app:layout_constraintTop_toTopOf="@+id/btnSubmitChangeDog" />
+
+    <Button
+        android:id="@+id/btnRemoveDog"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:background="#DA9E9E"
+        android:text="@string/removeDog"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSubmitChangeDog"
+        app:layout_constraintEnd_toStartOf="@+id/btnSubmitChangeDog"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnSubmitChangeDog"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/spSex"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtChangeMedCond" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

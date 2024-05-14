@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +20,7 @@ import be.kuleuven.gt.dogapp.model.User;
 public class HomeScreenActivity extends AppCompatActivity {
 
     private TextView txtInfo;
+    private ImageView imageUser;
     private User user;
     private Button b1;
 
@@ -33,7 +35,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         Button btnChangeDogInfo = findViewById(R.id.btnChangeDogInformation);
         TextView btnChangeProfileInfo = findViewById(R.id.btnChangeProfileInfo);
 
-
+        imageUser = findViewById(R.id.imageUser);
         txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);
         txtInfo.setText("Hey " + user.getUsername() + ", click here to update your profile information.");
         EdgeToEdge.enable(this);
@@ -48,6 +50,14 @@ public class HomeScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Call the desired function
                 openChangeDogInformation();
+            }
+        });
+
+        imageUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openChangeProfileInformation();
             }
         });
 

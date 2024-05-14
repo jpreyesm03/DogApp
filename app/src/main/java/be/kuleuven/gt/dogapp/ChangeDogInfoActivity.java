@@ -64,15 +64,21 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
     private Button btnBack;
     private Button btnSubmit;
     private Button btnChangeImage;
+    private Button btnRemoveDog;
     private Switch switchBreedable;
     private TextView txtChangeName;
     private TextView txtChangeBreed;
+    private TextView txtChangeAge;
     private TextView txtChangeWeight;
     private TextView txtChangeHeight;
     private TextView txtChangeMedicalConditions;
+
     private int counter = 0;
+    private ArrayList<String> dogSex = new ArrayList<>();
+    private int positionOfSpinnerSex;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,12 +95,17 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBackChangeDog);
         btnSubmit = findViewById(R.id.btnSubmitChangeDog);
         btnChangeImage = findViewById(R.id.btnChangeDogImage);
+        btnRemoveDog = findViewById(R.id.btnRemoveDog);
         switchBreedable = findViewById(R.id.schBreedableChange);
         txtChangeName = findViewById(R.id.txtChangeName);
         txtChangeBreed = findViewById(R.id.txtChangeBreed);
+        txtChangeAge = findViewById(R.id.txtChangeAge);
         txtChangeWeight = findViewById(R.id.txtChangeWeight);
         txtChangeHeight = findViewById(R.id.txtChangeHeight);
         txtChangeMedicalConditions = findViewById(R.id.txtChangeMedCond);
+        dogSex.add("Select Sex");
+        dogSex.add("Male");
+        dogSex.add("Female");
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,11 +131,18 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
             }
         });
 
-//        String selectedImageUriString = sharedPreferences.getString(SELECTED_IMAGE_URI_KEY, null);
-//        if (selectedImageUriString != null) {
-//            Uri selectedImageUri = Uri.parse(selectedImageUriString);
-//            btnChangeImage.setImageURI(selectedImageUri);
-//        }
+        btnRemoveDog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                removeDog(dogIDs.get(positionOfSpinner).toString());
+                dogNames.remove(positionOfSpinner);
+                dogIDs.remove(positionOfSpinner);
+                dogsBreedingState.remove(positionOfSpinner);
+                getDogs();
+            }
+        });
+
 
     }
 
@@ -225,6 +243,11 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
             counter ++;
             updateBreed(getTextFromChangeBreed);
         }
+        String getTextFromChangeAge = txtChangeAge.getText().toString();
+        if (!getTextFromChangeAge.isEmpty()) {
+            counter ++;
+            updateAge(getTextFromChangeAge);
+        }
         String getTextFromChangeWeight = txtChangeWeight.getText().toString();
         if (!getTextFromChangeWeight.isEmpty()) {
             counter ++;
@@ -239,6 +262,13 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
         if (!getTextFromChangeMedCond.isEmpty()) {
             counter ++;
             updateMedCond(getTextFromChangeMedCond);
+        }
+        if (positionOfSpinnerSex > 0) {
+            counter ++;
+            String sexParameter;
+            if (positionOfSpinnerSex == 1) { sexParameter = "1"; }
+            else { sexParameter = "0"; }
+            updateSex(sexParameter);
         }
 
 
@@ -457,6 +487,48 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
+    private void updateAge(String age) {
+        String baseUrl = "https://studev.groept.be/api/a23PT106/changeDogAge";
+
+
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
+        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.show();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest submitRequest = new StringRequest(
+                Request.Method.POST,
+                baseUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(
+                                ChangeDogInfoActivity.this,
+                                "Unable to update age.",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
+            @Override
+            protected Map<String, String> getParams() {
+                /* Map<String, String> with key value pairs as data load */
+                Map<String, String> params = new HashMap<>();
+                params.put("age", age);
+                params.put("idpet", dogIDs.get(positionOfSpinner).toString());
+
+                return params;
+            }
+        };
+        requestQueue.add(submitRequest);
+    }
+
     private void updateWeight(String weight) {
         String baseUrl = "https://studev.groept.be/api/a23PT106/changeDogWeight";
         String urlCreate = baseUrl + "/" + weight + "/" + dogIDs.get(positionOfSpinner).toString();
@@ -591,6 +663,7 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
                                 System.out.println(dog);
                             }
                             updateSpinner();
+                            updateSpinnerSex();
 
 
                         }
@@ -650,6 +723,49 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
+    private void updateSex(String sex) {
+        String baseUrl = "https://studev.groept.be/api/a23PT106/changeDogSex";
+
+
+
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
+        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.show();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest submitRequest = new StringRequest(
+                Request.Method.POST,
+                baseUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(
+                                ChangeDogInfoActivity.this,
+                                "Unable to update sex.",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
+            @Override
+            protected Map<String, String> getParams() {
+                /* Map<String, String> with key value pairs as data load */
+                Map<String, String> params = new HashMap<>();
+                params.put("sex", sex);
+                params.put("idpet", dogIDs.get(positionOfSpinner).toString());
+
+                return params;
+            }
+        };
+        requestQueue.add(submitRequest);
+    }
+
 
 
 
@@ -660,6 +776,52 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    private void removeDog(String dogId) {
+        String baseUrl = "https://studev.groept.be/api/a23PT106/removeDog";
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
+        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.show();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest submitRequest = new StringRequest(
+                Request.Method.POST,
+                baseUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        Toast.makeText(
+                                ChangeDogInfoActivity.this,
+                                "Dog was removed.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(
+                                ChangeDogInfoActivity.this,
+                                "Unable to remove Dog",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
+            @Override
+            protected Map<String, String> getParams() {
+                /* Map<String, String> with key value pairs as data load */
+                Map<String, String> params = new HashMap<>();
+                params.put("idpet", dogId);
+
+                return params;
+            }
+        };
+        requestQueue.add(submitRequest);
+    }
+
+
+
 
     private void updateSpinner() {
         Spinner spinner = findViewById(R.id.spMyDogsChange);
@@ -686,6 +848,36 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
                 switchBreedable.setChecked(dogsBreedingState.get(positionOfSpinner));
 
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Handle case when nothing is selected (optional)
+            }
+        });
+    }
+
+    private void updateSpinnerSex() {
+        Spinner spinner = findViewById(R.id.spSex);
+
+
+        // Create an ArrayAdapter using the dog names ArrayList
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dogSex);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // `position` parameter contains the position of the selected item in the dropdown
+                // Now you can use `position` as needed
+                positionOfSpinnerSex = position;
             }
 
             @Override

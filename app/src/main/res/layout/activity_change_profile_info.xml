@@ -5,6 +5,103 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/alice_blue"
     tools:context=".ChangeProfileInfoActivity">
+
+
+    <EditText
+        android:id="@+id/txtChangeProfileName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="76dp"
+        android:ems="10"
+        android:hint="@string/typeName"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtChangeProfileEmail"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/typeEmail"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtChangeProfileName"
+        tools:ignore="TextFields" />
+
+    <EditText
+        android:id="@+id/txtCurrentPassword"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/typeCurrentPassword"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtChangeProfileEmail"
+        tools:ignore="TextFields" />
+
+    <EditText
+        android:id="@+id/txtNewPassword"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/typeNewPassword"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCurrentPassword"
+        tools:ignore="TextFields" />
+
+    <Button
+        android:id="@+id/btnBackChangeProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSubmitChangeProfile"
+        app:layout_constraintEnd_toEndOf="@+id/txtNewPassword"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/txtNewPassword"
+        app:layout_constraintTop_toTopOf="@+id/btnSubmitChangeProfile" />
+
+    <Button
+        android:id="@+id/btnSubmitChangeProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:background="@color/light_blue"
+        android:text="@string/submit"
+        app:layout_constraintEnd_toEndOf="@+id/txtNewPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtNewPassword"
+        app:layout_constraintTop_toBottomOf="@+id/txtNewPassword" />
+
+    <Button
+        android:id="@+id/btnRemoveUser"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="#C31C1C"
+        android:text="@string/removeUser"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmitChangeProfile" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
