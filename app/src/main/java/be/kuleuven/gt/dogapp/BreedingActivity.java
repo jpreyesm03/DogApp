@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -44,27 +45,43 @@ public class BreedingActivity extends AppCompatActivity {
     private ArrayList<String> owners;
     private int positionOfSpinner;
 
+    private TextView dgAge;
+    private TextView dgMed;
+    private TextView dgBreed;
+    private Intent goInfo;
+    private Button seeInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_breeding);
-        user = (User) getIntent().getParcelableExtra("user");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        user = (User) getIntent().getParcelableExtra("user");
         dogNames = new ArrayList<>();
         medicals = new ArrayList<>();
         dogsBreed = new ArrayList<>();
         dogsAge = new ArrayList<>();
         owners = new ArrayList<>();
 
+        seeInfo = findViewById(R.id.seeOwnerInfo);
+        seeInfo.setClickable(false);
+        dgAge = findViewById(R.id.ageDg);
+        dgBreed = findViewById(R.id.breedDg);
+        dgMed = findViewById(R.id.dgMed);
+        goInfo = new Intent(this, SeeUserInfoActivity.class);
+
+
+
 
         Button btnBack = findViewById(R.id.btnBack);
-        String dogID = getIntent().getParcelableExtra("dogID");
+        String dogID = getIntent().getStringExtra("dogID");
         fetchInfo(dogID);
 
 
@@ -175,6 +192,8 @@ public class BreedingActivity extends AppCompatActivity {
                                 dogsBreed.add(dogBreed);
                                 owners.add(userid);
 
+                                seeInfo.setClickable(true);
+
 
 
 
@@ -182,6 +201,11 @@ public class BreedingActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        }
+
+                        if (response.length() == 0)
+                        {
+                            Toast.makeText(BreedingActivity.this, "No dogs are available!", Toast.LENGTH_SHORT).show();
                         }
                         updateSpinner();
 
@@ -220,6 +244,21 @@ public class BreedingActivity extends AppCompatActivity {
                 // `position` parameter contains the position of the selected item in the dropdown
                 // Now you can use `position` as needed
                 positionOfSpinner = position;
+                dgAge.setText("Age: " + dogsAge.get(positionOfSpinner));
+                dgBreed.setText("Breed: " + dogsBreed.get(positionOfSpinner));
+
+                if(!(medicals.get(positionOfSpinner).isEmpty() || medicals.get(positionOfSpinner).equals("_")  || medicals.get(positionOfSpinner).equals("null")) )
+                {
+                    dgMed.setText("Medical Issues: " + medicals.get(positionOfSpinner));
+                }
+
+                else {
+                    dgMed.setText("Not known medical conditions");
+                }
+
+
+
+
 
 
             }
@@ -229,6 +268,60 @@ public class BreedingActivity extends AppCompatActivity {
                 // Handle case when nothing is selected (optional)
             }
         });
+    }
+
+    public void onBtnSeeUserInfo_Clicked(View Caller) {
+        findOwnerInfo(owners.get(positionOfSpinner));
+
+    }
+
+    private void findOwnerInfo(String idToLook) {
+
+        String baseUrl = "https://studev.groept.be/api/a23PT106/findUserInfo";
+        String urlCreate = baseUrl + "/" + idToLook;
+
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest queueRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                urlCreate,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject o = response.getJSONObject(i);
+                                String ownerUsername = o.getString("name");
+                                String ownerEmail = o.getString("email");
+                                goInfo.putExtra("name",ownerUsername);
+                                goInfo.putExtra("email",ownerEmail);
+                                goInfo.putExtra("user",user);
+                                startActivity(goInfo);
+
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        updateSpinner();
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(BreedingActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(queueRequest);
     }
 
 
