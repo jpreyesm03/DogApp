@@ -1,5 +1,8 @@
 package be.kuleuven.gt.dogapp;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +14,8 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +44,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,20 +54,22 @@ import be.kuleuven.gt.dogapp.model.User;
 
 
 public class ChangeDogInfoActivity extends AppCompatActivity {
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final String SELECTED_IMAGE_URI_KEY = "selected_image_uri";
     private User user;
     private ArrayList<String> dogNames = new ArrayList<>();
     private ArrayList<String> dogIDs = new ArrayList<>();
     private ArrayList<Boolean> dogsBreedingState = new ArrayList<>();
     private int positionOfSpinner;
-    private Button btnBack = findViewById(R.id.btnBackChangeDog);
-    private Button btnSubmit = findViewById(R.id.btnSubmitChangeDog);
-    private Button btnChangeImage = findViewById(R.id.btnChangeDogImage);
-    private Switch switchBreedable = findViewById(R.id.schBreedableChange);
-    private TextView txtChangeName = findViewById(R.id.txtChangeName);
-    private TextView txtChangeBreed = findViewById(R.id.txtChangeBreed);
-    private TextView txtChangeWeight = findViewById(R.id.txtChangeWeight);
-    private TextView txtChangeHeight = findViewById(R.id.txtChangeHeight);
-    private TextView txtChangeMedicalConditions = findViewById(R.id.txtChangeMedCond);
+    private Button btnBack;
+    private Button btnSubmit;
+    private Button btnChangeImage;
+    private Switch switchBreedable;
+    private TextView txtChangeName;
+    private TextView txtChangeBreed;
+    private TextView txtChangeWeight;
+    private TextView txtChangeHeight;
+    private TextView txtChangeMedicalConditions;
     private int counter = 0;
 
 
@@ -74,8 +83,19 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        user = (User) getIntent().getParcelableExtra("user");
 
         getDogs();
+        btnBack = findViewById(R.id.btnBackChangeDog);
+        btnSubmit = findViewById(R.id.btnSubmitChangeDog);
+        btnChangeImage = findViewById(R.id.btnChangeDogImage);
+        switchBreedable = findViewById(R.id.schBreedableChange);
+        txtChangeName = findViewById(R.id.txtChangeName);
+        txtChangeBreed = findViewById(R.id.txtChangeBreed);
+        txtChangeWeight = findViewById(R.id.txtChangeWeight);
+        txtChangeHeight = findViewById(R.id.txtChangeHeight);
+        txtChangeMedicalConditions = findViewById(R.id.txtChangeMedCond);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,9 +112,106 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
             }
         });
 
+        btnChangeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openGallery();
+            }
+        });
 
+//        String selectedImageUriString = sharedPreferences.getString(SELECTED_IMAGE_URI_KEY, null);
+//        if (selectedImageUriString != null) {
+//            Uri selectedImageUri = Uri.parse(selectedImageUriString);
+//            btnChangeImage.setImageURI(selectedImageUri);
+//        }
 
     }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                postImage(bitmap);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+//            // Save the selected image URI to SharedPreferences
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString(SELECTED_IMAGE_URI_KEY, selectedImageUri.toString());
+//            editor.apply();
+        }
+    }
+    private void postImage(Bitmap bitmap) {
+        String petImage = bitmapToString(bitmap);
+
+        String dogID = dogIDs.get(positionOfSpinner);
+
+        String baseUrl = "https://studev.groept.be/api/a23PT106/changeImage";
+
+
+        ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
+        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.show();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest submitRequest = new StringRequest(
+                Request.Method.POST,
+                baseUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        Toast.makeText(
+                                ChangeDogInfoActivity.this,
+                                "Image updated",
+                                Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(
+                                ChangeDogInfoActivity.this,
+                                "Unable to update image.",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ) { //NOTE THIS PART: here we are passing the POST parameters to the webservice
+            @Override
+            protected Map<String, String> getParams() {
+                /* Map<String, String> with key value pairs as data load */
+                Map<String, String> params = new HashMap<>();
+                params.put("petimage", petImage);
+                params.put("idpet", dogID);
+                return params;
+            }
+        };
+        requestQueue.add(submitRequest);
+    }
+
+
+
+
+    private String bitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        byte[] imageBytes = outputStream.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
 
 
     private void updateFields() {
@@ -112,7 +229,8 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
         if (!getTextFromChangeWeight.isEmpty()) {
             counter ++;
             updateWeight(getTextFromChangeWeight);
-        }String getTextFromChangeHeight= txtChangeName.getText().toString();
+        }
+        String getTextFromChangeHeight= txtChangeHeight.getText().toString();
         if (!getTextFromChangeHeight.isEmpty()) {
             counter ++;
             updateHeight(getTextFromChangeHeight);
@@ -491,7 +609,7 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
 
     private void updateMedCond(String medCond) {
         String baseUrl = "https://studev.groept.be/api/a23PT106/changeDogMedCond";
-        String urlCreate = baseUrl + "/" + medCond + "/" + dogIDs.get(positionOfSpinner).toString();
+
 
 
         ProgressDialog progressDialog = new ProgressDialog(ChangeDogInfoActivity.this);
@@ -500,7 +618,7 @@ public class ChangeDogInfoActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest submitRequest = new StringRequest(
                 Request.Method.POST,
-                urlCreate,
+                baseUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -35,7 +35,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
         txtInfo = (TextView) findViewById(R.id.btnChangeProfileInfo);
-        txtInfo.setText("Username: " + user.getUsername());
+        txtInfo.setText("Hey " + user.getUsername() + ", click here to update your profile information.");
         EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.messageSelect), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -68,7 +68,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     private void openChangeProfileInformation() {
-        Intent intent = new Intent(this,ChangeProfileInfo.class);
+        Intent intent = new Intent(this,ChangeProfileInfoActivity.class);
         intent.putExtra("user",user);
         startActivity(intent);
     }
