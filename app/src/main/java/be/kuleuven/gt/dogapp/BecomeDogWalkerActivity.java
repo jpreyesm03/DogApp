@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -64,6 +65,7 @@ public class BecomeDogWalkerActivity extends AppCompatActivity {
         });
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         hourlyWage = findViewById(R.id.hourly_wage);
+        Button btnBack = findViewById(R.id.btnBack);
 
         user = (User) getIntent().getParcelableExtra("user");
 
@@ -119,6 +121,22 @@ public class BecomeDogWalkerActivity extends AppCompatActivity {
                 requestQueue.add(submitRequest);
             }
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openPrevious();
+            }
+        });
+
+    }
+
+    private void openPrevious() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
 
     }
 

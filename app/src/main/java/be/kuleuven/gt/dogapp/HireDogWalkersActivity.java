@@ -74,6 +74,10 @@ public class HireDogWalkersActivity extends AppCompatActivity {
             return insets;
         });
 
+
+
+
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         user = (User) getIntent().getParcelableExtra("user");
         dogWalkers= new ArrayList<>();
@@ -102,7 +106,7 @@ public class HireDogWalkersActivity extends AppCompatActivity {
 
     private void openPrevious() {
         // Implement your functionality here
-        Intent intent = new Intent(this, MyDogsActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
 

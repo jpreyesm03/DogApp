@@ -5,7 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:allowBackup="true"
@@ -18,10 +21,13 @@
         android:theme="@style/Theme.DogApp"
         tools:targetApi="31">
         <activity
-            android:name=".ChangeProfileInfoActivity"
+            android:name=".ReminderExpandActivity"
             android:exported="false" />
         <activity
             android:name=".ChangeDogInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChangeProfileInfoActivity"
             android:exported="false" />
         <activity
             android:name=".AddRemindersActivity"
