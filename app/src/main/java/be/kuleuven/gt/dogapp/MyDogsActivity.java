@@ -54,6 +54,7 @@ public class MyDogsActivity extends AppCompatActivity {
     private User user;
     private ArrayList<String> dogNames;
     private ArrayList<String> dogIDs;
+    private ArrayList<String> dogSex;
     private ArrayList<String> petImages = new ArrayList<>();
 
 
@@ -74,6 +75,7 @@ public class MyDogsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_dogs);
         dogNames = new ArrayList<>();
         dogIDs = new ArrayList<>();
+        dogSex = new ArrayList<>();
         dogsBreedingState = new ArrayList<>();
         user = (User) getIntent().getParcelableExtra("user");
         loadDogData(user);
@@ -382,6 +384,7 @@ public class MyDogsActivity extends AppCompatActivity {
         // Implement your functionality here
         Intent intent = new Intent(this, BreedingActivity.class);
         intent.putExtra("user", user);
+        intent.putExtra("dogID",dogIDs.get(positionOfSpinner));
         startActivity(intent);
     }
 
@@ -503,6 +506,7 @@ public class MyDogsActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         dogNames.clear();
                         dogIDs.clear();
+                        dogSex.clear();
                         boolean match = false;
                         for (int i = 0; i < response.length(); i++) {
                             try {
@@ -513,7 +517,9 @@ public class MyDogsActivity extends AppCompatActivity {
                                 String dogAge = o.getString("age");
                                 String dogBreed = o.getString("breed");
                                 String petImage = o.getString("petimage");
+                                String sex = o.getString("sex");
                                 dogIDs.add(id);
+                                dogSex.add(sex);
                                 dogNames.add(dogName);
                                 dogsAge.add(dogAge);
                                 dogsBreed.add(dogBreed);
@@ -543,8 +549,7 @@ public class MyDogsActivity extends AppCompatActivity {
         );
         requestQueue.add(queueRequest);
     }
-    private void getDogInfo()
-    {}
+
 
 
 }

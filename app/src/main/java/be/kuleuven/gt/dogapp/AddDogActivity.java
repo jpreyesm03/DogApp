@@ -1,9 +1,13 @@
 package be.kuleuven.gt.dogapp;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +38,8 @@ public class AddDogActivity extends AppCompatActivity {
     private String dogWeight;
     private String dogHeight;
     private String dogMedical;
+    private ArrayList<String> dogSex;
+    private int positionOfSpinner;
     private String id = "";
 
     @Override
@@ -48,16 +55,55 @@ public class AddDogActivity extends AppCompatActivity {
 
         user = (User) getIntent().getParcelableExtra("user");
 
+        dogSex = new ArrayList<>();
+        dogSex.add("Male");
+        dogSex.add("Female");
+        updateSpinner();
+
+
     }
 
 
 
 
     public void onBtnButtonAddDog_Clicked(View Caller) {
-        fetchInfo();
+        fetchInfo(dogSex.get(positionOfSpinner));
     }
 
-    private void fetchInfo() {
+
+    private void updateSpinner() {
+        Spinner spinner = findViewById(R.id.spinner2);
+
+
+        // Create an ArrayAdapter using the dog names ArrayList
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dogSex);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // `position` parameter contains the position of the selected item in the dropdown
+                // Now you can use `position` as needed
+                positionOfSpinner = position;
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Handle case when nothing is selected (optional)
+            }
+        });
+    }
+
+    private void fetchInfo(String sex) {
         EditText dogn = findViewById(R.id.dogName);
         EditText dogb = findViewById(R.id.dogBreed);
         EditText doga = findViewById(R.id.dogAge);
@@ -66,6 +112,15 @@ public class AddDogActivity extends AppCompatActivity {
         EditText dogm = findViewById(R.id.medicalDog);
 
         id = user.getIdUser();
+        int isMale;
+
+        if(sex.equals("Male"))
+        {
+            isMale = 1;
+        }
+        else {
+            isMale = 0;
+        }
 
         dogName = dogn.getText().toString();
         dogBreed = dogb.getText().toString().replace(" ", "_");
@@ -101,7 +156,6 @@ public class AddDogActivity extends AppCompatActivity {
             } else {
 
                 String baseUrl = "https://studev.groept.be/api/a23PT106/add_dog";
-                String urlCreate = baseUrl + "/" + dogName + "/" + dogBreed + "/" + dogAge + "/" + dogWeight + "/" + dogHeight + "/" + id + "/" + dogMedical;
 
 
                 ProgressDialog progressDialog = new ProgressDialog(AddDogActivity.this);
@@ -110,7 +164,7 @@ public class AddDogActivity extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 StringRequest submitRequest = new StringRequest(
                         Request.Method.POST,
-                        urlCreate,
+                        baseUrl,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -145,6 +199,7 @@ public class AddDogActivity extends AppCompatActivity {
                         params.put("height", dogHeight);
                         params.put("user", id);
                         params.put("medical", dogMedical);
+                        params.put("sex",Integer.toString(isMale));
 
                         return params;
                     }
