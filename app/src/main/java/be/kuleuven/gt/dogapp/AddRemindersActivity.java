@@ -50,8 +50,8 @@ public class AddRemindersActivity extends AppCompatActivity {
 
         day = findViewById(R.id.date);
         month = findViewById(R.id.month);
-        year = findViewById(R.id.year);
-        time = findViewById(R.id.time);
+        year = findViewById(R.id.time);
+        time = findViewById(R.id.year);
         details = findViewById(R.id.details);
 
         user = getIntent().getParcelableExtra("user");

@@ -1,14 +1,17 @@
 package be.kuleuven.gt.dogapp;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,7 +28,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +49,8 @@ public class ReminderExpandActivity extends AppCompatActivity {
     private EditText year;
     private EditText time;
     private EditText details;
+    
+    private CheckBox notifyCheckBox;
 
 
     private int pos;
@@ -69,6 +76,7 @@ public class ReminderExpandActivity extends AppCompatActivity {
         year = findViewById(R.id.year);
         time = findViewById(R.id.time);
         details = findViewById(R.id.details);
+        notifyCheckBox = findViewById(R.id.notify);
 
         updateSpinner();
 
@@ -169,6 +177,9 @@ public class ReminderExpandActivity extends AppCompatActivity {
                                         ReminderExpandActivity.this,
                                         "Reminder added!",
                                         Toast.LENGTH_SHORT).show();
+                                if (notifyCheckBox.isChecked()) {
+                                    scheduleNotification(day1, month1, year1, time1, details1);
+                                }
 
                             }
                         },
@@ -201,6 +212,30 @@ public class ReminderExpandActivity extends AppCompatActivity {
                 requestQueue.add(submitRequest);
             }
         }
+    }
+
+    private void scheduleNotification(String day, String month, String year, String time, String details) {
+        Intent intent = new Intent(this, ReminderNotificationReceiver.class);
+        intent.putExtra("details", details);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        LocalDateTime reminderDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            reminderDateTime = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day),
+                    Integer.parseInt(time.split(":")[0]), Integer.parseInt(time.split(":")[1]));
+        }
+
+        long triggerAtMillis = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            triggerAtMillis = reminderDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        }
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+
+        Toast.makeText(this, "Notification set for: " + reminderDateTime.toString(), Toast.LENGTH_SHORT).show();
     }
 
     public void onBtnButtonToday2_Clicked(View Caller) {

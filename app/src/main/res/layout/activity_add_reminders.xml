@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appLogo" />
 
     <EditText
-        android:id="@+id/year"
+        android:id="@+id/time"
         android:layout_width="61dp"
         android:layout_height="78dp"
         android:layout_marginStart="16dp"
@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appLogo" />
 
     <EditText
-        android:id="@+id/time"
+        android:id="@+id/year"
         android:layout_width="61dp"
         android:layout_height="78dp"
         android:layout_marginStart="54dp"
@@ -107,7 +107,7 @@
         android:inputType="text"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/year"
+        app:layout_constraintStart_toEndOf="@+id/time"
         app:layout_constraintTop_toBottomOf="@+id/appLogo" />
 
     <EditText
@@ -122,7 +122,7 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/year" />
+        app:layout_constraintTop_toBottomOf="@+id/time" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
