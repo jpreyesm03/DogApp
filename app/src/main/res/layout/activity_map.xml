@@ -5,7 +5,7 @@
     android:id="@+id/messageSelect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C3E50"
+    android:background="@color/dark_cyan"
     tools:context=".MapActivity">
 
 
@@ -80,7 +80,7 @@
         android:id="@+id/mapImageView"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="#2C3E50"
+        android:background="@color/dark_cyan"
         app:layout_constraintBottom_toTopOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

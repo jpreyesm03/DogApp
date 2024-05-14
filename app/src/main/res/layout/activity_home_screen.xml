@@ -5,7 +5,7 @@
     android:id="@+id/messageSelect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C3E50"
+    android:background="@color/dark_cyan"
     tools:context=".HomeScreenActivity">
 
     <Button
@@ -78,7 +78,7 @@
         android:layout_width="230dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:background="@color/sky_blue"
+        android:background="@color/lavender"
         android:onClick="onBtnIAmADogWalker_Clicked"
         android:text="@string/dogWalker"
         app:layout_constraintEnd_toEndOf="parent"

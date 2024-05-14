@@ -2,11 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/messageSelect"
+    android:id="@+id/main"
     android:background="@color/dark_cyan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BreedingActivity">
+    tools:context=".SeeUserInfoActivity">
+
+
+    <TextView
+        android:id="@+id/ownerEmail"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="73dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnBack"
@@ -14,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="164dp"
         android:background="@color/burlyWood"
+        android:onClick="onBtnBack_Clicked"
         android:text="@string/back"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,15 +34,25 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
+    <TextView
+        android:id="@+id/ownerUsername"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="17dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ownerEmail" />
+
 
     <Button
-        android:id="@+id/seeAvailableDogs"
+        android:id="@+id/sendMessageToOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="268dp"
         android:background="@color/burlyWood"
-        android:onClick="onBtnSeeAvailableDogs_Clicked"
-        android:text="See available dogs:"
+        android:onClick="onBtnSendMessage_Clicked"
+        android:text="Send Message:"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,57 +61,18 @@
         tools:visibility="visible" />
 
     <Button
-        android:id="@+id/seeOwnerInfo"
+        android:id="@+id/seeInbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="268dp"
         android:background="@color/burlyWood"
-        android:onClick="onBtnSeeUserInfo_Clicked"
-        android:text="See owner details:"
+        android:onClick="onBtnSeeMessages_Clicked"
+        android:text="see all messages:"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.797"
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
-
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dgMed"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="52dp"
-        android:text="Medical Conditions:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
-
-    <TextView
-        android:id="@+id/breedDg"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="21dp"
-        android:text="Breed:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dgMed" />
-
-    <TextView
-        android:id="@+id/ageDg"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="27dp"
-        android:text="Age:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/breedDg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

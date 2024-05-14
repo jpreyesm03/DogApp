@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="#2C3E50"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_cyan"
     tools:context=".ReminderExpandActivity">
 
 
@@ -155,10 +155,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="278dp"
         android:layout_marginTop="18dp"
+        android:buttonTint="@color/blue_violet"
         android:text="Notify Me"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
