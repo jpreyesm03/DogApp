@@ -48,6 +48,10 @@
     <string name="anyOtherSymptom">Symptom checker: what\'s with my dog.</string>
     <string name="emergencyContact">Emergency veterinarians near me.</string>
     <string name="firstAidTitle">First Aid: save your dog!</string>
+    <string name="nextVideo">Next Video</string>
+    <string name="previousVideo">Previous Video</string>
+    <string name="trainingTitle">Training Videos</string>
+    <string name="currentVideo">Current video: 1/16</string>
 
 
 

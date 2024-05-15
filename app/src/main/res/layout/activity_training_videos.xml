@@ -8,18 +8,78 @@
     android:layout_height="match_parent"
     tools:context=".TrainingVideosActivity">
 
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFraction"
+        app:layout_constraintVertical_bias="0.059"
+        tools:layout_editor_absoluteX="-16dp" />
+
     <Button
-        android:id="@+id/btnBack"
+        android:id="@+id/btnBackTrainingVideos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="164dp"
+        android:layout_marginTop="50dp"
         android:background="@color/burlyWood"
         android:text="@string/back"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPreviousVideo"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnNextVideo"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@color/plum"
+        android:text="@string/nextVideo"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPreviousVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnPreviousVideo" />
+
+    <Button
+        android:id="@+id/btnPreviousVideo"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/plum"
+        android:text="@string/previousVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/webView" />
+
+    <TextView
+        android:id="@+id/txtTrainingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/trainingTitle"
+        android:textAlignment="textStart"
+        android:textColor="@color/ghost_white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtFraction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/currentVideo"
+        android:textAlignment="center"
+        android:textColor="@color/ghost_white"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTrainingTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
