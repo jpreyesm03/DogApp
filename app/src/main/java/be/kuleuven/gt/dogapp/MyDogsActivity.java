@@ -275,13 +275,6 @@ public class MyDogsActivity extends AppCompatActivity {
                 openGallery();
             }
         });
-
-//        String selectedImageUriString = sharedPreferences.getString(SELECTED_IMAGE_URI_KEY, null);
-//        if (selectedImageUriString != null) {
-//            Uri selectedImageUri = Uri.parse(selectedImageUriString);
-//            btnMyDog.setImageURI(selectedImageUri);
-//        }
-
     }
 
     private void openGallery() {
