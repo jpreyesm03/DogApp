@@ -306,6 +306,8 @@ public class ThreeBarsActivity extends AppCompatActivity {
         // Implement your functionality here
         Intent intent = new Intent(this, FirstAidActivity.class);
         intent.putExtra("user", user);
+        intent.putExtra("name", name);
+        intent.putExtra("position", String.valueOf(position));
         startActivity(intent);
     }
 
@@ -320,6 +322,8 @@ public class ThreeBarsActivity extends AppCompatActivity {
         // Implement your functionality here
         Intent intent = new Intent(this, BreedInformationActivity.class);
         intent.putExtra("user", user);
+        intent.putExtra("name", name);
+        intent.putExtra("position", String.valueOf(position));
         startActivity(intent);
     }
 
@@ -328,6 +332,7 @@ public class ThreeBarsActivity extends AppCompatActivity {
         // Implement your functionality here
         Intent intent = new Intent(this, MyDogsActivity.class);
         intent.putExtra("user", user);
+        intent.putExtra("name", name);
         intent.putExtra("position", String.valueOf(position));
         startActivity(intent);
         finish();

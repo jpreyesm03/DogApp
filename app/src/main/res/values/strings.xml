@@ -41,6 +41,13 @@
     <string name="changeImage">Change Dog Image</string>
     <string name="removeDog">Remove Dog</string>
     <string name="removeUser">Remove User (ALL DATA WILL BE DELETED).</string>
+    <string name="notEating">My dog is not eating.</string>
+    <string name="notStopEating">My dog does not stop eating.</string>
+    <string name="scratchingSkin">My dog is scratching its skin.</string>
+    <string name="notMove">My dog does not want to move.</string>
+    <string name="anyOtherSymptom">Symptom checker: what\'s with my dog.</string>
+    <string name="emergencyContact">Emergency veterinarians near me.</string>
+    <string name="firstAidTitle">First Aid: save your dog!</string>
 
 
 

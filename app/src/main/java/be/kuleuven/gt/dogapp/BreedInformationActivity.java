@@ -31,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import be.kuleuven.gt.dogapp.model.User;
 
@@ -41,6 +42,8 @@ public class BreedInformationActivity extends AppCompatActivity {
     private ArrayList<String> breedInfo;
     private ArrayList<String> dogNames;
     private WebView urlToShow;
+    private String name;
+    private int position;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -49,6 +52,8 @@ public class BreedInformationActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_breed_information);
         user = (User) getIntent().getParcelableExtra("user");
+        name = getIntent().getStringExtra("name");
+        position = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("position")));
         dogNames = new ArrayList<>();
         breedInfo = new ArrayList<>();
         urlToShow = findViewById(R.id.webDogs);
@@ -230,6 +235,8 @@ public class BreedInformationActivity extends AppCompatActivity {
         // Implement your functionality here
         Intent intent = new Intent(this, ThreeBarsActivity.class);
         intent.putExtra("user", user);
+        intent.putExtra("name", name);
+        intent.putExtra("position", String.valueOf(position));
         startActivity(intent);
 
     }
