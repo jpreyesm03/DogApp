@@ -18,8 +18,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +34,11 @@ import be.kuleuven.gt.dogapp.model.EnhancedEncryption;
 public class CreateAccountActivity extends AppCompatActivity {
 
     private EnhancedEncryption encryptor;
+    private EditText email;
+    private EditText username;
+    private EditText password1;
+    private EditText password2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,10 @@ public class CreateAccountActivity extends AppCompatActivity {
             return insets;
         });
         encryptor = new EnhancedEncryption();
+        email = (EditText) findViewById(R.id.emailCreate);
+        username = (EditText) findViewById(R.id.usernameCreate);
+        password1 = (EditText) findViewById(R.id.password1);
+        password2 = (EditText) findViewById(R.id.password2);
     }
     @Override
     public void onBackPressed() {
@@ -56,10 +68,55 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
     public void onBtnCreateAcc_Clicked(View Caller) {
-        EditText email = (EditText) findViewById(R.id.emailCreate);
-        EditText username = (EditText) findViewById(R.id.usernameCreate);
-        EditText password1 = (EditText) findViewById(R.id.password1);
-        EditText password2 = (EditText) findViewById(R.id.password2);
+        checkIfUserExists();
+
+
+
+
+    }
+
+    private void checkIfUserExists() {
+        String baseUrl = "https://studev.groept.be/api/a23PT106/checkIfUserExists";
+        String url = baseUrl + "/" + username.getText().toString() + "/" + email.getText().toString();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        // If the user has dogs, start MyDogsActivity
+
+
+                        if (response.length() == 0){
+                            createAccount();
+                        }
+                        else {
+                            Toast.makeText(CreateAccountActivity.this, "A user with this username or email already exists. ", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(CreateAccountActivity.this, "An error occurred. Please check your network connection.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void createAccount()
+    {
+
 
         String e = email.getText().toString();
         String u = username.getText().toString();
@@ -137,10 +194,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
 
-
-
-
     }
+
     private int generateRandomInt() {
         Random random = new Random();
         return random.nextInt(10000); // Modify range as needed

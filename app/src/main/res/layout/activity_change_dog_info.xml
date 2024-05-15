@@ -129,6 +129,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/btnChangeDogImage"
         app:layout_constraintEnd_toEndOf="@+id/txtChangeMedCond"
         app:layout_constraintHorizontal_bias="1.0"
+        android:thumbTint="@color/blue_violet"
+        android:trackTint="@color/blue_violet"
         app:layout_constraintStart_toStartOf="@+id/txtChangeMedCond"
         app:layout_constraintTop_toTopOf="@+id/btnChangeDogImage"
         app:layout_constraintVertical_bias="0.666"
