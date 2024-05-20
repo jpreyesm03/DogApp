@@ -500,7 +500,7 @@ public class MyDogsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Handle case when nothing is selected (optional)
 
-                }
+            }
         });
     }
 
@@ -511,7 +511,7 @@ public class MyDogsActivity extends AppCompatActivity {
 
 
     private void getDogs(User u)
-   {
+    {
         String baseUrl = "https://studev.groept.be/api/a23PT106/user_dogs";
         String urlCreate = baseUrl + "/" + u.getIdUser();
 
