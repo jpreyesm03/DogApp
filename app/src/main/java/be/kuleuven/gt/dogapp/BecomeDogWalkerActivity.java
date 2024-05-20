@@ -50,7 +50,6 @@ public class BecomeDogWalkerActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private FusedLocationProviderClient fusedLocationClient;
-    private String accessToken = "sk.eyJ1IjoicmFub3NraW5nMTQiLCJhIjoiY2x1M3N2NHgyMWJwdDJrazFpcHdtMThhcyJ9.rqqc90kdSY2EWsJpgyeCUA";
     private EditText hourlyWage;
 
     @Override
