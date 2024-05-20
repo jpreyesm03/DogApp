@@ -138,13 +138,17 @@ public class AddDogActivity extends AppCompatActivity {
 
         if (dogMedical.isEmpty()) {
             dogMedical = "_";
-        } else if (dogBreed.isEmpty()) {
+        }
+        if (dogBreed.isEmpty()) {
             dogBreed = "_";
-        } else if (dogAge.isEmpty()) {
+        }
+        if (dogAge.isEmpty()) {
             dogAge = "_";
-        } else if (dogWeight.isEmpty()) {
-            dogWeight = "_";
-        } else if (dogHeight.isEmpty()) {
+        }
+        if (dogWeight.isEmpty()) {
+            dogWeight = "20";
+        }
+        if (dogHeight.isEmpty()) {
             dogHeight = "_";
         }
 

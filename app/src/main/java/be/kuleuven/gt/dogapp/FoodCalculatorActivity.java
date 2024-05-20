@@ -42,6 +42,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
 
     private ArrayList<String> dogsWeight = new ArrayList<>();
     private ArrayList<String> dogsBreed = new ArrayList<>();
+    private ArrayList<String> selectedWeights = new ArrayList<>();
     private MultiAutoCompleteTextView selectDropdown;
 
     @Override
@@ -67,6 +68,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Call the desired function
                 calculatePrice();
+
             }
         });
 
@@ -156,6 +158,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
 
     private void calculatePrice() {
         String getTextFromMultitext = selectDropdown.getText().toString();
+        selectedDogs.clear();
         System.out.println(getTextFromMultitext);
         if (getTextFromMultitext.equals("all") || getTextFromMultitext.equals("ALL") || getTextFromMultitext.equals("All")) {
             System.out.println("getting costs!");
@@ -181,7 +184,8 @@ public class FoodCalculatorActivity extends AppCompatActivity {
             }
 
 
-            ArrayList<String> selectedWeights = new ArrayList<>();
+
+            selectedWeights.clear();
 
             for (String name : selectedDogs) {
                 selectedWeights.add(dogsWeight.get(dogNames.indexOf(name)));
@@ -192,6 +196,8 @@ public class FoodCalculatorActivity extends AppCompatActivity {
 
     private void getCosts(ArrayList<String> selectedWeights) {
         double kgCounter = 0.0;
+        kg = 0;
+        price = 0;
         System.out.println(selectedWeights);
 
         for (String weight: selectedWeights) {
@@ -210,6 +216,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
             }
 
         }
+        days = 0;
         TextView txtNumberOfDays = findViewById(R.id.txtNumberOfDays);
         days = Integer.parseInt(txtNumberOfDays.getText().toString());
 
@@ -218,6 +225,7 @@ public class FoodCalculatorActivity extends AppCompatActivity {
         kg = Double.parseDouble(kgNew2);
 
         String pNew1 = String.valueOf(days*kgCounter*6);
+        System.out.println(String.valueOf(days*kgCounter));
         String pNew2 = pNew1.substring(0, (pNew1.indexOf('.') + 2));
         price = Double.parseDouble(pNew2);
         displayText();

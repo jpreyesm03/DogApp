@@ -38,13 +38,12 @@
 
     <CalendarView
         android:id="@+id/calendar"
-        android:layout_width="412dp"
-        android:layout_height="290dp"
+        android:layout_width="373dp"
+        android:layout_height="263dp"
         android:layout_marginTop="64dp"
         android:background="@color/sky_blue"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

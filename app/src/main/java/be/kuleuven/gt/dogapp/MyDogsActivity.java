@@ -69,6 +69,7 @@ public class MyDogsActivity extends AppCompatActivity {
     private ImageView btnMyDog;
     private SharedPreferences sharedPreferences;
     private boolean returningFromThreeBars;
+    private boolean firstTime = true;
 
     @Override //
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,10 +132,16 @@ public class MyDogsActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     progressDialog.dismiss();
                                     dogsBreedingState.set(positionOfSpinner, true);
-//                                    Toast.makeText(
-//                                            MyDogsActivity.this,
-//                                            "Set to Breedable!",
-//                                            Toast.LENGTH_SHORT).show();
+                                    if (!firstTime) {
+                                        Toast.makeText(
+                                                MyDogsActivity.this,
+                                                "Set to Breedable!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        firstTime = false;
+                                    }
+
 
                                 }
                             },
@@ -183,10 +190,15 @@ public class MyDogsActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     progressDialog.dismiss();
                                     dogsBreedingState.set(positionOfSpinner, false);
-//                                    Toast.makeText(
-//                                            MyDogsActivity.this,
-//                                            "Set to Not Breedable!",
-//                                            Toast.LENGTH_SHORT).show();
+                                    if (!firstTime) {
+                                        Toast.makeText(
+                                                MyDogsActivity.this,
+                                                "Set to Not Breedable!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        firstTime = false;
+                                    }
 
                                 }
                             },
