@@ -195,10 +195,10 @@ public class ReminderExpandActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 progressDialog.dismiss();
-                                Toast.makeText(
-                                        ReminderExpandActivity.this,
-                                        "Reminder added!",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(
+//                                        ReminderExpandActivity.this,
+//                                        "Reminder added!",
+//                                        Toast.LENGTH_SHORT).show();
                                 if (notifyCheckBox.isChecked()) {
                                     scheduleNotification(day1, month1, year1, time1, details1);
                                 }
