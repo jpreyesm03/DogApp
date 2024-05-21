@@ -62,7 +62,7 @@ public class SendMessages extends AppCompatActivity {
         user = getIntent().getParcelableExtra("user");
 
         messageContent = findViewById(R.id.messageContent);
-        receipientEmail = findViewById(R.id.receipientEmail);
+
         receipientUsername = findViewById(R.id.receipientUsername);
 
 
@@ -111,12 +111,12 @@ public class SendMessages extends AppCompatActivity {
         String timeString = currentTime.toString();
 
         String content = messageContent.getText().toString();
-        String remail = receipientEmail.getText().toString();
+
         String rname = receipientUsername.getText().toString();
 
 
 
-        if (content.isEmpty() ||remail.isEmpty() || rname.isEmpty()) {
+        if (content.isEmpty() || rname.isEmpty()) {
             Toast.makeText(
                     SendMessages.this,
                     "Please fill all necessary info!",
@@ -164,7 +164,7 @@ public class SendMessages extends AppCompatActivity {
                         params.put("sname", user.getUsername());
                         params.put("semail", user.getEmail());
                         params.put("rname", rname);
-                        params.put("remail", remail);
+                        params.put("remail", rname);
                         params.put("txt", content);
                         params.put("dat", dateString);
                         params.put("tim", timeString);
