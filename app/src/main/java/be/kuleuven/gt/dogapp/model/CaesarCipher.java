@@ -2,7 +2,7 @@ package be.kuleuven.gt.dogapp.model;
 
 public class CaesarCipher {
 
-    private static final int SHIFT = 3; // You can adjust the shift value as needed
+    private static final int SHIFT = 3;
 
 
     public static String encrypt(String plaintext) {

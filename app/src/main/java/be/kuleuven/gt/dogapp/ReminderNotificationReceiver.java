@@ -27,7 +27,7 @@ public class ReminderNotificationReceiver extends BroadcastReceiver {
 
         // Build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "REMINDER_CHANNEL_ID")
-                .setSmallIcon(R.drawable.ic_notification) // Set your own notification icon
+                .setSmallIcon(R.drawable.basset) // Set your own notification icon
                 .setContentTitle("Reminder")
                 .setContentText(details)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
