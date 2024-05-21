@@ -46,7 +46,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import be.kuleuven.gt.dogapp.model.ImageUploadTask;
 import be.kuleuven.gt.dogapp.model.User;
 
 public class MyDogsActivity extends AppCompatActivity {
