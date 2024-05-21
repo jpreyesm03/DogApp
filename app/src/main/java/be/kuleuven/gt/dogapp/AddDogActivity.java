@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -55,14 +56,32 @@ public class AddDogActivity extends AppCompatActivity {
         });
 
         user = (User) getIntent().getParcelableExtra("user");
+        Button btnBackAddDog = findViewById(R.id.btnBackAddDog);
 
         dogSex = new ArrayList<>();
         dogSex.add("Male");
         dogSex.add("Female");
         updateSpinner();
 
+        btnBackAddDog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the desired function
+                openPrevious();
+            }
+        });
+
 
     }
+
+    private void openPrevious() {
+        // Implement your functionality here
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+
+    }
+
 
 
 
@@ -140,7 +159,7 @@ public class AddDogActivity extends AppCompatActivity {
             dogMedical = "_";
         }
         if (dogBreed.isEmpty()) {
-            dogBreed = "_";
+            dogBreed = "nobreed";
         }
         if (dogAge.isEmpty()) {
             dogAge = "_";
@@ -183,7 +202,7 @@ public class AddDogActivity extends AppCompatActivity {
                                         AddDogActivity.this,
                                         "Dog added! Taking you to dashboard!",
                                         Toast.LENGTH_SHORT).show();
-                                openMyDogs();
+
 
                             }
 

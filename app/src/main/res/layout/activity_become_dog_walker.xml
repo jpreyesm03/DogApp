@@ -14,6 +14,8 @@
         android:layout_height="wrap_content"
         android:text="Available:"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:thumbTint="@color/blue_violet"
+        android:trackTint="@color/blue_violet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"

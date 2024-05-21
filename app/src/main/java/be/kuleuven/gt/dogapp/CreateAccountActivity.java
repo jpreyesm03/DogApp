@@ -124,7 +124,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         String p2 = password2.getText().toString();
         String urlCreate = "https://studev.groept.be/api/a23PT106/create_account/";
 
-        if(!(e.isEmpty()) && !(u.isEmpty()) && !(p1.isEmpty()) && !(p2.isEmpty()) ) {
+
+        if(!(e.isEmpty()) && !(u.isEmpty()) && !(p1.isEmpty()) && !(p2.isEmpty()) && (e.contains("@")) ) {
             if (!password1.getText().toString().equals(password2.getText().toString())) {
                 Toast.makeText(this, "The passwords do not match! Please retype.", Toast.LENGTH_SHORT).show();
             } else {
