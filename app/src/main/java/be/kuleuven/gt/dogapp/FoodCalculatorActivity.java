@@ -196,8 +196,6 @@ public class FoodCalculatorActivity extends AppCompatActivity {
 
     private void getCosts(ArrayList<String> selectedWeights) {
         double kgCounter = 0.0;
-        kg = 0;
-        price = 0;
         System.out.println(selectedWeights);
 
         for (String weight: selectedWeights) {
@@ -216,7 +214,6 @@ public class FoodCalculatorActivity extends AppCompatActivity {
             }
 
         }
-        days = 0;
         TextView txtNumberOfDays = findViewById(R.id.txtNumberOfDays);
         days = Integer.parseInt(txtNumberOfDays.getText().toString());
 
