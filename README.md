@@ -1,6 +1,6 @@
 # DogApp
 
-DogApp is an Android application designed to connect dog owners and dog walkers while providing additional features for dog care and breeding. Developed using Object-Oriented Programming (OOP) principles in Java and Android Studio, DogApp aims to simplify pet management and enhance the dog-owning experience.
+DogApp is an Android application designed to connect dog owners and dog walkers while providing additional features for dog care and breeding. Developed using Object-Oriented Programming (OOP) principles in Java and Android Studio, DogApp aims to simplify pet management and enhance the dog-owning experience. All the main activities can be found [here](app/src/main/java/be/kuleuven/gt/dogapp)
 
 ## Features
 
